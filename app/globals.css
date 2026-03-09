@@ -1,15 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Color primitives */
+  --grey-blue: #99a1af;
+  --white: #ffffff;
+  --grey: #f3f4f6;
+  --black: #0a0a0a;
+  --ultra-black: #1b1212;
+  --dark-purple: #9810fa;
+  --pastel-purple: #c8a0ea;
+
+  /* Spacing primitives */
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-128: 128px;
+  --space-160: 160px;
+  --space-200: 200px;
+
+  /* Theme */
+  --background: var(--white);
+  --foreground: var(--black);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Color tokens */
+  --color-bg-primary: var(--white);
+  --color-bg-secondary: var(--black);
+  --color-bg-tertiary: var(--grey);
+  --color-text-primary: var(--black);
+  --color-text-secondary: var(--white);
+  --color-text-tertiary: var(--grey-blue);
+  --color-accent-primary: var(--dark-purple);
+  --color-accent-secondary: var(--pastel-purple);
+
+  /* Spacing tokens */
+  --spacing-xs: var(--space-8);
+  --spacing-s: var(--space-16);
+  --spacing-m: var(--space-24);
+  --spacing-l: var(--space-32);
+  --spacing-card: var(--space-48);
+  --spacing-xl: var(--space-64);
+
+  /* Typography tokens */
+  --font-body: var(--space-24);
+  --font-body-lg: var(--space-32);
+  --font-caption: var(--space-16);
+  --font-card-title: var(--space-32);
+  --font-section-title: var(--space-64);
+  --font-hero: var(--space-128);
 }
 
 @media (prefers-color-scheme: dark) {
