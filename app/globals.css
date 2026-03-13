@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  --nav-h: 96px;
+
   /* Color primitives */
   --grey-blue: #99a1af;
   --white: #ffffff;
@@ -14,6 +16,7 @@
   /* Spacing primitives */
   --space-8: 8px;
   --space-16: 16px;
+  --space-20: 20px;
   --space-24: 24px;
   --space-32: 32px;
   --space-48: 48px;
@@ -22,6 +25,20 @@
   --space-128: 128px;
   --space-160: 160px;
   --space-200: 200px;
+
+  /* Typography scale (mobile first) */
+  --type-body: 16px;
+  --type-body-line: 24px;
+  --type-body-lg: 24px;
+  --type-body-lg-line: 28px;
+  --type-caption: 14px;
+  --type-caption-line: 20px;
+  --type-card-title: 24px;
+  --type-card-title-line: 28px;
+  --type-section-title: 40px;
+  --type-section-title-line: 44px;
+  --type-hero: 56px;
+  --type-hero-line: 56px;
 
   /* Theme */
   --background: var(--white);
@@ -49,18 +66,52 @@
   --spacing-2xl: var(--space-96);
 
   /* Typography tokens */
-  --text-body: var(--space-24);
-  --text-body--line-height: var(--space-32);
-  --text-body-lg: var(--space-32);
-  --text-body-lg--line-height: var(--space-32);
-  --text-caption: var(--space-16);
-  --text-caption--line-height: var(--space-24);
-  --text-card-title: var(--space-32);
-  --text-card-title--line-height: var(--space-32);
-  --text-section-title: var(--space-64);
-  --text-section-title--line-height: var(--space-96);
-  --text-hero: var(--space-128);
-  --text-hero--line-height: var(--space-128);
+  --text-body: var(--type-body);
+  --text-body--line-height: var(--type-body-line);
+  --text-body-lg: var(--type-body-lg);
+  --text-body-lg--line-height: var(--type-body-lg-line);
+  --text-caption: var(--type-caption);
+  --text-caption--line-height: var(--type-caption-line);
+  --text-card-title: var(--type-card-title);
+  --text-card-title--line-height: var(--type-card-title-line);
+  --text-section-title: var(--type-section-title);
+  --text-section-title--line-height: var(--type-section-title-line);
+  --text-hero: var(--type-hero);
+  --text-hero--line-height: var(--type-hero-line);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --type-body: 18px;
+    --type-body-line: 26px;
+    --type-body-lg: 28px;
+    --type-body-lg-line: 32px;
+    --type-caption: 16px;
+    --type-caption-line: 24px;
+    --type-card-title: 28px;
+    --type-card-title-line: 32px;
+    --type-section-title: 52px;
+    --type-section-title-line: 56px;
+    --type-hero: 88px;
+    --type-hero-line: 88px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --type-body: 20px;
+    --type-body-line: 24px;
+    --type-body-lg: 32px;
+    --type-body-lg-line: 32px;
+    --type-caption: 16px;
+    --type-caption-line: 24px;
+    --type-card-title: 32px;
+    --type-card-title-line: 32px;
+    --type-section-title: 64px;
+    --type-section-title-line: 96px;
+    --type-hero: 128px;
+    --type-hero-line: 128px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -73,5 +124,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, Helvetica, sans-serif;
+  font-family: var(--font-supreme), Inter, Helvetica, sans-serif;
 }

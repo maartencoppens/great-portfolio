@@ -6,9 +6,11 @@ export type Project = {
   challenge: string;
   process: string;
   image: string;
+  video?: string;
   role: string;
   client: string;
   tags: string[];
   year: number;
   link?: string;
+  category: string;
 };

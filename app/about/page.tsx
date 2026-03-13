@@ -7,10 +7,10 @@ import ToolList from "../components/ToolList";
 const About = () => {
   return (
     <section className="flex flex-col gap-xl pt-xl">
-      <div className="flex justify-between">
-        <div className="w-1/2">
+      <div className="flex justify-center items-center gap-l flex-col lg:flex-row lg:justify-between">
+        <div className="lg:w-1/2 ">
           <SmallInfoCard content="About Me" />
-          <h2 className="text-section-title font-bold">My Journey</h2>
+          <h2 className="pt-s text-section-title font-bold">My Journey</h2>
           <p className="text-body">
             I’m a developer and digital designer focused on crafting modern,
             thoughtful digital experiences through code, design, and creative
@@ -45,9 +45,9 @@ const About = () => {
       </div>
       <div>
         <SmallInfoCard content="About Me" />
-        <h2 className="text-section-title font-bold">My Expertise</h2>
+        <h2 className="pt-s text-section-title font-bold">My Expertise</h2>
       </div>
-      <div className="grid grid-cols-2 gap-xl gap-y-m">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-xl gap-y-m">
         <ExpertiseCard title="Web Development" />
         <ExpertiseCard title="Creative Development" />
         <ExpertiseCard title="CMS / No-Code" />

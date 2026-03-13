@@ -25,13 +25,27 @@ export default async function ProjectDetailPage({
       <a href="/projects" className="text-accent-primary">
         ← Back to projects
       </a>
-      <div className="w-full h-95 relative rounded-2xl overflow-hidden my-12">
-        <Image
-          src="/image.jpg"
-          alt="Project image"
-          fill
-          className="object-cover"
-        />
+      <div className="my-12 rounded-2xl p-s md:p-m">
+        <div className="relative mx-auto aspect-16/10 w-full max-w-xl md:max-w-2xl md:aspect-video lg:max-w-3xl">
+          {project.video ? (
+            <video
+              src={project.video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-contain rounded-2xl"
+            />
+          ) : (
+            <Image
+              src={project.image}
+              alt={`Preview of ${project.title}`}
+              fill
+              sizes="(min-width: 1200px) 768px, (min-width: 768px) 672px, 100vw"
+              className="object-contain rounded-2xl"
+            />
+          )}
+        </div>
       </div>
       <div className="grid grid-cols-3 gap-8">
         <div className="col-span-2 text-body">

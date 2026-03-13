@@ -5,7 +5,7 @@ const ToolIcon = ({ name }: { name: string }) => {
     <img
       src={`/icons/${name.toLowerCase().trim()}.png`}
       alt={name}
-      className="w-xl object-contain"
+      className="w-l object-contain"
     />
   );
 };
