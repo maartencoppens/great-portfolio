@@ -1,175 +1,83 @@
 "use client";
-import Button from "./components/Button";
-import Logo from "./components/Logo";
-import ProjectCard from "./components/ProjectCard";
-import SmallInfoCard from "./components/SmallInfoCard";
-import ToolList from "./components/ToolList";
 import { projects } from "@/data/projects";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
-import Image from "next/image";
-import InfoCard from "./components/InfoCard";
+import { Suspense, useEffect, useRef } from "react";
+import { gsap } from "@/app/lib/gsap";
+import Text from "./components/typography/Text";
+import SplitType from "split-type";
+import ProjectCardAnimation from "./sections/ProjectCardAnimation";
+import BentoGrid from "./sections/BentoGrid";
+import { Canvas } from "@react-three/fiber";
+import Model from "./components/3D/Model";
+import SmallInfoCard from "./components/cards/SmallInfoCard";
 
 export default function Home() {
   const mainRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-    // Create smoother FIRST so all ScrollTrigger instances below use its scroller.
-    // Use get() to avoid double-creating if the layout provider already ran first.
-    if (!ScrollSmoother.get()) {
-      ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
-        content: "#smooth-content",
-        smooth: 1.5,
-        effects: true,
-      });
-    }
-
-    // Read navbar height from the CSS variable defined in globals.css
-    const navH =
-      parseInt(
-        getComputedStyle(document.documentElement).getPropertyValue("--nav-h"),
-      ) || 96;
-
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".stack-card");
+      const split = new SplitType(".hero-line", { types: "chars" });
+      gsap.set(split.chars ?? [], { y: 50, opacity: 0 });
 
-      gsap.set(cards, { yPercent: 500, opacity: 0 });
-
-      // Pin the panel in place of the removed CSS sticky
-      ScrollTrigger.create({
-        trigger: ".cards-section",
-        start: `top ${navH}px`,
-        end: "bottom bottom",
-        pin: ".cards-sticky-panel",
-        pinSpacing: false,
+      gsap.to(split.chars ?? [], {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "expo.out",
+        stagger: 0.03,
+        delay: 0.3,
       });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".cards-section",
-          start: `top ${navH}px`,
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      });
+      return () => split.revert();
+    }, textRef);
 
-      cards.forEach((card) => {
-        tl.to(
-          card,
-          {
-            yPercent: 0,
-            ease: "none",
-            duration: 0.5,
-            onStart: () => {
-              gsap.set(card, { opacity: 1 });
-            },
-          },
-          ">",
-        );
-      });
-    }, mainRef);
-
-    return () => {
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={mainRef}>
-      <div className="bg-[radial-gradient(600px,var(--pastel-purple-light)_0%,transparent_40%)] min-h-[calc(100dvh-96px)] flex flex-col items-center justify-center lg:flex-row lg:justify-between">
-        <div className="flex flex-col gap-l lg:w-1/2">
-          <SmallInfoCard content="Maarten Coppens" />
-          <h2 className="text-hero font-bold">
-            <span className="text-accent-primary font-bold">I</span>nteractive
-            <br />
-            <span className="text-accent-primary font-bold">M</span>edia <br />
-            <span className="text-accent-primary font-bold">
-              D
-            </span>eveloper <br />
-          </h2>
-          <p className="text-body">
-            Exploring the intersection of development, design, and interactive
-            digital experiences.
-          </p>
-          <div className="flex flex-row gap-m flex-wrap">
-            <Button label="View Projects" href="/projects" variant="primary" />
-            <Button label="Contact Me" href="/contact" variant="secondary" />
-          </div>
+    <>
+      <div className="bg-bg-tertiary relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-16 top-20 h-56 w-56 rounded-full bg-accent-secondary/30 blur-3xl" />
+          <div className="absolute -right-12 bottom-16 h-64 w-64 rounded-full bg-accent-primary/20 blur-3xl" />
         </div>
-        <Logo className="lg:block hidden" />
-      </div>
-
-      <div className="py-2xl min-h-screen">
-        <SmallInfoCard content="Projects" />
-        <h2 className="pt-s text-section-title font-bold">My Recent Work</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-m py-xl">
-          {projects.slice(-3).map((project, index) => (
-            <ProjectCard
-              key={index}
-              title={project.title}
-              description={project.shortDescription}
-              imageUrl={project.image}
-              technologies={project.tags}
-              slug={project.slug}
+        <section
+          ref={mainRef}
+          className="container relative min-h-[calc(100dvh-96px)] flex flex-col justify-center gap-8 py-8 sm:gap-10 md:py-12 lg:flex-row lg:items-center lg:gap-12 lg:py-16"
+        >
+          <div
+            ref={textRef}
+            className="relative flex w-full flex-1 flex-col items-center gap-5 text-center lg:items-start lg:text-left"
+          >
+            <SmallInfoCard
+              content="Interactive Media Developer"
+              className="order-1 mx-auto lg:absolute lg:left-0 lg:-top-14 lg:mx-0"
             />
-          ))}
-        </div>
-        <div className="w-full flex justify-center pt-xs">
-          <Button
-            label="View All Projects"
-            href="/projects"
-            variant="secondary"
-          />
-        </div>
-      </div>
-      {/* ── What I Do – stacking card section ── */}
-      <div className="cards-section h-[420svh]">
-        <div className="cards-sticky-panel h-[calc(100svh-96px)] md:h-[calc(100svh-112px)] flex flex-col gap-m overflow-hidden">
-          <div className="pt-xs">
-            <SmallInfoCard content="About Me" />
-            <h2 className="pt-xs text-card-title md:text-section-title font-bold">
-              What I Do
-            </h2>
+            <Text.Hero className="order-2 max-w-[11ch] text-balance">
+              <span className="hero-line block">
+                <span className="text-accent-primary font-bold">B</span>uilt
+              </span>
+              <span className="hero-line block">
+                <span className="text-accent-primary font-bold">D</span>
+                ifferent
+              </span>
+            </Text.Hero>
           </div>
-
-          <div className="flex gap-l items-stretch">
-            {/* left: image */}
-            <div className="relative hidden lg:block w-1/2 self-stretch rounded-2xl overflow-hidden">
-              <Image
-                src="/image.jpg"
-                alt="About section visual"
-                fill
-                className="object-cover"
-                sizes="50vw"
-              />
-            </div>
-
-            {/* right: cards stack under each other */}
-            <div className="flex-1 overflow-hidden">
-              <div className="stack-cards-wrap flex flex-col gap-s overflow-hidden">
-                <InfoCard
-                  title="Web Development"
-                  description="I build modern, responsive websites using technologies like React and Next.js, focusing on performance, scalability, and clean code."
-                />
-                <InfoCard
-                  title="UI/UX Design"
-                  description="I create intuitive and visually engaging interfaces, translating ideas into thoughtful user experiences and clean digital products."
-                />
-                <InfoCard
-                  title="Creative Development"
-                  description="I explore interactive and experimental digital experiences using creative technologies like Three.js and TouchDesigner."
-                />
-                <InfoCard title="Technologies" description={<ToolList />} />
-              </div>
+          <div className="relative w-full flex-1">
+            <div className="relative mx-auto h-[36vh] min-h-70 w-full max-w-140 sm:h-[42vh] lg:h-[56vh] xl:max-w-none">
+              <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[5, 5, 5]} />
+                <Suspense fallback={null}>
+                  <Model />
+                </Suspense>
+              </Canvas>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+      <ProjectCardAnimation projects={projects} />
+      <BentoGrid />
+    </>
   );
 }

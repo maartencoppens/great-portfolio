@@ -3,27 +3,29 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Button from "./Button";
+import Text from "./typography/Text";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Me" },
     { href: "/projects", label: "Projects" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-20 bg-bg-primary/95 backdrop-blur-sm">
+    <nav className="fixed top-0 left-0 right-0 z-20 bg-bg-primary/95 backdrop-blur-m">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-m md:h-24 md:px-xl">
-        <Link href="/" className="text-xl font-bold md:text-2xl">
-          Maarten Coppens
+        <Link href="/">
+          <span>Maarten Coppens</span>
         </Link>
 
         <ul className="hidden items-center gap-xl text-body md:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href}>{link.label}</Link>
+              <Link href={link.href}>
+                <Text.Nav>{link.label}</Text.Nav>
+              </Link>
             </li>
           ))}
         </ul>
@@ -74,7 +76,7 @@ const Navbar = () => {
               className="text-body"
               onClick={() => setIsOpen(false)}
             >
-              {link.label}
+              <Text.Nav>{link.label}</Text.Nav>
             </Link>
           ))}
           <Button label="Contact" href="/contact" variant="primary" />

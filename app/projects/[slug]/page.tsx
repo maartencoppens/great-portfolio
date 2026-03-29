@@ -1,6 +1,8 @@
-import SmallInfoCard from "@/app/components/SmallInfoCard";
+import SmallInfoCard from "@/app/components/cards/SmallInfoCard";
+import Text from "@/app/components/typography/Text";
 import { projects } from "@/data/projects";
 import Image from "next/image";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -21,12 +23,15 @@ export default async function ProjectDetailPage({
   }
 
   return (
-    <section>
-      <a href="/projects" className="text-accent-primary">
-        ← Back to projects
-      </a>
-      <div className="my-12 rounded-2xl p-s md:p-m">
-        <div className="relative mx-auto aspect-16/10 w-full max-w-xl md:max-w-2xl md:aspect-video lg:max-w-3xl">
+    <section className="container pb-l pt-m md:pt-l">
+      <Link
+        href="/projects"
+        className="inline-flex items-center text-accent-primary hover:underline"
+      >
+        <span>← Back to projects</span>
+      </Link>
+      <div className="my-l rounded-2xl p-0 sm:p-xs md:p-s">
+        <div className="relative mx-auto aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video lg:max-w-5xl">
           {project.video ? (
             <video
               src={project.video}
@@ -34,47 +39,61 @@ export default async function ProjectDetailPage({
               muted
               loop
               playsInline
-              className="w-full h-full object-contain rounded-2xl"
+              className="h-full w-full object-cover"
             />
           ) : (
             <Image
               src={project.image}
               alt={`Preview of ${project.title}`}
               fill
-              sizes="(min-width: 1200px) 768px, (min-width: 768px) 672px, 100vw"
-              className="object-contain rounded-2xl"
+              sizes="(min-width: 1280px) 960px, (min-width: 1024px) 80vw, 100vw"
+              className="object-cover"
             />
           )}
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2 text-body">
-          <h2 className="text-section-title font-bold pb-s">{project.title}</h2>
-          <p>{project.longDescription}</p>
-          <h3 className="text-body-lg font-bold pt-xl pb-s">The Challenge</h3>
-          <p>{project.challenge}</p>
-          <h3 className="text-body-lg font-bold pt-l pb-s">The Process</h3>
-          <p>{project.process}</p>
+      <div className="grid grid-cols-1 gap-l lg:grid-cols-12 lg:gap-xl">
+        <div className="lg:col-span-8 text-body">
+          <Text.Header as="h1" className="pb-s">
+            {project.title}
+          </Text.Header>
+          <Text.Body>{project.longDescription}</Text.Body>
+          <Text.SubHeader as="h2" className="pt-xl pb-s">
+            The Challenge
+          </Text.SubHeader>
+          <Text.Body>{project.challenge}</Text.Body>
+          <Text.SubHeader as="h2" className="pt-l pb-s">
+            The Process
+          </Text.SubHeader>
+          <Text.Body>{project.process}</Text.Body>
         </div>
-        <div className="p-l flex flex-col gap-m bg-bg-tertiary rounded-2xl">
-          <h3 className="text-body-lg font-bold">Project Info</h3>
-          <div>
-            <p className="pb-xs">Year</p>
-            <p className="text-accent-primary">{project.year}</p>
+        <aside className="lg:col-span-4 h-fit rounded-2xl bg-bg-tertiary p-m sm:p-l lg:sticky lg:top-28">
+          <Text.SubHeader as="h2" className="pb-s">
+            Project Info
+          </Text.SubHeader>
+          <div className="pb-m">
+            <Text.Body className="pb-xs">Year</Text.Body>
+            <Text.Body className="text-accent-primary">
+              {project.year}
+            </Text.Body>
           </div>
-          <div>
-            <p className="pb-xs">Client</p>
-            <p className="text-accent-primary">{project.client}</p>
+          <div className="pb-m">
+            <Text.Body className="pb-xs">Client</Text.Body>
+            <Text.Body className="text-accent-primary">
+              {project.client}
+            </Text.Body>
           </div>
-          <div>
-            <p className="pb-xs">Role</p>
-            <p className="text-accent-primary">{project.role}</p>
+          <div className="pb-m">
+            <Text.Body className="pb-xs">Role</Text.Body>
+            <Text.Body className="text-accent-primary">
+              {project.role}
+            </Text.Body>
           </div>
-          <div>
-            <p className="pb-s">Technologies</p>
-            <div className="flex gap-xs">
-              {project.tags.map((tag, index) => (
-                <SmallInfoCard key={index} content={tag} />
+          <div className="pb-s">
+            <Text.Body className="pb-s">Technologies</Text.Body>
+            <div className="flex gap-xs flex-wrap">
+              {project.tags.map((tag) => (
+                <SmallInfoCard key={`${project.slug}-${tag}`} content={tag} />
               ))}
             </div>
           </div>
@@ -83,12 +102,12 @@ export default async function ProjectDetailPage({
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent-primary hover:underline"
+              className="inline-flex text-accent-primary hover:underline"
             >
-              View Project
+              <span>View Project</span>
             </a>
           )}
-        </div>
+        </aside>
       </div>
     </section>
   );

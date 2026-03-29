@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --nav-h: 96px;
+  --nav-h: 6rem;
 
   /* Color primitives */
   --grey-blue: #99a1af;
@@ -14,31 +14,31 @@
   --pastel-purple-light: rgba(200, 160, 234, 0.4);
 
   /* Spacing primitives */
-  --space-8: 8px;
-  --space-16: 16px;
-  --space-20: 20px;
-  --space-24: 24px;
-  --space-32: 32px;
-  --space-48: 48px;
-  --space-64: 64px;
-  --space-96: 96px;
-  --space-128: 128px;
-  --space-160: 160px;
-  --space-200: 200px;
+  --space-8: 0.5rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-96: 6rem;
+  --space-128: 8rem;
+  --space-160: 10rem;
+  --space-200: 12.5rem;
 
   /* Typography scale (mobile first) */
-  --type-body: 16px;
-  --type-body-line: 24px;
-  --type-body-lg: 24px;
-  --type-body-lg-line: 28px;
-  --type-caption: 14px;
-  --type-caption-line: 20px;
-  --type-card-title: 24px;
-  --type-card-title-line: 28px;
-  --type-section-title: 40px;
-  --type-section-title-line: 44px;
-  --type-hero: 56px;
-  --type-hero-line: 56px;
+  --type-body: 1rem;
+  --type-body-line: 1.5rem;
+  --type-body-lg: 1.5rem;
+  --type-body-lg-line: 1.75rem;
+  --type-caption: 0.875rem;
+  --type-caption-line: 1.25rem;
+  --type-card-title: 1.5rem;
+  --type-card-title-line: 1.75rem;
+  --type-section-title: 2.5rem;
+  --type-section-title-line: 2.75rem;
+  --type-hero: 3.5rem;
+  --type-hero-line: 3.5rem;
 
   /* Theme */
   --background: var(--white);
@@ -80,40 +80,6 @@
   --text-hero--line-height: var(--type-hero-line);
 }
 
-@media (min-width: 768px) {
-  :root {
-    --type-body: 18px;
-    --type-body-line: 26px;
-    --type-body-lg: 28px;
-    --type-body-lg-line: 32px;
-    --type-caption: 16px;
-    --type-caption-line: 24px;
-    --type-card-title: 28px;
-    --type-card-title-line: 32px;
-    --type-section-title: 52px;
-    --type-section-title-line: 56px;
-    --type-hero: 88px;
-    --type-hero-line: 88px;
-  }
-}
-
-@media (min-width: 1200px) {
-  :root {
-    --type-body: 20px;
-    --type-body-line: 24px;
-    --type-body-lg: 32px;
-    --type-body-lg-line: 32px;
-    --type-caption: 16px;
-    --type-caption-line: 24px;
-    --type-card-title: 32px;
-    --type-card-title-line: 32px;
-    --type-section-title: 64px;
-    --type-section-title-line: 96px;
-    --type-hero: 128px;
-    --type-hero-line: 128px;
-  }
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -124,5 +90,34 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-supreme), Inter, Helvetica, sans-serif;
+  font-family: var(--font-body), Inter, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), sans-serif;
+}
+
+.gradient-hero {
+  background: radial-gradient(
+    circle at top,
+    var(--dark-purple) 0%,
+    var(--pastel-purple) 50%,
+    transparent 70%
+  );
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@layer components {
+  .container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
