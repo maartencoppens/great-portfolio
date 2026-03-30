@@ -30,7 +30,7 @@ const Projects = () => {
 
   return (
     <section className="flex flex-col gap-xl pt-xl container mx-auto">
-      <div className="w-1/2">
+      <div className="md:w-1/2">
         <SmallInfoCard content="Selected Work" />
         <Text.Header as="h1" className="pt-s">
           My Projects

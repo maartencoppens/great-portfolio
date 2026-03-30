@@ -176,7 +176,7 @@ const Navbar = () => {
               key={link.href}
               href={link.href}
               aria-current={isActiveRoute(link.href) ? "page" : undefined}
-              className={`rounded-m px-s py-xs text-body transition-colors duration-200 ${
+              className={`px-s py-xs text-body transition-colors rounded-l duration-200 ${
                 isActiveRoute(link.href)
                   ? "bg-black text-white"
                   : "text-text-primary/80 hover:bg-black/5"
