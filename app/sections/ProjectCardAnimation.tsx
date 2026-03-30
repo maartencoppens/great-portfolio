@@ -32,8 +32,9 @@ export default function ProjectCardAnimation({
 
       cardRefs.current.forEach((card, i) => {
         if (!card) return;
+        const initialOffset = offsets[i] ?? 0;
 
-        gsap.set(card, { y: offsets[i] });
+        gsap.set(card, { y: initialOffset });
 
         gsap.to(card, {
           y: 0,
@@ -97,7 +98,7 @@ export default function ProjectCardAnimation({
               title={project.title}
               description={project.shortDescription}
               imageUrl={project.image}
-              videoUrl={project.videoUrl}
+              {...(project.videoUrl ? { videoUrl: project.videoUrl } : {})}
               technologies={project.tags}
             />
           </div>

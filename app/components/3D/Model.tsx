@@ -18,7 +18,7 @@ const MODELS = [
   "/models/drums.glb",
   "/models/headphones.glb",
   "/models/bass.glb",
-];
+] as const;
 
 function toParticles(scene: THREE.Group, count: number): Float32Array {
   scene.updateWorldMatrix(true, true);
@@ -41,13 +41,15 @@ function toParticles(scene: THREE.Group, count: number): Float32Array {
   }
 
   const n = raw.length / 3;
+  if (n === 0) return new Float32Array(count * 3);
+
   let cx = 0,
     cy = 0,
     cz = 0;
   for (let i = 0; i < raw.length; i += 3) {
-    cx += raw[i];
-    cy += raw[i + 1];
-    cz += raw[i + 2];
+    cx += raw[i] ?? 0;
+    cy += raw[i + 1] ?? 0;
+    cz += raw[i + 2] ?? 0;
   }
   cx /= n;
   cy /= n;
@@ -57,14 +59,19 @@ function toParticles(scene: THREE.Group, count: number): Float32Array {
   for (let i = 0; i < raw.length; i += 3)
     maxDist = Math.max(
       maxDist,
-      Math.hypot(raw[i] - cx, raw[i + 1] - cy, raw[i + 2] - cz),
+      Math.hypot(
+        (raw[i] ?? 0) - cx,
+        (raw[i + 1] ?? 0) - cy,
+        (raw[i + 2] ?? 0) - cz,
+      ),
     );
+  const safeMaxDist = maxDist || 1;
 
   const out = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
-    out[i * 3] = (raw[i * 3] - cx) / maxDist;
-    out[i * 3 + 1] = (raw[i * 3 + 1] - cy) / maxDist;
-    out[i * 3 + 2] = (raw[i * 3 + 2] - cz) / maxDist;
+    out[i * 3] = ((raw[i * 3] ?? 0) - cx) / safeMaxDist;
+    out[i * 3 + 1] = ((raw[i * 3 + 1] ?? 0) - cy) / safeMaxDist;
+    out[i * 3 + 2] = ((raw[i * 3 + 2] ?? 0) - cz) / safeMaxDist;
   }
   return out;
 }
@@ -97,6 +104,7 @@ function applyRingEffect(
 
 const Model = () => {
   const { viewport, gl } = useThree();
+  const [skateboardModel, drumsModel, headphonesModel, bassModel] = MODELS;
   const pointsRef = useRef<THREE.Points>(null);
   const mouseWorld = useRef({ x: MOUSE_OFFSCREEN, y: MOUSE_OFFSCREEN });
   const state = useRef({
@@ -105,10 +113,10 @@ const Model = () => {
     timer: 0,
   });
 
-  const skateboardScene = useGLTF(MODELS[0]).scene;
-  const drumsScene = useGLTF(MODELS[1]).scene;
-  const headphonesScene = useGLTF(MODELS[2]).scene;
-  const bassScene = useGLTF(MODELS[3]).scene;
+  const skateboardScene = useGLTF(skateboardModel).scene;
+  const drumsScene = useGLTF(drumsModel).scene;
+  const headphonesScene = useGLTF(headphonesModel).scene;
+  const bassScene = useGLTF(bassModel).scene;
 
   const shapes = useMemo(
     () =>
@@ -118,14 +126,17 @@ const Model = () => {
     [skateboardScene, drumsScene, headphonesScene, bassScene],
   );
 
+  const fallbackShape = useMemo(() => new Float32Array(PARTICLE_COUNT * 3), []);
+
   const geometry = useMemo(() => {
     const geo = new THREE.BufferGeometry();
+    const initialShape = shapes[0] ?? fallbackShape;
     geo.setAttribute(
       "position",
-      new THREE.BufferAttribute(shapes[0].slice(), 3),
+      new THREE.BufferAttribute(initialShape.slice(), 3),
     );
     return geo;
-  }, [shapes]);
+  }, [shapes, fallbackShape]);
 
   useEffect(() => {
     return () => {
@@ -149,9 +160,13 @@ const Model = () => {
   useFrame((_, delta) => {
     if (!pointsRef.current) return;
     const s = state.current;
-    const pos = pointsRef.current.geometry.attributes.position;
-    const from = shapes[s.current];
+    const pos = pointsRef.current.geometry.attributes.position as
+      | THREE.BufferAttribute
+      | undefined;
+    if (!pos) return;
+    const from = shapes[s.current] ?? fallbackShape;
     const next = (s.current + 1) % shapes.length;
+    const to = shapes[next] ?? fallbackShape;
     const { x: mouseX, y: mouseY } = mouseWorld.current;
 
     s.timer += delta;
@@ -160,10 +175,13 @@ const Model = () => {
       const t = performance.now() * 0.001;
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         const o = i * 0.0003;
+        const fromX = from[i * 3] ?? 0;
+        const fromY = from[i * 3 + 1] ?? 0;
+        const fromZ = from[i * 3 + 2] ?? 0;
         const [x, y, z] = applyRingEffect(
-          from[i * 3] + Math.sin(t * 0.4 + o * 13) * 0.008,
-          from[i * 3 + 1] + Math.cos(t * 0.3 + o * 17) * 0.008,
-          from[i * 3 + 2] + Math.sin(t * 0.5 + o * 11) * 0.008,
+          fromX + Math.sin(t * 0.4 + o * 13) * 0.008,
+          fromY + Math.cos(t * 0.3 + o * 17) * 0.008,
+          fromZ + Math.sin(t * 0.5 + o * 11) * 0.008,
           mouseX,
           mouseY,
         );
@@ -175,12 +193,17 @@ const Model = () => {
       }
     } else {
       const p = easeInOut(Math.min(s.timer / MORPH_DURATION, 1));
-      const to = shapes[next];
       for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const fromX = from[i * 3] ?? 0;
+        const fromY = from[i * 3 + 1] ?? 0;
+        const fromZ = from[i * 3 + 2] ?? 0;
+        const toX = to[i * 3] ?? 0;
+        const toY = to[i * 3 + 1] ?? 0;
+        const toZ = to[i * 3 + 2] ?? 0;
         const [x, y, z] = applyRingEffect(
-          from[i * 3] + (to[i * 3] - from[i * 3]) * p,
-          from[i * 3 + 1] + (to[i * 3 + 1] - from[i * 3 + 1]) * p,
-          from[i * 3 + 2] + (to[i * 3 + 2] - from[i * 3 + 2]) * p,
+          fromX + (toX - fromX) * p,
+          fromY + (toY - fromY) * p,
+          fromZ + (toZ - fromZ) * p,
           mouseX,
           mouseY,
         );

@@ -58,7 +58,7 @@ const Projects = () => {
             title={project.title}
             description={project.shortDescription}
             imageUrl={project.image}
-            videoUrl={project.video}
+            {...(project.video ? { videoUrl: project.video } : {})}
             technologies={project.tags}
             slug={project.slug}
           />
