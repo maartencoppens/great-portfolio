@@ -47,8 +47,8 @@ const Footer = () => {
             Maarten Coppens
           </Text.BodyLarge>
           <Text.Body className="text-text-tertiary">
-            Frontend developer focused on performant, thoughtful digital
-            experiences.
+            Interactive designer & developer focused on performant, thoughtful
+            digital experiences.
           </Text.Body>
           <Text.Body className="text-text-tertiary">
             Available for freelance and collaboration opportunities.

@@ -19,7 +19,7 @@ export default async function ProjectDetailPage({
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
-    return <div>Project niet gevonden</div>;
+    return <div>Project not found</div>;
   }
 
   return (

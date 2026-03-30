@@ -5,15 +5,15 @@ export const projects: Project[] = [
   //   slug: "foodkiosk-frontend",
   //   title: "Subway Foodkiosk Frontend",
   //   shortDescription:
-  //     "Een interactieve kioskinterface voor het samenstellen en bestellen van sandwiches.",
+  //     "An interactive kiosk interface for building and ordering sandwiches.",
   //   longDescription:
-  //     "Dit project is de frontend van een self-service foodkiosk geïnspireerd op Subway. Gebruikers kunnen hun eigen sandwich samenstellen via een intuïtieve interface met verschillende stappen, zoals het kiezen van brood, toppings en sauzen. De interface is ontworpen om snel en duidelijk te werken op een kiosk-scherm, met focus op gebruiksvriendelijkheid, duidelijke visuele feedback en een gestroomlijnde bestelervaring.",
+  //     "This project is the frontend for a self-service food kiosk inspired by Subway. Users can build their own sandwich through an intuitive multi-step interface, including choices for bread, toppings, and sauces. The interface is designed to work quickly and clearly on a kiosk screen, with a focus on usability, clear visual feedback, and a streamlined ordering experience.",
 
   //   process:
-  //     "Het project startte met een volledig designproces in Figma, waarbij de volledige flow van de kiosk werd uitgewerkt: van startscherm tot besteloverzicht. Daarna werd het ontwerp stap voor stap omgezet naar een frontend applicatie met component-gebaseerde structuur. De interface werd opgebouwd uit herbruikbare UI-componenten en verschillende pagina’s die samen de volledige bestelervaring vormen.",
+  //     "The project started with a full design process in Figma, mapping the complete kiosk flow from the start screen to the order summary. The design was then translated step by step into a frontend application with a component-based structure. The interface was built from reusable UI components and multiple pages that together form the full ordering experience.",
 
   //   challenge:
-  //     "De grootste uitdaging was het creëren van een duidelijke en intuïtieve flow voor gebruikers die snel hun bestelling willen samenstellen. Omdat een kioskinterface vaak onder tijdsdruk wordt gebruikt, moest de navigatie eenvoudig blijven terwijl er toch veel keuzes mogelijk zijn.",
+  //     "The biggest challenge was creating a clear and intuitive flow for users who want to build their order quickly. Because kiosk interfaces are often used under time pressure, the navigation had to remain simple while still supporting many choices.",
 
   //   image: "/image.jpg",
   //   role: "Frontend Developer",
@@ -28,15 +28,15 @@ export const projects: Project[] = [
   //   slug: "foodkiosk-backend",
   //   title: "Subway Foodkiosk Backend",
   //   shortDescription:
-  //     "Een backend API voor het beheren van menu-items, bestellingen en configuraties van een foodkiosk.",
+  //     "A backend API for managing menu items, orders, and food kiosk configurations.",
   //   longDescription:
-  //     "Dit project vormt de backend van een foodkiosk applicatie. De server beheert menu-items, bestellingen en productconfiguraties via een REST API. De backend werd ontwikkeld met Node.js en Express en maakt gebruik van een PostgreSQL database voor het opslaan van producten, toppings en bestellingen.",
+  //     "This project is the backend for a food kiosk application. The server manages menu items, orders, and product configurations through a REST API. The backend was built with Node.js and Express and uses a PostgreSQL database to store products, toppings, and orders.",
 
   //   process:
-  //     "De backend werd ontwikkeld volgens een gestructureerde API-architectuur waarbij routes, services en database-logica van elkaar gescheiden zijn. Eerst werd het datamodel ontworpen, waarna endpoints werden gebouwd voor het ophalen van producten, het samenstellen van bestellingen en het opslaan van ordergegevens.",
+  //     "The backend was developed using a structured API architecture where routes, services, and database logic are separated. The data model was designed first, followed by endpoints for retrieving products, building orders, and storing order data.",
 
   //   challenge:
-  //     "De grootste uitdaging was het ontwerpen van een flexibel datamodel voor het configureren van sandwiches. Omdat gebruikers verschillende combinaties van brood, toppings en sauzen kunnen maken, moest de database zo worden opgezet dat deze variaties efficiënt konden worden opgeslagen en opgehaald.",
+  //     "The biggest challenge was designing a flexible data model for sandwich configuration. Since users can create many different combinations of bread, toppings, and sauces, the database had to be structured to store and retrieve these variations efficiently.",
 
   //   image: "/image.jpg",
   //   role: "Backend Developer",
@@ -51,15 +51,15 @@ export const projects: Project[] = [
     slug: "skateboard-configurator",
     title: "Skateboard Configurator",
     shortDescription:
-      "Een interactieve 3D configurator waarmee gebruikers hun eigen skateboard kunnen samenstellen.",
+      "An interactive 3D configurator that lets users build their own skateboard.",
     longDescription:
-      "Dit project is een interactieve 3D configurator waarmee gebruikers verschillende onderdelen van een skateboard kunnen aanpassen. Via een realtime 3D-weergave kunnen gebruikers experimenteren met verschillende decks, kleuren en onderdelen, terwijl ze het resultaat direct visueel zien.",
+      "This project is an interactive 3D configurator that allows users to customize different parts of a skateboard. Through a real-time 3D view, users can experiment with different decks, colors, and components while instantly seeing the visual result.",
 
     process:
-      "Het project begon met het modelleren van de 3D assets in Blender. Vervolgens werden deze modellen geïmporteerd in een webapplicatie waar ze interactief konden worden aangepast. De configurator werd opgebouwd rond een component-gebaseerde structuur waarbij de UI-controls direct gekoppeld zijn aan de 3D scene.",
+      "The project started with modeling the 3D assets in Blender. These models were then imported into a web application where they could be customized interactively. The configurator was built around a component-based structure, with UI controls directly connected to the 3D scene.",
 
     challenge:
-      "De grootste uitdaging was het combineren van een vloeiende gebruikersinterface met realtime 3D rendering in de browser. Het was belangrijk dat de configurator performant bleef terwijl verschillende onderdelen dynamisch konden worden aangepast.",
+      "The biggest challenge was combining a smooth user interface with real-time 3D rendering in the browser. It was important to keep the configurator performant while allowing different components to be changed dynamically.",
 
     image: "/mockups/skateboard-configurator.png",
     role: "Full Stack Developer",
@@ -74,15 +74,15 @@ export const projects: Project[] = [
     slug: "muggy",
     title: "Muggy Smart Cup",
     shortDescription:
-      "Een interactieve productwebsite voor een slimme beker met geanimeerde storytelling.",
+      "An interactive product website for a smart cup with animated storytelling.",
     longDescription:
-      "Muggy is een conceptproduct: een slimme beker die reageert op temperatuur en gebruik. Voor dit project werd een interactieve productpagina ontwikkeld die het concept visueel uitlegt via animaties en 3D-visuals. De website combineert storytelling, motion design en interactieve elementen om het product op een aantrekkelijke manier te presenteren.",
+      "Muggy is a concept product: a smart cup that reacts to temperature and usage. For this project, an interactive product page was developed to explain the concept visually through animations and 3D visuals. The website combines storytelling, motion design, and interactive elements to present the product in an engaging way.",
 
     process:
-      "Het ontwerp werd eerst uitgewerkt als een storytelling-ervaring waarbij de gebruiker door de productfeatures wordt geleid. Vervolgens werd de website opgebouwd met interactieve secties en scroll-gebaseerde animaties om de productervaring visueel te versterken.",
+      "The design was first developed as a storytelling experience that guides the user through the product features. The website was then built with interactive sections and scroll-based animations to visually enhance the product experience.",
 
     challenge:
-      "De uitdaging lag vooral in het combineren van visuele storytelling met een duidelijke informatiestructuur. De animaties moesten het verhaal ondersteunen zonder de leesbaarheid of prestaties van de website te verminderen.",
+      "The main challenge was combining visual storytelling with a clear information structure. The animations needed to support the story without reducing the website's readability or performance.",
 
     image: "/mockups/muggy.png",
     role: "Frontend Developer",
@@ -97,15 +97,15 @@ export const projects: Project[] = [
     slug: "onderdruk",
     title: "Onderdruk",
     shortDescription:
-      "Een interactieve museuminstallatie waarbij fysieke interactie digitale visualisaties aanstuurt.",
+      "An interactive museum installation where physical interaction drives digital visualizations.",
     longDescription:
-      "OnderDruk is een interactieve installatie ontwikkeld voor het Huis van Kina in Gent. Bezoekers kunnen fysiek interageren met de installatie, waarna sensoren en een backend systeem realtime digitale visualisaties aansturen. Het project combineert fysieke hardware, een Node.js backend en realtime communicatie tussen verschillende systemen.",
+      "OnderDruk is an interactive installation developed for the Huis van Kina in Ghent. Visitors can physically interact with the installation, after which sensors and a backend system control real-time digital visualizations. The project combines physical hardware, a Node.js backend, and real-time communication between different systems.",
 
     process:
-      "De installatie werd ontwikkeld als een combinatie van hardware en software. Sensorinput wordt via een server verwerkt en doorgestuurd naar de visualisatie. De backend fungeert als centrale hub die de communicatie tussen de fysieke installatie en de digitale visualisatie verzorgt.",
+      "The installation was developed as a combination of hardware and software. Sensor input is processed through a server and forwarded to the visualization. The backend acts as a central hub that manages communication between the physical installation and the digital visualization.",
 
     challenge:
-      "De grootste uitdaging was het synchroniseren van hardware-input met realtime digitale output. Omdat bezoekers direct feedback verwachten van een interactieve installatie, moest de communicatie tussen de verschillende systemen snel en betrouwbaar verlopen.",
+      "The biggest challenge was synchronizing hardware input with real-time digital output. Because visitors expect immediate feedback from an interactive installation, communication between the different systems had to be fast and reliable.",
 
     image: "/mockups/onderdruk.png",
     role: "Backend Developer",
@@ -119,15 +119,15 @@ export const projects: Project[] = [
     slug: "hogwarts",
     title: "Hogwarts 3D Map",
     shortDescription:
-      "Een interactieve 3D kaart van Hogwarts met explore-functionaliteit en animaties.",
+      "An interactive 3D map of Hogwarts with exploration features and animations.",
     longDescription:
-      "Dit project is een interactieve 3D kaart van Hogwarts waarin gebruikers verschillende locaties kunnen verkennen. De omgeving wordt weergegeven in realtime 3D en bevat interactieve hotspots die extra informatie of interacties tonen.",
+      "This project is an interactive 3D map of Hogwarts where users can explore different locations. The environment is rendered in real-time 3D and includes interactive hotspots that reveal extra information or interactions.",
 
     process:
-      "De 3D omgeving werd opgebouwd met modellen uit Blender die vervolgens werden geïntegreerd in een webapplicatie. Interactieve elementen zoals hotspots en camera-animaties werden toegevoegd om gebruikers door de omgeving te laten navigeren.",
+      "The 3D environment was built with models from Blender, then integrated into a web application. Interactive elements such as hotspots and camera animations were added to guide users through the environment.",
 
     challenge:
-      "De grootste uitdaging was het optimaliseren van de 3D scene zodat deze soepel in de browser blijft draaien. Omdat 3D assets vaak zwaar zijn, moest er aandacht worden besteed aan performance en asset-optimalisatie.",
+      "The biggest challenge was optimizing the 3D scene so it runs smoothly in the browser. Because 3D assets are often heavy, extra attention had to be given to performance and asset optimization.",
 
     image: "/mockups/hogwarts.png",
     role: "Frontend Developer / 3D Artist",
@@ -142,15 +142,15 @@ export const projects: Project[] = [
   //   slug: "audioreactive-visual",
   //   title: "Audioreactive Visual",
   //   shortDescription:
-  //     "Een realtime visualisatie die reageert op muziek en audio-input.",
+  //     "A real-time visualization that reacts to music and audio input.",
   //   longDescription:
-  //     "Dit project is een audioreactieve visualisatie waarbij visuele elementen realtime reageren op muziek. De visuals veranderen dynamisch op basis van audiofrequenties en worden aangestuurd via een interactieve pipeline tussen verschillende softwarecomponenten.",
+  //     "This project is an audio-reactive visualization where visual elements respond to music in real time. The visuals change dynamically based on audio frequencies and are driven through an interactive pipeline between different software components.",
 
   //   process:
-  //     "De visuals werden ontwikkeld in TouchDesigner waar verschillende nodes audiofrequenties analyseren en omzetten naar visuele parameters. Via een websocket verbinding kan externe input worden doorgestuurd naar de visualisatie.",
+  //     "The visuals were developed in TouchDesigner, where different nodes analyze audio frequencies and convert them into visual parameters. Through a WebSocket connection, external input can be forwarded to the visualization.",
 
   //   challenge:
-  //     "De grootste uitdaging was het vertalen van audio-data naar visueel interessante patronen. Omdat audiofrequenties constant veranderen, moest de visualisatie zo worden opgebouwd dat deze dynamisch blijft zonder chaotisch te worden.",
+  //     "The biggest challenge was translating audio data into visually interesting patterns. Because audio frequencies constantly change, the visualization had to stay dynamic without becoming chaotic.",
 
   //   image: "/image.jpg",
   //   role: "Creative Developer",
