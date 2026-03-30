@@ -3,21 +3,21 @@ import { CSSProperties } from "react";
 export const typography = {
   hero: {
     fontFamily: "var(--font-display)",
-    fontSize: "clamp(4rem, 8vw, 7.5rem)",
+    fontSize: "clamp(2.4rem, 10vw, 7.5rem)",
     lineHeight: 0.9,
     letterSpacing: "-0.05em",
     fontWeight: 800,
   },
   header: {
     fontFamily: "var(--font-display)",
-    fontSize: "clamp(2.5rem, 4vw, 4.5rem)",
+    fontSize: "clamp(1.9rem, 6vw, 4.5rem)",
     lineHeight: 0.95,
     letterSpacing: "-0.04em",
     fontWeight: 700,
   },
   subHeader: {
     fontFamily: "var(--font-display)",
-    fontSize: "clamp(1.5rem, 2vw, 2.25rem)",
+    fontSize: "clamp(1.2rem, 3.2vw, 2.25rem)",
     lineHeight: 1,
     letterSpacing: "-0.03em",
     fontWeight: 600,
