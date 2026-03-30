@@ -3,11 +3,59 @@ import Text from "@/app/components/typography/Text";
 import { projects } from "@/data/projects";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project not found",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  return {
+    title: project.title,
+    description: project.shortDescription,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    openGraph: {
+      title: `${project.title} | Maarten`,
+      description: project.shortDescription,
+      url: `/projects/${project.slug}`,
+      type: "article",
+      images: [
+        {
+          url: project.image,
+          width: 1200,
+          height: 630,
+          alt: `Preview of ${project.title}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Maarten`,
+      description: project.shortDescription,
+      images: [project.image],
+    },
+  };
 }
 
 export default async function ProjectDetailPage({

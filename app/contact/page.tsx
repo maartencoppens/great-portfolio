@@ -85,8 +85,8 @@ const Contact = () => {
       <div className="flex justify-center items-center flex-col gap-s">
         <SmallInfoCard content="Get in touch" />
         <Text.Header as="h1" className="pt-s">
-          <span className="text-accent-primary">Let&apos;s</span> create
-          something amazing
+          <span className="text-accent-primary text-center">Let&apos;s</span>
+          create something amazing
         </Text.Header>
       </div>
       <div className="flex justify-center items-center">

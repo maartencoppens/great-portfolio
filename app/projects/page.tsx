@@ -29,8 +29,8 @@ const Projects = () => {
   }, [activeCategory]);
 
   return (
-    <section className="flex flex-col gap-xl pt-xl container mx-auto">
-      <div className="md:w-1/2">
+    <section className="flex flex-col gap-xl pt-m container">
+      <div className="md:w-1/2 flex flex-col items-center text-center md:text-start md:items-start gap-s">
         <SmallInfoCard content="Selected Work" />
         <Text.Header as="h1" className="pt-s">
           My Projects
