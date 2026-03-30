@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { checkFixedWindowRateLimit, getRequestIp } from "../../lib/rateLimit";
 
 type ContactRequestBody = {
   name?: string;
@@ -7,6 +8,9 @@ type ContactRequestBody = {
   subject?: string;
   message?: string;
 };
+
+const RATE_LIMIT_WINDOW_SECONDS = 60;
+const RATE_LIMIT_MAX_REQUESTS = 5;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const resendApiKey = process.env.RESEND_API_KEY;
@@ -17,6 +21,26 @@ const contactFromEmail =
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function POST(request: Request) {
+  const clientIp = getRequestIp(request);
+  const rateLimitKey = `rate-limit:contact:${clientIp}`;
+  const { isLimited, retryAfterSeconds } = await checkFixedWindowRateLimit({
+    key: rateLimitKey,
+    limit: RATE_LIMIT_MAX_REQUESTS,
+    windowSeconds: RATE_LIMIT_WINDOW_SECONDS,
+  });
+
+  if (isLimited) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(retryAfterSeconds),
+        },
+      },
+    );
+  }
+
   let body: ContactRequestBody;
 
   try {
