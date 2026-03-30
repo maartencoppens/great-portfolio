@@ -19,7 +19,7 @@ export default async function ProjectDetailPage({
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
-    return <div>Project niet gevonden</div>;
+    return <div>Project not found</div>;
   }
 
   return (
@@ -28,7 +28,7 @@ export default async function ProjectDetailPage({
         href="/projects"
         className="inline-flex items-center text-accent-primary hover:underline"
       >
-        <span>← Back to projects</span>
+        <span>← All projects</span>
       </Link>
       <div className="my-l rounded-2xl p-0 sm:p-xs md:p-s">
         <div className="relative mx-auto aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video lg:max-w-5xl">

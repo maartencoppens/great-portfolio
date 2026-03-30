@@ -1,6 +1,6 @@
 "use client";
 import { projects } from "@/data/projects";
-import { Suspense, useEffect, useRef } from "react";
+import { JSX, Suspense, useEffect, useRef } from "react";
 import { gsap } from "@/app/lib/gsap";
 import Text from "./components/typography/Text";
 import SplitType from "split-type";
@@ -10,12 +10,12 @@ import { Canvas } from "@react-three/fiber";
 import Model from "./components/3D/Model";
 import SmallInfoCard from "./components/cards/SmallInfoCard";
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const mainRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx: gsap.Context = gsap.context(() => {
       const split = new SplitType(".hero-line", { types: "chars" });
       gsap.set(split.chars ?? [], { y: 50, opacity: 0 });
 
@@ -50,7 +50,7 @@ export default function Home() {
             className="relative flex w-full flex-1 flex-col items-center gap-5 text-center lg:items-start lg:text-left"
           >
             <SmallInfoCard
-              content="Interactive Media Developer"
+              content="Interactive Designer & Developer"
               className="order-1 mx-auto lg:absolute lg:left-0 lg:-top-14 lg:mx-0"
             />
             <Text.Hero className="order-2 max-w-[11ch] text-balance">

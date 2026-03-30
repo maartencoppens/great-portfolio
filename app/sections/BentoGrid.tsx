@@ -88,7 +88,7 @@ const BentoGrid = () => {
         className="grid grid-cols-1 gap-m md:grid-cols-6 md:auto-rows-[minmax(180px,auto)] lg:grid-cols-12 lg:auto-rows-[minmax(180px,auto)] lg:gap-l"
       >
         <BentoCard
-          title="Hey, I'm Maarten 👋"
+          title="Hey, I'm Maarten"
           eyebrow="Intro"
           tone="accent"
           className="md:col-span-6 lg:col-span-8"

@@ -20,6 +20,14 @@ export default function SmoothScrollProvider() {
 
   // Refresh ScrollTrigger after every route change so positions are recalculated
   useEffect(() => {
+    const smoother = ScrollSmoother.get();
+
+    if (smoother) {
+      smoother.scrollTo(0, false);
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+
     ScrollTrigger.refresh();
   }, [pathname]);
 
