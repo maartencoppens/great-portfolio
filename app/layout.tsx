@@ -6,6 +6,7 @@ import GsapProvider from "@/app/components/GSAP/GsapProvider";
 import Navbar from "./components/Navbar";
 import SmoothScrollProvider from "./components/GSAP/SmoothScrollProvider";
 import PreloaderWrapper from "./components/preloader/PreloaderWrapper";
+import { Analytics } from "@vercel/analytics/next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 
@@ -129,6 +130,7 @@ export default function RootLayout({
             </div>
           </div>
         </PreloaderWrapper>
+        <Analytics />
       </body>
     </html>
   );
