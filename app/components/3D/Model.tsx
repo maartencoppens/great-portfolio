@@ -145,6 +145,9 @@ const Model = () => {
   }, [geometry]);
 
   useEffect(() => {
+    // Skip mouse effect on touchscreens
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const onMove = (e: MouseEvent) => {
       const rect = gl.domElement.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;

@@ -150,7 +150,7 @@ export default async function ProjectDetailPage({
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex text-accent-primary hover:underline"
+              className="hidden lg:inline-flex text-accent-primary hover:underline"
             >
               <span>View Project</span>
             </a>
