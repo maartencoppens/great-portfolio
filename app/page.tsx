@@ -73,7 +73,6 @@ export default function Home(): JSX.Element {
                   <Model />
                 </Suspense>
               </Canvas>
-              <Loader />
             </div>
           </div>
         </section>
