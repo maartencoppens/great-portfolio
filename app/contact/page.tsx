@@ -133,9 +133,7 @@ const Contact = () => {
 
           <div className="flex flex-col gap-xs">
             <label htmlFor="subject">
-              <Text.Label className="text-sm font-medium">
-                Project type
-              </Text.Label>
+              <Text.Label className="text-sm font-medium">Subject</Text.Label>
             </label>
             <input
               id="subject"

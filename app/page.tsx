@@ -9,6 +9,7 @@ import BentoGrid from "./sections/BentoGrid";
 import { Canvas } from "@react-three/fiber";
 import Model from "./components/3D/Model";
 import SmallInfoCard from "./components/cards/SmallInfoCard";
+import { Loader } from "@react-three/drei";
 
 export default function Home(): JSX.Element {
   const mainRef = useRef<HTMLElement>(null);
@@ -72,6 +73,7 @@ export default function Home(): JSX.Element {
                   <Model />
                 </Suspense>
               </Canvas>
+              <Loader />
             </div>
           </div>
         </section>

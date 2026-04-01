@@ -29,22 +29,26 @@ export default function ProjectCardAnimation({
   useEffect(() => {
     const ctx = gsap.context(() => {
       const offsets = [80, -30, 120];
+      const mm = gsap.matchMedia();
 
-      cardRefs.current.forEach((card, i) => {
-        if (!card) return;
-        const initialOffset = offsets[i] ?? 0;
+      mm.add("(min-width: 1280px)", () => {
+        cardRefs.current.forEach((card, i) => {
+          if (!card) return;
 
-        gsap.set(card, { y: initialOffset });
+          const initialOffset = offsets[i] ?? 0;
 
-        gsap.to(card, {
-          y: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "center center",
-            scrub: 1.5,
-          },
+          gsap.set(card, { y: initialOffset });
+
+          gsap.to(card, {
+            y: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "center center",
+              scrub: 1.5,
+            },
+          });
         });
       });
 
@@ -66,6 +70,8 @@ export default function ProjectCardAnimation({
           },
         );
       }
+
+      return () => mm.revert();
     }, sectionRef);
 
     return () => ctx.revert();
