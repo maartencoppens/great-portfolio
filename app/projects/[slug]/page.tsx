@@ -1,7 +1,11 @@
 import SmallInfoCard from "@/app/components/cards/SmallInfoCard";
+import ProjectMediaGallery from "@/app/components/projects/ProjectMediaGallery";
 import Text from "@/app/components/typography/Text";
+import {
+  getProjectMedia,
+  getProjectPrimaryImage,
+} from "@/app/lib/projectMedia";
 import { projects } from "@/data/projects";
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -29,6 +33,8 @@ export async function generateMetadata({
     };
   }
 
+  const primaryImage = getProjectPrimaryImage(project);
+
   return {
     title: project.title,
     description: project.shortDescription,
@@ -42,7 +48,7 @@ export async function generateMetadata({
       type: "article",
       images: [
         {
-          url: project.image,
+          url: primaryImage,
           width: 1200,
           height: 630,
           alt: `Preview of ${project.title}`,
@@ -53,7 +59,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${project.title} | Maarten`,
       description: project.shortDescription,
-      images: [project.image],
+      images: [primaryImage],
     },
   };
 }
@@ -70,6 +76,8 @@ export default async function ProjectDetailPage({
     return <div>Project not found</div>;
   }
 
+  const mediaItems = getProjectMedia(project);
+
   return (
     <section className="container pb-l pt-m md:pt-l">
       <Link
@@ -78,28 +86,13 @@ export default async function ProjectDetailPage({
       >
         <span>← All projects</span>
       </Link>
-      <div className="my-l rounded-2xl p-0 sm:p-xs md:p-s">
-        <div className="relative mx-auto aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video lg:max-w-5xl">
-          {project.video ? (
-            <video
-              src={project.video}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <Image
-              src={project.image}
-              alt={`Preview of ${project.title}`}
-              fill
-              sizes="(min-width: 1280px) 960px, (min-width: 1024px) 80vw, 100vw"
-              className="object-cover"
-            />
-          )}
-        </div>
-      </div>
+
+      <ProjectMediaGallery
+        mediaItems={mediaItems}
+        projectTitle={project.title}
+        projectSlug={project.slug}
+      />
+
       <div className="grid grid-cols-1 gap-l lg:grid-cols-12 lg:gap-xl">
         <div className="lg:col-span-8 text-body">
           <Text.Header as="h1" className="pb-s">

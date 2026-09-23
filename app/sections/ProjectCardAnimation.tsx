@@ -5,15 +5,8 @@ import SmallInfoCard from "../components/cards/SmallInfoCard";
 import Text from "../components/typography/Text";
 import Button from "../components/Button";
 import { gsap } from "@/app/lib/gsap";
-
-type Project = {
-  slug: string;
-  title: string;
-  shortDescription: string;
-  image: string;
-  videoUrl?: string;
-  tags: string[];
-};
+import { getProjectPreviewMedia } from "@/app/lib/projectMedia";
+import type { Project } from "@/types/types";
 
 export default function ProjectCardAnimation({
   projects,
@@ -92,23 +85,33 @@ export default function ProjectCardAnimation({
       </Text.Header>
 
       <div className="cards relative w-full m-xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-m lg:gap-l">
-        {visible.map((project, i) => (
-          <div
-            key={project.slug}
-            ref={(el) => {
-              if (el) cardRefs.current[i] = el;
-            }}
-          >
-            <ProjectCard
-              slug={project.slug}
-              title={project.title}
-              description={project.shortDescription}
-              imageUrl={project.image}
-              {...(project.videoUrl ? { videoUrl: project.videoUrl } : {})}
-              technologies={project.tags}
-            />
-          </div>
-        ))}
+        {visible.map((project, i) => {
+          const previewMedia = getProjectPreviewMedia(project);
+
+          return (
+            <div
+              key={project.slug}
+              ref={(el) => {
+                if (el) cardRefs.current[i] = el;
+              }}
+            >
+              <ProjectCard
+                slug={project.slug}
+                title={project.title}
+                description={project.shortDescription}
+                imageUrl={
+                  previewMedia.type === "image"
+                    ? previewMedia.src
+                    : project.image
+                }
+                {...(previewMedia.type === "video"
+                  ? { videoUrl: previewMedia.src }
+                  : {})}
+                technologies={project.tags}
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="w-full flex justify-center pt-xs">

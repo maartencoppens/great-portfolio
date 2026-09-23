@@ -5,6 +5,7 @@ import SmallInfoCard from "../components/cards/SmallInfoCard";
 import Button from "../components/Button";
 import ProjectCard from "../components/cards/ProjectCard";
 import { projects } from "@/data/projects";
+import { getProjectPreviewMedia } from "@/app/lib/projectMedia";
 import Text from "../components/typography/Text";
 
 const categories = [
@@ -52,17 +53,25 @@ const Projects = () => {
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-m lg:gap-l">
-        {filteredProjects.map((project) => (
-          <ProjectCard
-            key={project.slug}
-            title={project.title}
-            description={project.shortDescription}
-            imageUrl={project.image}
-            {...(project.video ? { videoUrl: project.video } : {})}
-            technologies={project.tags}
-            slug={project.slug}
-          />
-        ))}
+        {[...filteredProjects].reverse().map((project) => {
+          const previewMedia = getProjectPreviewMedia(project);
+
+          return (
+            <ProjectCard
+              key={project.slug}
+              title={project.title}
+              description={project.shortDescription}
+              imageUrl={
+                previewMedia.type === "image" ? previewMedia.src : project.image
+              }
+              {...(previewMedia.type === "video"
+                ? { videoUrl: previewMedia.src }
+                : {})}
+              technologies={project.tags}
+              slug={project.slug}
+            />
+          );
+        })}
       </div>
     </section>
   );

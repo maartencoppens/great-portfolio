@@ -1,3 +1,10 @@
+export type ProjectMedia = {
+  type: "image" | "video";
+  src: string;
+  alt?: string;
+  poster?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -5,6 +12,7 @@ export type Project = {
   longDescription: string;
   challenge: string;
   process: string;
+  media?: ProjectMedia[];
   image: string;
   video?: string;
   role: string;

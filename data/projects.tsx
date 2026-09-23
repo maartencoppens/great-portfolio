@@ -129,13 +129,108 @@ export const projects: Project[] = [
     challenge:
       "The biggest challenge was optimizing the 3D scene so it runs smoothly in the browser. Because 3D assets are often heavy, extra attention had to be given to performance and asset optimization.",
 
-    image: "/mockups/hogwarts.png",
+    image: "/mockups/hogwarts/hogwarts-1.webp",
+    media: [
+      {
+        type: "video",
+        src: "/mockups/hogwarts/hogwarts.mp4",
+        alt: "Promovideo of the Hogwarts 3D map exploration",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-1.png",
+        alt: "Hogwarts 3D map exploration",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-2.png",
+        alt: "Hogwarts 3D map detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-3.png",
+        alt: "Hogwarts 3D map detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-4.png",
+        alt: "Hogwarts 3D map detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-5.png",
+        alt: "Hogwarts 3D map detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-6.png",
+        alt: "Hogwarts 3D map detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-7.png",
+        alt: "Hogwarts 3D map detail",
+      },
+    ],
     role: "Frontend Developer / 3D Artist",
     client: "Schoolproject",
     tags: ["Three.js", "Blender", "GSAP"],
     year: 2026,
     link: "https://hogwarts.maartencoppens.be/",
     category: "Creative Technology",
+  },
+  {
+    slug: "exoplanet",
+    title: "Exoplanet Explorer",
+    shortDescription:
+      "An interactive experience to learn more about exoplanets by searching them in a 3D environment through a telescope.",
+    longDescription:
+      "This project is an interactive 3D experience that allows users to explore exoplanets in a virtual environment. Users can search for exoplanets through a telescope interface, and the application provides information about each planet's characteristics and discovery. When the user finds an exoplanet in the 3D environment, they can zoom in and learn more about it by reading it on an external display. On the external display, the user can also plant a flag on the planet, which is then displayed in the 3D environment.",
+
+    process:
+      "The 3D environment was built with models from Blender, then integrated into a touchdesigner project. Interactive elements such as hotspots and camera animations were added to guide users through the environment. The telescope was built with hardware components and an arduino running it. The external display is created in Next.js and communicates with the touchdesigner project through a websocket connection.",
+
+    challenge:
+      "My biggest job was building the external display in Next.js and ensuring it communicated properly with the touchdesigner project through the websocket connection. This wasn't as easy as I thought it would be, but after some research and testing, I was able to get it working properly.",
+
+    media: [
+      {
+        type: "video",
+        src: "/mockups/exoplanet/exoplanet.mp4",
+        alt: "Exoplanet telescope interaction detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/exoplanet/exoplanet-1.webp",
+        alt: "Exoplanet overview screen",
+      },
+      {
+        type: "image",
+        src: "/mockups/exoplanet/exoplanet-2.webp",
+        alt: "Exoplanet search interface",
+      },
+      {
+        type: "image",
+        src: "/mockups/exoplanet/exoplanet-3.webp",
+        alt: "Exoplanet planet found interface",
+      },
+      {
+        type: "image",
+        src: "/mockups/exoplanet/exoplanet-4.webp",
+        alt: "Exoplanet closeup of planet",
+      },
+      {
+        type: "image",
+        src: "/mockups/exoplanet/exoplanet-5.webp",
+        alt: "Exoplanet external display interface",
+      },
+    ],
+    image: "/mockups/exoplanet/exoplanet-1.webp",
+    role: "Frontend Developer / Backend Developer",
+    client: "Schoolproject",
+    tags: ["Next.js", "Touchdesigner", "Arduino"],
+    year: 2026,
+    category: "Internet Of Things",
   },
 
   // {
