@@ -138,32 +138,32 @@ export const projects: Project[] = [
       },
       {
         type: "image",
-        src: "/mockups/hogwarts/hogwarts-1.png",
+        src: "/mockups/hogwarts/hogwarts-2.webp",
+        alt: "Hogwarts 3D map detail",
+      },
+      {
+        type: "image",
+        src: "/mockups/hogwarts/hogwarts-1.webp",
         alt: "Hogwarts 3D map exploration",
       },
       {
         type: "image",
-        src: "/mockups/hogwarts/hogwarts-2.png",
+        src: "/mockups/hogwarts/hogwarts-3.webp",
         alt: "Hogwarts 3D map detail",
       },
       {
         type: "image",
-        src: "/mockups/hogwarts/hogwarts-3.png",
+        src: "/mockups/hogwarts/hogwarts-4.webp",
         alt: "Hogwarts 3D map detail",
       },
       {
         type: "image",
-        src: "/mockups/hogwarts/hogwarts-4.png",
+        src: "/mockups/hogwarts/hogwarts-5.webp",
         alt: "Hogwarts 3D map detail",
       },
       {
         type: "image",
-        src: "/mockups/hogwarts/hogwarts-5.png",
-        alt: "Hogwarts 3D map detail",
-      },
-      {
-        type: "image",
-        src: "/mockups/hogwarts/hogwarts-6.png",
+        src: "/mockups/hogwarts/hogwarts-6.webp",
         alt: "Hogwarts 3D map detail",
       },
       {

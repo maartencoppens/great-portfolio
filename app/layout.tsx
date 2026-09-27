@@ -8,6 +8,7 @@ import SmoothScrollProvider from "./components/GSAP/SmoothScrollProvider";
 import PreloaderWrapper from "./components/preloader/PreloaderWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { PageReadyProvider } from "./lib/pageReady";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 
@@ -120,17 +121,19 @@ export default function RootLayout({
       <body
         className={`${cabinetGrotesk.variable} ${generalSans.variable} bg-bg-primary text-text-primary`}
       >
-        <PreloaderWrapper>
-          <GsapProvider />
-          <SmoothScrollProvider />
-          <Navbar />
-          <div id="smooth-wrapper">
-            <div id="smooth-content">
-              <main className="pt-20 pb-xl md:pt-24">{children}</main>
-              <Footer />
+        <PageReadyProvider>
+          <PreloaderWrapper>
+            <GsapProvider />
+            <SmoothScrollProvider />
+            <Navbar />
+            <div id="smooth-wrapper">
+              <div id="smooth-content">
+                <main className="pt-20 pb-xl md:pt-24">{children}</main>
+                <Footer />
+              </div>
             </div>
-          </div>
-        </PreloaderWrapper>
+          </PreloaderWrapper>
+        </PageReadyProvider>
         <Analytics />
         <SpeedInsights />
       </body>

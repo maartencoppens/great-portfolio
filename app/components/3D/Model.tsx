@@ -1,9 +1,10 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useLayoutEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
 import { useThree } from "@react-three/fiber";
+import { usePageReady } from "@/app/lib/pageReady";
 
 const PARTICLE_COUNT = 18000;
 const HOLD_DURATION = 3.0;
@@ -104,6 +105,12 @@ function applyRingEffect(
 
 const Model = () => {
   const { viewport, gl } = useThree();
+
+  const { setModelReady } = usePageReady();
+  useLayoutEffect(() => {
+    setModelReady(false);
+  }, [setModelReady]);
+
   const [skateboardModel, drumsModel, headphonesModel, bassModel] = MODELS;
   const pointsRef = useRef<THREE.Points>(null);
   const mouseWorld = useRef({ x: MOUSE_OFFSCREEN, y: MOUSE_OFFSCREEN });
@@ -143,6 +150,10 @@ const Model = () => {
       geometry.dispose();
     };
   }, [geometry]);
+
+  useEffect(() => {
+    setModelReady(true);
+  }, [geometry, setModelReady]);
 
   useEffect(() => {
     // Skip mouse effect on touchscreens
