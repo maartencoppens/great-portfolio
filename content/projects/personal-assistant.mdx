@@ -1,0 +1,103 @@
+---
+slug: personal-assistant
+title: "AI Personal Assistant"
+shortDescription: "A Telegram bot with six specialised AI agents that plan my day, answer questions about my own documents, suggest meals and control my music and lights."
+order: 2
+image: "/mockups/personal-assistant/banner.webp"
+media:
+  - type: image
+    src: "/mockups/personal-assistant/banner.webp"
+    alt: Neural network in the shape of a head
+role: "AI Automation Developer"
+client: "School project — Technology 2"
+tags: ["n8n", "OpenAI", "Supabase", "Telegram"]
+date: 2025-06-02
+category: "AI & Automation"
+---
+
+A personal assistant that lives in Telegram. Behind one chat, six specialised AI agents plan my day, give advice on my schedule, answer questions about my own documents, suggest meals and control my music and lights. I built the whole system in n8n.
+
+## The Brief
+
+This was my final project for Technology 2, a first-year course entirely about working with AI: from image generation with ComfyUI and RunDiffusion to prompting and building agents in n8n. The assignment was to build a working AI workflow of our own, which I presented at the exam on 2 June 2025.
+
+## The Challenge
+
+Building an agent is easy. Building one that's actually worth using is harder. For every agent, I had to answer the same question: why would anyone ask this bot instead of searching Google or opening a regular chatbot?
+
+My answer was to give every agent access to something a search engine can't reach: my calendar, my tasks, my own documents, my meal history, or my speakers and lights. I also gave each agent one narrow job, so they don't overlap. The briefing agent plans the day, for example, while the advice agent deliberately doesn't plan anything but looks for conflicts, bottlenecks and ways to use the day better.
+
+## How It Works
+
+Every message arrives at one Telegram bot. A router checks the command and passes the message to the right agent, each built as its own workflow:
+
+- **/briefing** combines my Google Calendar, my open tasks in Notion and the day's Belgian news into a structured day plan. It also arrives automatically every morning at 7:30.
+- **/advies** analyses the same agenda and tasks and suggests how to spend my time and energy better.
+- **/vraag** answers questions about my own documents, and clearly says so when the answer isn't in them instead of guessing.
+- **/eten** suggests meals, looks up recipes and keeps a log of what I decided to eat, with a weekly overview on request.
+- **/muziek** recognises the mood in a message and finds a matching Spotify playlist.
+- **/dj** takes actions instead of replying: it starts playlists, sets the volume and switches my Philips Hue lights, for example for "party mode".
+
+<ImageGrid
+  caption="Chat messages via Telegram with my peronal assistant"
+  images={[
+    {
+      src: "/mockups/personal-assistant/chat-3.webp",
+      alt: "Chat of the /advies function",
+    },
+    {
+      src: "/mockups/personal-assistant/chat-4.webp",
+      alt: "Chat of the /breifing function",
+    },
+    {
+      src: "/mockups/personal-assistant/chat-2.webp",
+      alt: "Chat of the /muziek function",
+    },
+    {
+      src: "/mockups/personal-assistant/chat-5.webp",
+      alt: "Chat of the /eten function",
+    },
+
+]}
+/>
+
+<Img
+  src="/mockups/personal-assistant/chat-1.webp"
+  alt="The /help menu listing all commands"
+  caption="The help menu with all available commands"
+  className="max-h-[50vh]"
+/>
+## Under the Hood
+
+**Retrieval on my own documents.** Files I drop into a local folder are automatically split into chunks and stored as embeddings in a Supabase vector database. Before storing each chunk, an LLM adds a short piece of context from the full document, so that a chunk still makes sense on its own and is easier to find later.
+
+**Structured output between agents.** The news agent returns its summaries as strict JSON through an output parser, so the briefing agent can reliably build on them.
+
+**The right model per task.** Not every job needs the most capable model. GPT-4o handles the briefing, advice and document questions, while lighter models do the news summaries, music suggestions and meal planning.
+
+<ImageGrid
+  caption="N8N workflows"
+  images={[
+    {
+      src: "/mockups/personal-assistant/n8n-3.webp",
+      alt: "Chat of the /muziek function",
+    },
+    {
+      src: "/mockups/personal-assistant/n8n-2.webp",
+      alt: "Chat of the /breifing function",
+    },
+    {
+      src: "/mockups/personal-assistant/n8n-1.webp",
+      alt: "Chat of the /advies function",
+    },
+    {
+      src: "/mockups/personal-assistant/n8n-4.webp",
+      alt: "Chat of the /eten function",
+    },
+
+]}
+/>
+
+## Looking Back
+
+This project taught me how to build agents that are actually useful, but most of them improve on things that already exist, like a daily planner or a recipe search. If I built it again now, I'd be more experimental and try ideas I haven't seen anywhere else.

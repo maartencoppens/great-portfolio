@@ -29,6 +29,7 @@ const projects = defineCollection({
       "Web Development",
       "Creative Technology",
       "Internet Of Things",
+      "AI & Automation",
     ]),
     body: s.mdx(),
   }),

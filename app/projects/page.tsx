@@ -13,6 +13,7 @@ const categories = [
   "Web Development",
   "Creative Technology",
   "Internet Of Things",
+  "AI & Automation",
 ] as const;
 
 type Category = (typeof categories)[number];

@@ -9,6 +9,7 @@ import Text from "@/app/components/typography/Text";
 import Image from "next/image";
 import ImageGrid from "@/app/components/mdx/ImageGrid";
 import Video from "@/app/components/mdx/Video";
+import Img from "@/app/components/mdx/Image";
 
 type Children = { children?: ReactNode };
 
@@ -45,6 +46,7 @@ const blockContentTypes = [MdxImage, ImageGrid, Video];
 
 const sharedComponents = {
   ImageGrid,
+  Img,
   Video,
   h2: ({ children }: Children) => (
     <Text.SubHeader as="h2" className="pt-xl pb-s">
