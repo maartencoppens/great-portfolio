@@ -1,8 +1,8 @@
 ---
 slug: chocolate-sommelier
 title: "Chocolate Sommelier"
-shortDescription: "An interactive experience where users tell their chocolate preferences to an AI bot and receive a personalized chocolate box with a reason why it matches their taste."
-order: 6
+shortDescription: "An AI-guided chat that composes a personalised Neuhaus praline box and explains why it matches your taste. A proof of concept for Comeos."
+order: 7
 image: "/mockups/sommelier/sommelier-1.webp"
 media:
   - type: video
@@ -23,23 +23,47 @@ media:
   - type: image
     src: "/mockups/sommelier/sommelier-5.webp"
     alt: "Chocolate Sommelier checkout interface"
-role: "Frontend Developer / Backend Developer"
-client: "Schoolproject"
-tags: ["Next.js", "OpenRouter AI", "Zustand"]
+role: "Frontend & AI Developer"
+client: "Comeos — Digital Product Studio 2"
+tags: ["React", "Zustand", "Gemini 2.5 Flash-Lite", "OpenRouter"]
 date: 2026-06-01
 category: "Web Development"
 ---
 
-This project is an interactive experience that allows users to discover their chocolate preferences through a conversation with an AI bot. Users answer questions about their taste preferences, and the AI bot suggests a personalized chocolate box based on their answers. When the users get their personalized chocolate box, they can see the reason why it matches their taste and they can also change each individual chocolate in the box with another one from the database. The database is based on the real database of Neuhaus Pralines.
+Chocolate Sommelier is a proof of concept for conversational commerce. A short chat asks about your taste, then composes a personalised box of Neuhaus pralines and explains in a few sentences why it suits you. Don't like one of the pralines? Swap it for any other from the range.
 
-The experience combines conversational AI, interactive design, and personalized recommendations. The AI bot is built with OpenRouter and the frontend is built with Next.js. The AI bot uses a custom prompt to understand the user's preferences and generate a personalized chocolate box recommendation by giving tags. These tags are then used to filter the database of chocolates and create a personalized box for the user.
+## The Brief
 
-The project is a school project and was developed as a proof of concept for using AI in personalized product recommendations, no collaboration with Neuhaus Pralines.
+This project was built for Comeos, the Belgian federation for retail and services, in the course Digital Product Studio 2. The starting point was a set of customer journeys that KU Leuven business students had written for existing retailers. Our task was to pick one moment from one journey and turn it into a working, interactive proof of concept in about three and a half weeks.
 
-## Process
+We chose a pitch for Neuhaus built around a clear customer problem: someone who wants to buy a premium chocolate gift, but knows little about pralines and has little time to choose. In the pitch, an AI "chocolate sommelier" on the Neuhaus website guides them to the right box with a few questions. I turned that moment into a working prototype.
 
-The project started with designing the conversational flow and the user interface. The AI bot was trained with a custom prompt to understand user preferences and generate chocolate recommendations. The frontend was built with Next.js, integrating the AI bot and the chocolate database to provide a seamless user experience.
+## How It Works
 
-## Challenge
+1. **The chat** asks three questions: who the box is for, which chocolate you prefer, and which flavours appeal to you.
+2. **The AI** (Gemini 2.5 Flash-Lite via OpenRouter) converts those answers into a fixed set of taste tags and returns them as JSON.
+3. **The matching logic** scores each of the 38 pralines against those tags. Chocolate type counts most, followed by flavour profile, tags and filling. The 16 best matches fill the box.
+4. **A second AI call** writes a short explanation of why the box fits your taste, with a pairing suggestion.
+5. **The configurator** lets you replace any praline with another from the range, after which a mock-up checkout completes the flow.
 
-The biggest challenge was ensuring that the AI bot could accurately understand user preferences and generate relevant chocolate recommendations. This required fine-tuning the prompt and testing various scenarios to ensure a smooth and engaging user experience. I had some issues with the AI bot not correctly filtering the database to match tags, but after some research and testing, I was able to get it working properly.
+The AI never picks pralines itself. It only translates what the customer says into tags, and my own code makes the selection from real product data. That way the recommendation can never include a praline that doesn't exist.
+
+## The Data
+
+There was no official product dataset, so I reconstructed one from Neuhaus' public product pages. I used AI to help collect the information and the browser's developer tools to trace each product image back to Neuhaus' own image URLs. The result is a dataset of 38 pralines, each with its chocolate type, filling, flavour profile, tags and pairing suggestions.
+
+## The Challenge
+
+At first, the AI kept inventing its own tags instead of using the ones in the dataset. A tag the dataset doesn't know matches nothing, so the box quality dropped. I fixed it by tightening the prompt: listing the exact allowed values and requiring raw JSON without any explanation.
+
+It wasn't a hard problem, but it taught me that when AI output feeds into code, the format has to be defined as strictly as an API contract.
+
+## Result
+
+We presented the proof of concept to Comeos on 11 June 2026. Comeos tested it, alongside friends who tried it independently, and the feedback was positive: people saw it as a tool with real potential if it were developed further with Neuhaus.
+
+## Looking Back
+
+What I'm proudest of is delivering a complete, working flow in such a short time, from conversation to recommendation to a configurable box. As a next step, I'd extend the conversation with questions about budget, and connect the chat to the social media campaign the original pitch starts from, so the full customer journey becomes tangible.
+
+_Developed as a duo project with Lies De Praeter for Digital Product Studio 2. Independent school project, not affiliated with or endorsed by Neuhaus. Product names and images belong to Neuhaus._
