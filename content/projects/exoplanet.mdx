@@ -1,12 +1,12 @@
 ---
 slug: exoplanet
 title: "Exoplanet Explorer"
-shortDescription: "An interactive experience to learn more about exoplanets by searching them in a 3D environment through a telescope."
+shortDescription: "An immersive installation where visitors search for real exoplanets through a physical telescope, shown for ten days at the Floraliën 2026 in Ghent."
 order: 5
 image: "/mockups/exoplanet/exoplanet-1.webp"
 media:
   - type: video
-    src: "/mockups/exoplanet/exoplanet.mp4"
+    src: "/mockups/exoplanet/exoplanet-1.mp4"
     alt: "Exoplanet telescope interaction detail"
   - type: image
     src: "/mockups/exoplanet/exoplanet-1.webp"
@@ -23,19 +23,81 @@ media:
   - type: image
     src: "/mockups/exoplanet/exoplanet-5.webp"
     alt: "Exoplanet external display interface"
-role: "Frontend Developer / Backend Developer"
-client: "Schoolproject"
-tags: ["Next.js", "Touchdesigner", "Arduino"]
+  - type: image
+    src: "/mockups/exoplanet/exoplanet-6.webp"
+    alt: "Exoplanet visitors overview"
+role: "Hardware & Full-Stack Developer"
+client: "Floraliën Gent 2026 — Digital Product Studio 2"
+tags: ["Next.js", "WebSockets", "Arduino", "TouchDesigner"]
 date: 2026-05-01
 category: "Internet Of Things"
 ---
 
-This project is an interactive 3D experience that allows users to explore exoplanets in a virtual environment. Users can search for exoplanets through a telescope interface, and the application provides information about each planet's characteristics and discovery. When the user finds an exoplanet in the 3D environment, they can zoom in and learn more about it by reading it on an external display. On the external display, the user can also plant a flag on the planet, which is then displayed in the 3D environment.
+Exoplanet Explorer is an immersive installation where visitors search for real exoplanets through a physical telescope. A team of five built it for the Floraliën 2026 in 't Kuipke, Ghent, where it ran for ten days in a darkened corridor as part of an exhibition about nature and space.
 
-## Process
+Visitors move the telescope to scan a projected star field, zoom in on a planetary system with a rotary knob, and read the planet's scientific data on a touchscreen beside them. Before moving on, they can leave a flag with their initials on the planet they discovered, visible to every visitor after them.
 
-The 3D environment was built with models from Blender, then integrated into a TouchDesigner project. Interactive elements such as hotspots and camera animations were added to guide users through the environment. The telescope was built with hardware components and an Arduino running it. The external display is created in Next.js and communicates with the TouchDesigner project through a websocket connection.
+## My Role
 
-## Challenge
+We built this as a team of five for the course Digital Product Studio 2. [Joran Vreye](https://joranvreye.com/en/projects/exoplanet-explorer) led the project and built the TouchDesigner environment. My part was the layer connecting the physical and digital sides:
 
-My biggest job was building the external display in Next.js and ensuring it communicated properly with the TouchDesigner project through the websocket connection. This wasn't as easy as I thought it would be, but after some research and testing, I was able to get it working properly.
+- **Telescope electronics.** I soldered the electronics and programmed the Arduino Nano that reads a gyroscope for the telescope's direction and a rotary encoder for zooming.
+- **Touchscreen interface.** I developed the Next.js interface based on Joran's design, including the flag feature where visitors type their initials and pick a colour.
+- **Real-time communication.** I set up the WebSocket server that runs alongside the interface and keeps the touchscreen and the 3D scene in sync.
+
+<ImageGrid
+  caption="The telescope electronics I soldered, programmed and rebuild after overheating."
+  images={[
+    {
+      src: "/mockups/exoplanet/electronics-2.webp",
+      alt: "Electronics first prototyping",
+    },
+    {
+      src: "/mockups/exoplanet/electronics-3.webp",
+      alt: "Electronics first production edition",
+    },
+    {
+      src: "/mockups/exoplanet/electronics-1.webp",
+      alt: "Electronics rebuild after overheating",
+    },
+    {
+      src: "/mockups/exoplanet/electronics-4.webp",
+      alt: "Electronics final after overheating",
+    },
+
+]}
+/>
+
+## How It Works
+
+The whole installation runs on a local network without an internet connection, so it doesn't depend on the venue's network.
+
+Messages travel in both directions. When a visitor zooms in on a planet, TouchDesigner tells the interface which planet is in focus, and the touchscreen opens that planet's data. When a visitor places a flag, the interface sends their initials and colour back to TouchDesigner, which adds the flag to the 3D planet.
+
+The ten planetary systems are based on real exoplanets. We took the data from NASA and had it checked by experts, because the information shown to visitors had to be scientifically accurate.
+
+## The Challenge
+
+Each part of the installation was built by someone else, but to visitors it had to feel like one experience. The hardest part wasn't any single component but the agreements between them: every message had to mean the same thing to the interface, TouchDesigner and the LED strips.
+
+At one point, the LED strips reacted incorrectly because two of us had interpreted the message format differently. Fixing it taught me to define a shared message format early and write it down, instead of assuming everyone reads it the same way.
+
+Running for ten days also exposed problems we hadn't seen in testing. The gyroscope slowly drifted and needed regular recalibration, and the telescope's Arduino overheated inside its sealed housing until we added ventilation.
+
+## Result
+
+The installation ran for the full ten days, with a mostly older audience alongside younger visitors. It worked, but not flawlessly: planet images sometimes failed to load on the touchscreen, and zooming wasn't as smooth as we wanted, which hurt the experience.
+
+## Looking Back
+
+What I'm proudest of is bringing hardware, software and design together into one immersive experience in a short amount of time. In a next version, I'd make image loading on the interface more reliable and give visitors clearer feedback while zooming.
+
+<Video
+  src="/mockups/exoplanet/exoplanet-2.mp4"
+  caption="Zooming in on a planet with the rotary encoder"
+  autoplay
+/>
+
+_Built with Joran Vreye, Simon Van Tomme, Mathijs De Langhe and Arda Sager._
+
+Curious about another perspective on this project? Read [Joran's case study](https://joranvreye.com/en/projects/exoplanet-explorer), which covers the TouchDesigner environment and the physical build of the installation.

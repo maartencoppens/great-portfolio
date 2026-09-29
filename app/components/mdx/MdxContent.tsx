@@ -1,10 +1,51 @@
 import * as runtime from "react/jsx-runtime";
-import type { ComponentType, ReactNode } from "react";
+import {
+  Children,
+  isValidElement,
+  type ComponentType,
+  type ReactNode,
+} from "react";
 import Text from "@/app/components/typography/Text";
+import Image from "next/image";
+import ImageGrid from "@/app/components/mdx/ImageGrid";
+import Video from "@/app/components/mdx/Video";
 
 type Children = { children?: ReactNode };
 
+function MdxImage({
+  src,
+  alt,
+  title,
+}: {
+  src?: string;
+  alt?: string;
+  title?: string;
+}) {
+  if (!src) return null;
+  return (
+    <figure className="py-m">
+      <Image
+        src={src}
+        alt={alt ?? ""}
+        width={0}
+        height={0}
+        sizes="(max-width: 1024px) 100vw, 66vw"
+        className="w-full h-auto rounded-2xl"
+      />
+      {title && (
+        <figcaption className="pt-xs opacity-70">
+          <Text.Small>{title}</Text.Small>
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+const blockContentTypes = [MdxImage, ImageGrid, Video];
+
 const sharedComponents = {
+  ImageGrid,
+  Video,
   h2: ({ children }: Children) => (
     <Text.SubHeader as="h2" className="pt-xl pb-s">
       {children}
@@ -15,9 +56,21 @@ const sharedComponents = {
       {children}
     </Text.BodyLarge>
   ),
-  p: ({ children }: Children) => (
-    <Text.Body className="pb-s">{children}</Text.Body>
-  ),
+  p: ({ children }: Children) => {
+    const containsBlockContent = Children.toArray(children).some(
+      (child) =>
+        isValidElement(child) &&
+        blockContentTypes.some((type) => child.type === type),
+    );
+
+    return containsBlockContent ? (
+      <Text.Body as="div" className="pb-s">
+        {children}
+      </Text.Body>
+    ) : (
+      <Text.Body className="pb-s">{children}</Text.Body>
+    );
+  },
   a: ({ children, href }: Children & { href?: string }) => (
     <a
       href={href ?? "#"}
@@ -28,6 +81,7 @@ const sharedComponents = {
       {children}
     </a>
   ),
+  img: MdxImage,
   ul: ({ children }: Children) => (
     <ul className="list-disc pl-m pb-s">{children}</ul>
   ),
