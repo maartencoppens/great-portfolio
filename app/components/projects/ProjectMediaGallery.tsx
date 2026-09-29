@@ -123,9 +123,7 @@ export default function ProjectMediaGallery({
                     <video
                       src={item.src}
                       poster={item.poster}
-                      autoPlay
                       muted
-                      loop
                       playsInline
                       className="h-full w-full object-cover"
                     />

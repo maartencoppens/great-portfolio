@@ -17,7 +17,7 @@ export default function ProjectCardAnimation({
   const cardRefs = useRef<HTMLDivElement[]>([]);
   const recentWordRef = useRef<HTMLSpanElement>(null);
 
-  const visible = projects.slice(-3);
+  const visible = projects.slice(-3).reverse();
 
   useEffect(() => {
     const ctx = gsap.context(() => {

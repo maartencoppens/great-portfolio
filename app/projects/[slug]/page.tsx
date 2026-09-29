@@ -5,7 +5,8 @@ import {
   getProjectMedia,
   getProjectPrimaryImage,
 } from "@/app/lib/projectMedia";
-import { projects } from "@/data/projects";
+import MdxContent from "@/app/components/mdx/MdxContent";
+import { getProjectBySlug, projects } from "@/data/projects";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -21,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return {
@@ -70,7 +71,7 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return <div>Project not found</div>;
@@ -98,24 +99,19 @@ export default async function ProjectDetailPage({
           <Text.Header as="h1" className="pb-s">
             {project.title}
           </Text.Header>
-          <Text.Body>{project.longDescription}</Text.Body>
-          <Text.SubHeader as="h2" className="pt-xl pb-s">
-            The Challenge
-          </Text.SubHeader>
-          <Text.Body>{project.challenge}</Text.Body>
-          <Text.SubHeader as="h2" className="pt-l pb-s">
-            The Process
-          </Text.SubHeader>
-          <Text.Body>{project.process}</Text.Body>
+          <MdxContent code={project.body} />
         </div>
         <aside className="lg:col-span-4 h-fit rounded-2xl bg-bg-tertiary p-m sm:p-l lg:sticky lg:top-28">
           <Text.SubHeader as="h2" className="pb-s">
             Project Info
           </Text.SubHeader>
           <div className="pb-m">
-            <Text.Body className="pb-xs">Year</Text.Body>
+            <Text.Body className="pb-xs">Date</Text.Body>
             <Text.Body className="text-accent-primary">
-              {project.year}
+              {new Date(project.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+              })}
             </Text.Body>
           </div>
           <div className="pb-m">

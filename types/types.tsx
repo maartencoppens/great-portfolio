@@ -1,24 +1,4 @@
-export type ProjectMedia = {
-  type: "image" | "video";
-  src: string;
-  alt?: string;
-  poster?: string;
-};
+import type { Project as VeliteProject } from "#site/content";
 
-export type Project = {
-  slug: string;
-  title: string;
-  shortDescription: string;
-  longDescription: string;
-  challenge: string;
-  process: string;
-  media?: ProjectMedia[];
-  image: string;
-  video?: string;
-  role: string;
-  client: string;
-  tags: string[];
-  year: number;
-  link?: string;
-  category: string;
-};
+export type Project = Omit<VeliteProject, "body">;
+export type ProjectMedia = NonNullable<Project["media"]>[number];
