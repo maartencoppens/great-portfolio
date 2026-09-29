@@ -1,8 +1,14 @@
 ---
-slug: hogwarts
+slug: "hogwarts"
 title: "Hogwarts 3D Map"
-shortDescription: "An interactive 3D map of Hogwarts with exploration features and animations."
-order: 4
+shortDescription: "A self-modelled, explorable 3D Hogwarts in the browser, with interactive points of interest and a world switch to the Quidditch pitch."
+order: 6
+category: "Creative Technology"
+date: 2026-01-01
+role: "3D Artist / Frontend Developer"
+client: "School project — Technology 3"
+tags: ["React Three Fiber", "Rapier", "Blender", "GSAP"]
+link: "https://hogwarts.maartencoppens.be/"
 image: "/mockups/hogwarts/hogwarts-1.webp"
 media:
   - type: video
@@ -27,22 +33,36 @@ media:
     src: "/mockups/hogwarts/hogwarts-6.webp"
     alt: "Hogwarts 3D map detail"
   - type: image
-    src: "/mockups/hogwarts/hogwarts-7.png"
+    src: "/mockups/hogwarts/hogwarts-7.webp"
     alt: "Hogwarts 3D map detail"
-role: "Frontend Developer / 3D Artist"
-client: "Schoolproject"
-tags: ["Three.js", "Blender", "GSAP"]
-date: 2026-01-13
-link: "https://hogwarts.maartencoppens.be/"
-category: "Creative Technology"
 ---
 
-This project is an interactive 3D map of Hogwarts where users can explore different locations. The environment is rendered in real-time 3D and includes interactive hotspots that reveal extra information or interactions.
+An explorable 3D Hogwarts in the browser, built entirely by me: from modelling the castle in Blender to the interactive React Three Fiber experience around it. Visitors click through points of interest across the castle grounds and can switch worlds to the Quidditch pitch.
 
-## Process
+## The Challenge
 
-The 3D environment was built with models from Blender, then integrated into a web application. Interactive elements such as hotspots and camera animations were added to guide users through the environment.
+This was my individual end project for Technology 3, a one-semester course on 3D for the web. After the first half of the semester covering Three.js, Rapier and Zustand, I had the remaining weeks to design, model and build the entire experience on my own.
 
-## Challenge
+The biggest hurdle was the modelling itself. Blender wasn't part of the course, so I taught myself through tutorials while building a castle that still had to be instantly recognisable. With no single official blueprint to follow, I pieced it together from film stills, floor plans, reference models and my own knowledge of the films.
 
-The biggest challenge was optimizing the 3D scene so it runs smoothly in the browser. Because 3D assets are often heavy, extra attention had to be given to performance and asset optimization.
+## My Approach
+
+**Modelling and texturing.** I modelled every building in Blender and baked the textures, so lighting and surface detail are stored in the textures instead of being calculated in real time. That keeps the scene light enough to run in a browser.
+
+**Keeping it small.** I exported the models with Draco compression to cut down the download size, since a detailed castle quickly becomes too heavy to load on the web.
+
+**Building the experience.** The scene runs in React Three Fiber, with drei for helpers and Rapier for physics. Camera movement is animated with GSAP.
+
+## Key Features
+
+- **Points of interest.** Small markers, each connected by a line to a specific spot on the castle. Clicking one smoothly moves the camera to a close-up of that location.
+- **Varied content.** Each point of interest has its own type of content: a riddle, a quote from the films, or background information. Exploring feels like discovering the castle rather than reading a guide.
+- **World switch.** Visitors can leave the castle and switch to a separate scene of the Quidditch pitch.
+
+## Looking Back
+
+This project taught me the full 3D pipeline, from an empty Blender file to an interactive web experience. The part I'm proudest of is the models themselves: a castle I built and textured from scratch while learning the software along the way.
+
+If I revisited it, I'd focus on the user experience. The layout is currently built for desktop only, and with what I know now I'd refine the models further and make the experience fully responsive.
+
+_Fan-made, non-commercial school project. Not affiliated with Warner Bros._
