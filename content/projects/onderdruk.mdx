@@ -1,22 +1,32 @@
 ---
 slug: onderdruk
-title: "Onderdruk"
-shortDescription: "An interactive museum installation where physical interaction drives digital visualizations."
+title: "OnderDruk"
+shortDescription: "An interactive museum installation for the Huis van Kina in Ghent, where visitors combine water, fire, time, temperature and pressure to create stones."
 order: 3
 image: "/mockups/onderdruk.png"
 role: "Backend Developer"
-client: "SchoolProject / Huis van Kina Gent"
-tags: ["Express", "Raspberry Pi", "Websocket"]
+client: "School project — Huis van Kina, Ghent"
+tags: ["Node.js", "TypeScript", "WebSocket", "Raspberry Pi", "Arduino"]
 date: 2026-01-11
 category: "Internet Of Things"
 ---
 
-OnderDruk is an interactive installation developed for the Huis van Kina in Ghent. Visitors can physically interact with the installation, after which sensors and a backend system control real-time digital visualizations. The project combines physical hardware, a Node.js backend, and real-time communication between different systems.
+OnderDruk ("under pressure") is an interactive installation developed for the Huis van Kina, a museum in Ghent, about how stones are formed. Visitors get a challenge on screen, such as "Make this stone: Pyrite", and use a physical control panel to combine the right amounts of water, fire, time, temperature and pressure. When they get it right, the screen shows the stone and its properties, and the matching compartment in a tower of real stones lights up.
 
-## Process
+## My Role
 
-The installation was developed as a combination of hardware and software. Sensor input is processed through a server and forwarded to the visualization. The backend acts as a central hub that manages communication between the physical installation and the digital visualization.
+I built most of the technical chain behind the installation, from the buttons to the screen:
 
-## Challenge
+- **Arduino firmware.** I programmed the Arduino that reads the buttons and dials on the control panel, sends every change to the Raspberry Pi over a serial connection, and switches the lights in the stone tower.
+- **Backend.** My Node.js server on the Pi parses the Arduino's messages into the current state of the game and compares it with a dataset of stones, each defined by its combination of water, fire, time, temperature and pressure. When a stone matches, it sends a command back to the Arduino to light up that stone's compartment.
+- **Frontend logic.** On the screen, I connected the React interface to the server over a WebSocket, so every change on the control panel immediately updates what visitors see.
 
-The biggest challenge was synchronizing hardware input with real-time digital output. Because visitors expect immediate feedback from an interactive installation, communication between the different systems had to be fast and reliable.
+## Built to Run on Its Own
+
+A museum installation has to work every day without a developer nearby. On the Raspberry Pi, the server starts automatically as a system service, and the screen only opens in kiosk mode once the server is running. When the screen connects, the server immediately sends the current state, so the display always shows the right information, even after a restart.
+
+## The Challenge
+
+An interactive installation only works if it feels immediate: when a visitor turns a dial, the screen and the tower have to react straight away. The main challenge was keeping the chain from control panel to Arduino, server, screen and lights fast and reliable enough to maintain that feeling.
+
+\_Built with Tristan De Ridder, Arda Sager and Jan Skrzynski for Digital Product Studio. Interface design by Jan Skrzynski.
