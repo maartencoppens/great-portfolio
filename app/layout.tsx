@@ -1,4 +1,3 @@
-// @ts-expect-error Next.js handles this CSS side-effect import at build time.
 import "./globals.css";
 import localFont from "next/font/local";
 import type { Metadata, Viewport } from "next";
