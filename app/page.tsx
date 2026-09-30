@@ -1,15 +1,31 @@
 "use client";
 import { projects } from "@/data/projects";
-import { JSX, Suspense, useEffect, useRef } from "react";
+import { JSX, useEffect, useRef } from "react";
 import { gsap } from "@/app/lib/gsap";
 import Text from "./components/typography/Text";
 import SplitType from "split-type";
 import ProjectCardAnimation from "./sections/ProjectCardAnimation";
 import BentoGrid from "./sections/BentoGrid";
-import { Canvas } from "@react-three/fiber";
-import Model from "./components/3D/Model";
 import SmallInfoCard from "./components/cards/SmallInfoCard";
-import { Loader } from "@react-three/drei";
+import dynamic from "next/dynamic";
+
+const HeroCanvas = dynamic(
+  async () => {
+    const [{ Canvas }, { default: Model }] = await Promise.all([
+      import("@react-three/fiber"),
+      import("./components/3D/Model"),
+    ]);
+
+    return function HeroCanvas() {
+      return (
+        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 50 }}>
+          <Model />
+        </Canvas>
+      );
+    };
+  },
+  { ssr: false },
+);
 
 export default function Home(): JSX.Element {
   const mainRef = useRef<HTMLElement>(null);
@@ -66,13 +82,7 @@ export default function Home(): JSX.Element {
           </div>
           <div className="relative w-full flex-1">
             <div className="relative mx-auto h-[36vh] min-h-70 w-full max-w-140 sm:h-[42vh] lg:h-[56vh] xl:max-w-none">
-              <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[5, 5, 5]} />
-                <Suspense fallback={null}>
-                  <Model />
-                </Suspense>
-              </Canvas>
+              <HeroCanvas />
             </div>
           </div>
         </section>
