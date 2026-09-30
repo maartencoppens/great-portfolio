@@ -1,23 +1,43 @@
 ---
 slug: muggy
 title: "Muggy Smart Cup"
-shortDescription: "An interactive product website for a smart cup with animated storytelling."
+shortDescription: "A scroll-driven product page for a concept smart mug. As you scroll, a 3D mug I modelled in Spline turns to reveal each feature."
 order: 2
 image: "/mockups/muggy/muggy.webp"
-role: "Frontend Developer"
+media:
+  - type: video
+    src: "/mockups/muggy/video.mp4"
+    alt: "Screencast of the website"
+  - type: image
+    src: "/mockups/muggy/muggy.webp"
+    alt: "Exoplanet overview screen"
+role: "Designer & Developer"
 client: "School project"
-tags: ["GSAP", "Webflow", "Spline"]
+tags: ["Webflow", "GSAP", "Spline", "Figma"]
 date: 2026-01-05
 link: "https://muggy.maartencoppens.be/"
 category: "Web"
 ---
 
-Muggy is a concept product: a smart cup that reacts to temperature and usage. For this project, an interactive product page was developed to explain the concept visually through animations and 3D visuals. The website combines storytelling, motion design, and interactive elements to present the product in an engaging way.
+Muggy is a concept product: a smart mug that keeps your drink at exactly the temperature you want. The product itself was mostly a vehicle. The real assignment was the page around it: a product showcase where 3D and scroll animation tell the story, designed in Figma and built in Webflow.
 
-## Process
+## The Hero
 
-The design was first developed as a storytelling experience that guides the user through the product features. The website was then built with interactive sections and scroll-based animations to visually enhance the product experience.
+The page opens with the mug, and scrolling drives the story. As you scroll, the mug turns to show one feature at a time:
 
-## Challenge
+- **Perfect temperature.** The screen on the mug shows the temperature of your drink, precise to 0.1 degree.
+- **All-day battery.** Up to eight hours on a charge, recharging on a small holder the mug stands on.
+- **Touch screen.** You set the temperature directly on the mug's display.
 
-The main challenge was combining visual storytelling with a clear information structure. The animations needed to support the story without reducing the website's readability or performance.
+Getting the timing right was the hardest part. The mug's movement, the texts appearing and the speed of scrolling all had to line up, so each feature arrives at the moment you're ready to read it, not too early and not after you've already scrolled past. And because the mug is a Spline scene inside Webflow, every animation had to work through the connection between the two tools, instead of directly on the page.
+
+## The Mug
+
+I modelled the mug myself in Spline, including the screen that shows the temperature. I chose Spline over Blender here because its scenes work directly in Webflow, which made it possible to control the mug with the page's scroll animations.
+
+After the hero, a short section shows the mug in its two finishes: matte white and matte black. I kept this part simple on purpose, to put my time into the animations that carry the page.
+
+## Looking Back
+
+This was the project where I really learned animation. I built the interactions with GSAP inside Webflow, and after the project, I took what I'd learned into code, which is how I build my animations now.
+The page isn't as user-friendly as I'd make it today, though. A long scroll-driven hero looks impressive, but it asks a lot of visitors who just want the information, and it doesn't offer an alternative for people who prefer less motion. Today, I'd keep the scroll story shorter, make every feature readable without the animation, and respect reduced-motion settings.
