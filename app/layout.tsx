@@ -1,3 +1,4 @@
+// @ts-expect-error Next.js handles this CSS side-effect import at build time.
 import "./globals.css";
 import localFont from "next/font/local";
 import type { Metadata, Viewport } from "next";
@@ -10,7 +11,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PageReadyProvider } from "./lib/pageReady";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.maartencoppens.be";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

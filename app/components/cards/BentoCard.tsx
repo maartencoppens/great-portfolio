@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Text from "../typography/Text";
+import Image from "next/image";
 
 type BentoTone = "default" | "soft" | "accent" | "inverted";
 
@@ -10,6 +11,12 @@ type BentoCardProps = {
   className?: string;
   bodyClassName?: string;
   children: ReactNode;
+  image?:
+    | {
+        src: string;
+        alt: string;
+      }
+    | undefined;
 };
 
 const toneClassMap: Record<BentoTone, string> = {
@@ -27,20 +34,34 @@ const BentoCard = ({
   className,
   bodyClassName,
   children,
+  image,
 }: BentoCardProps) => {
   return (
     <article
-      className={`group h-full rounded-2xl border p-m md:p-l shadow-sm transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:border-black/20 ${toneClassMap[tone]} ${className ?? ""}`}
+      className={`flex h-full flex-col overflow-hidden rounded-2xl border shadow-sm ${toneClassMap[tone]} ${className ?? ""}`}
     >
-      <header className="mb-s flex flex-col gap-xs">
-        {eyebrow ? (
-          <Text.Label className="uppercase tracking-wide text-text-tertiary">
-            {eyebrow}
-          </Text.Label>
-        ) : null}
-        <Text.SubHeader>{title}</Text.SubHeader>
-      </header>
-      <div className={bodyClassName}>{children}</div>
+      {image && (
+        <div className="relative aspect-4/3 w-full">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 60vw"
+          />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col p-m md:p-l">
+        <header className="mb-s flex flex-col gap-xs">
+          {eyebrow ? (
+            <Text.Label className="uppercase tracking-wide text-text-tertiary">
+              {eyebrow}
+            </Text.Label>
+          ) : null}
+          <Text.SubHeader>{title}</Text.SubHeader>
+        </header>
+        <div className={bodyClassName}>{children}</div>
+      </div>
     </article>
   );
 };

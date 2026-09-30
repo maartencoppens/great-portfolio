@@ -82,11 +82,11 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-20 bg-bg-primary/95 backdrop-blur-m">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-m md:h-24 md:px-xl">
-        <Link href="/">
+        <Link href="/" aria-label={`${brandName} - Home`}>
           <span
             ref={brandRef}
             className="inline-flex cursor-pointer items-center text-heading-xs"
-            aria-label={brandName}
+            aria-hidden="true"
           >
             {Array.from(brandName).map((char, index) => {
               const displayChar = char === " " ? "\u00A0" : char;

@@ -4,14 +4,19 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ReadyContext = createContext<{
   ready: boolean;
   setModelReady: (v: boolean) => void;
+  revealed: boolean;
+  setRevealed: (v: boolean) => void;
 }>({
   ready: false,
   setModelReady: () => {},
+  revealed: false,
+  setRevealed: () => {},
 });
 
 export function PageReadyProvider({ children }: { children: React.ReactNode }) {
   const [fontsReady, setFontsReady] = useState(false);
   const [modelReady, setModelReady] = useState(true); // assume ready unless a page says otherwise
+  const [revealed, setRevealed] = useState(true);
 
   useEffect(() => {
     document.fonts.ready.then(() => setFontsReady(true));
@@ -19,7 +24,12 @@ export function PageReadyProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ReadyContext.Provider
-      value={{ ready: fontsReady && modelReady, setModelReady }}
+      value={{
+        ready: fontsReady && modelReady,
+        setModelReady,
+        revealed,
+        setRevealed,
+      }}
     >
       {children}
     </ReadyContext.Provider>

@@ -8,6 +8,7 @@ import ProjectCardAnimation from "./sections/ProjectCardAnimation";
 import BentoGrid from "./sections/BentoGrid";
 import SmallInfoCard from "./components/cards/SmallInfoCard";
 import dynamic from "next/dynamic";
+import AboutStory from "./sections/AboutStory";
 
 const HeroCanvas = dynamic(
   async () => {
@@ -88,7 +89,8 @@ export default function Home(): JSX.Element {
         </section>
       </div>
       <ProjectCardAnimation projects={projects} />
-      <BentoGrid />
+      {/* <BentoGrid /> */}
+      <AboutStory />
     </>
   );
 }

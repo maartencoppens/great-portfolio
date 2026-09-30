@@ -22,10 +22,15 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const skipRef = useRef(false);
-
-  const { ready } = usePageReady();
+  const { ready, setRevealed } = usePageReady();
   const [introDone, setIntroDone] = useState(false);
   const hasExited = useRef(false);
+  const [timedOut, setTimedOut] = useState(false);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setTimedOut(true), 4000);
+    return () => window.clearTimeout(id);
+  }, []);
 
   useEffect(() => {
     if (!overlayRef.current) return;
@@ -37,48 +42,21 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       };
     }
     const ctx = gsap.context(() => {
-      const splitTitle = new SplitType(".title", { types: "chars" });
-      const splitSubtitle = new SplitType(".subtitle", { types: "chars" });
-
-      gsap.set(splitTitle.chars ?? [], { y: 24, opacity: 0 });
-      gsap.set(splitSubtitle.chars ?? [], { y: 24, opacity: 0 });
-      gsap.set(overlayRef.current, { autoAlpha: 1 });
+      const split = new SplitType(".title", { types: "chars" });
       gsap.set(contentRef.current, { opacity: 1 });
 
-      const tl = gsap.timeline({
-        onComplete: () => setIntroDone(true),
-      });
-
-      tl.to(
-        splitTitle.chars,
-
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.35,
-          ease: "power2.out",
-          stagger: 0.02,
-        },
-      )
-        .to({}, { duration: 0.6 })
-
-        .to(
-          splitSubtitle.chars,
-
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.35,
-            ease: "power2.out",
-            stagger: 0.02,
-          },
-        )
-        .to({}, { duration: 0.6 });
+      const tl = gsap.timeline({ onComplete: () => setIntroDone(true) });
+      tl.from(split.chars ?? [], {
+        yPercent: 110,
+        opacity: 0,
+        duration: 0.6,
+        ease: "expo.out",
+        stagger: 0.025,
+      }).to({}, { duration: 0.25 });
 
       return () => {
         tl.kill();
-        splitTitle.revert();
-        splitSubtitle.revert();
+        split.revert();
       };
     }, overlayRef);
 
@@ -86,22 +64,45 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   }, [onComplete]);
 
   useEffect(() => {
-    if (!introDone || !ready || hasExited.current) return;
+    // Only exit once: after the intro, when assets are loaded (or we gave up waiting)
+    if (!introDone || !(ready || timedOut) || hasExited.current) return;
     if (!overlayRef.current) return;
-
     hasExited.current = true;
-    gsap.to(overlayRef.current, {
-      autoAlpha: 0,
-      duration: skipRef.current ? 0.2 : 0.35,
-      ease: "power1.out",
-      onComplete,
-    });
-  }, [introDone, ready, onComplete]);
+
+    // Returning visitors: quick fade, no wipe
+    if (skipRef.current) {
+      setRevealed(true);
+      gsap.to(overlayRef.current, {
+        autoAlpha: 0,
+        duration: 0.2,
+        ease: "power1.out",
+        onComplete,
+      });
+      return;
+    }
+
+    // First visit: name lifts away, then the overlay wipes upward
+    gsap
+      .timeline({ onComplete })
+      .to(contentRef.current, {
+        yPercent: -30,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.in",
+      })
+      .call(() => setRevealed(true))
+      .to(
+        overlayRef.current,
+        { clipPath: "inset(0% 0% 100% 0%)", duration: 0.8, ease: "expo.inOut" },
+        "-=0.1",
+      );
+  }, [introDone, ready, timedOut, onComplete, setRevealed]);
 
   return (
     <div
       ref={overlayRef}
       className="fixed inset-0 z-1000 bg-bg-secondary flex items-center justify-center"
+      style={{ clipPath: "inset(0% 0% 0% 0%)" }}
     >
       <div
         ref={contentRef}
@@ -110,9 +111,6 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
         <Text.Hero as={"p"} className="title text-text-secondary">
           Maarten Coppens
         </Text.Hero>
-        <Text.SubHeader as={"p"} className="subtitle text-text-secondary">
-          Interactive Designer & Developer
-        </Text.SubHeader>
       </div>
     </div>
   );
