@@ -1,8 +1,6 @@
-import { useRef, useMemo, useEffect, useLayoutEffect } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useRef, useMemo, useEffect, useLayoutEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
 import { useThree } from "@react-three/fiber";
 import { usePageReady } from "@/app/lib/pageReady";
 
@@ -13,69 +11,6 @@ const RING_RADIUS = 0.35;
 const INFLUENCE_RADIUS = 0.4;
 const HOVER_STRENGTH = 0.7;
 const MOUSE_OFFSCREEN = 9999;
-
-const MODELS = [
-  "/models/skateboard.glb",
-  "/models/drums.glb",
-  "/models/headphones.glb",
-  "/models/bass.glb",
-] as const;
-
-function toParticles(scene: THREE.Group, count: number): Float32Array {
-  scene.updateWorldMatrix(true, true);
-  const meshes: THREE.Mesh[] = [];
-  scene.traverse((child) => {
-    if (child instanceof THREE.Mesh && child.geometry) meshes.push(child);
-  });
-  if (meshes.length === 0) return new Float32Array(count * 3);
-
-  const raw: number[] = [];
-  const tempPosition = new THREE.Vector3();
-  const samplesPerMesh = Math.ceil(count / meshes.length);
-  for (const mesh of meshes) {
-    const sampler = new MeshSurfaceSampler(mesh).build();
-    for (let i = 0; i < samplesPerMesh && raw.length / 3 < count; i++) {
-      sampler.sample(tempPosition);
-      tempPosition.applyMatrix4(mesh.matrixWorld);
-      raw.push(tempPosition.x, tempPosition.y, tempPosition.z);
-    }
-  }
-
-  const n = raw.length / 3;
-  if (n === 0) return new Float32Array(count * 3);
-
-  let cx = 0,
-    cy = 0,
-    cz = 0;
-  for (let i = 0; i < raw.length; i += 3) {
-    cx += raw[i] ?? 0;
-    cy += raw[i + 1] ?? 0;
-    cz += raw[i + 2] ?? 0;
-  }
-  cx /= n;
-  cy /= n;
-  cz /= n;
-
-  let maxDist = 0;
-  for (let i = 0; i < raw.length; i += 3)
-    maxDist = Math.max(
-      maxDist,
-      Math.hypot(
-        (raw[i] ?? 0) - cx,
-        (raw[i + 1] ?? 0) - cy,
-        (raw[i + 2] ?? 0) - cz,
-      ),
-    );
-  const safeMaxDist = maxDist || 1;
-
-  const out = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    out[i * 3] = ((raw[i * 3] ?? 0) - cx) / safeMaxDist;
-    out[i * 3 + 1] = ((raw[i * 3 + 1] ?? 0) - cy) / safeMaxDist;
-    out[i * 3 + 2] = ((raw[i * 3 + 2] ?? 0) - cz) / safeMaxDist;
-  }
-  return out;
-}
 
 const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
@@ -111,7 +46,6 @@ const Model = () => {
     setModelReady(false);
   }, [setModelReady]);
 
-  const [skateboardModel, drumsModel, headphonesModel, bassModel] = MODELS;
   const pointsRef = useRef<THREE.Points>(null);
   const mouseWorld = useRef({ x: MOUSE_OFFSCREEN, y: MOUSE_OFFSCREEN });
   const state = useRef({
@@ -120,24 +54,34 @@ const Model = () => {
     timer: 0,
   });
 
-  const skateboardScene = useGLTF(skateboardModel).scene;
-  const drumsScene = useGLTF(drumsModel).scene;
-  const headphonesScene = useGLTF(headphonesModel).scene;
-  const bassScene = useGLTF(bassModel).scene;
+  const [shapes, setShapes] = useState<Float32Array[] | null>(null);
 
-  const shapes = useMemo(
-    () =>
-      [skateboardScene, drumsScene, headphonesScene, bassScene].map((scene) =>
-        toParticles(scene, PARTICLE_COUNT),
-      ),
-    [skateboardScene, drumsScene, headphonesScene, bassScene],
-  );
+  useEffect(() => {
+    fetch("/particles.bin")
+      .then((r) => r.arrayBuffer())
+      .then((buf) => {
+        const i16 = new Int16Array(buf);
+        const size = PARTICLE_COUNT * 3;
+        setShapes(
+          [0, 1, 2, 3].map((k) =>
+            Float32Array.from(
+              i16.subarray(k * size, (k + 1) * size),
+              (v) => v / 32767,
+            ),
+          ),
+        );
+      })
+      .catch((err) => {
+        console.error("Failed to load particles", err);
+        setModelReady(true);
+      });
+  }, []);
 
   const fallbackShape = useMemo(() => new Float32Array(PARTICLE_COUNT * 3), []);
 
   const geometry = useMemo(() => {
     const geo = new THREE.BufferGeometry();
-    const initialShape = shapes[0] ?? fallbackShape;
+    const initialShape = shapes?.[0] ?? fallbackShape;
     geo.setAttribute(
       "position",
       new THREE.BufferAttribute(initialShape.slice(), 3),
@@ -152,8 +96,9 @@ const Model = () => {
   }, [geometry]);
 
   useEffect(() => {
+    if (!shapes) return;
     setModelReady(true);
-  }, [geometry, setModelReady]);
+  }, [geometry, shapes, setModelReady]);
 
   useEffect(() => {
     // Skip mouse effect on touchscreens
@@ -172,6 +117,7 @@ const Model = () => {
   }, [viewport, gl]);
 
   useFrame((_, delta) => {
+    if (!shapes) return;
     if (!pointsRef.current) return;
     const s = state.current;
     const pos = pointsRef.current.geometry.attributes.position as
@@ -233,6 +179,8 @@ const Model = () => {
     pos.needsUpdate = true;
   });
 
+  if (!shapes) return null;
+
   return (
     <points ref={pointsRef} geometry={geometry} scale={2}>
       <pointsMaterial
@@ -247,5 +195,4 @@ const Model = () => {
   );
 };
 
-MODELS.forEach((url) => useGLTF.preload(url));
 export default Model;
