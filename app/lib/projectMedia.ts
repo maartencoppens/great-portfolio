@@ -30,6 +30,13 @@ export function getProjectPreviewMedia(project: Project): ProjectMedia {
   );
 }
 
+export function getProjectPreviewVideo(project: Project): string | undefined {
+  return (
+    getProjectMedia(project).find((item) => item.type === "video")?.src ??
+    (project.video?.trim() || undefined)
+  );
+}
+
 export function getProjectPrimaryImage(project: Project): string {
   return (
     getProjectMedia(project).find((item) => item.type === "image")?.src ??

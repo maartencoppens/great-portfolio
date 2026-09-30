@@ -25,12 +25,7 @@ const projects = defineCollection({
     date: s.string(),
     githubLink: s.string().url().optional(),
     link: s.string().url().optional(),
-    category: s.enum([
-      "Web Development",
-      "Creative Technology",
-      "Internet Of Things",
-      "AI & Automation",
-    ]),
+    category: s.enum(["Web", "Creative tech", "IoT", "AI & automation"]),
     body: s.mdx(),
   }),
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useCallback, useEffect, useState } from "react";
+import { startTransition, useCallback, useState } from "react";
 import Preloader from "./Preloader";
 import { usePageReady } from "@/app/lib/pageReady";
 
@@ -11,7 +11,6 @@ export default function PreloaderGate({
 }) {
   const [loading, setLoading] = useState(true);
   const { ready } = usePageReady();
-  console.log;
 
   const handleComplete = useCallback(() => {
     startTransition(() => {

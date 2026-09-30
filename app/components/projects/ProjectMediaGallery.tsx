@@ -67,6 +67,7 @@ export default function ProjectMediaGallery({
               src={activeMedia.src}
               alt={activeMedia.alt ?? `Preview of ${projectTitle}`}
               fill
+              unoptimized={process.env.NODE_ENV === "development"}
               sizes="(min-width: 1280px) 960px, (min-width: 1024px) 70vw, 100vw"
               className="object-cover"
             />
@@ -136,6 +137,7 @@ export default function ProjectMediaGallery({
                     src={item.src}
                     alt={item.alt ?? `${projectTitle} media ${index + 1}`}
                     fill
+                    unoptimized={process.env.NODE_ENV === "development"}
                     sizes="120px"
                     className="object-cover"
                   />

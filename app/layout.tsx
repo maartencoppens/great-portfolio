@@ -128,7 +128,9 @@ export default function RootLayout({
             <Navbar />
             <div id="smooth-wrapper">
               <div id="smooth-content">
-                <main className="pt-20 pb-xl md:pt-24">{children}</main>
+                <main className="min-h-svh pt-20 pb-xl md:pt-24">
+                  {children}
+                </main>
                 <Footer />
               </div>
             </div>

@@ -5,7 +5,10 @@ import SmallInfoCard from "../components/cards/SmallInfoCard";
 import Text from "../components/typography/Text";
 import Button from "../components/Button";
 import { gsap } from "@/app/lib/gsap";
-import { getProjectPrimaryImage } from "@/app/lib/projectMedia";
+import {
+  getProjectPrimaryImage,
+  getProjectPreviewVideo,
+} from "@/app/lib/projectMedia";
 import type { Project } from "@/types/types";
 
 export default function ProjectCardAnimation({
@@ -84,7 +87,7 @@ export default function ProjectCardAnimation({
         Work
       </Text.Header>
 
-      <div className="cards relative w-full m-xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-m lg:gap-l">
+      <div className="grid grid-cols-1 gap-x-l gap-y-xl md:grid-cols-2 xl:grid-cols-3 lg:gap-y-2xl">
         {visible.map((project, i) => {
           const primaryImage = getProjectPrimaryImage(project);
 
@@ -101,6 +104,10 @@ export default function ProjectCardAnimation({
                 description={project.shortDescription}
                 imageUrl={primaryImage}
                 technologies={project.tags}
+                client={project.client}
+                date={project.date}
+                videoUrl={getProjectPreviewVideo(project)}
+                priority={true} // Prioritize the first three images for loading but only 3 shown so always true
               />
             </div>
           );
