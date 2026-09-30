@@ -182,7 +182,7 @@ const ProjectCard = ({
 
           <span
             aria-hidden="true"
-            className="mt-auto inline-flex w-fit items-center rounded-4xl border-2 border-text-primary px-l py-xs pt-xs transition-colors duration-300 group-hover:border-accent-primary group-hover:bg-accent-primary group-hover:text-text-secondary"
+            className="mt-auto inline-flex w-fit items-center rounded-4xl border-2 border-text-primary px-l py-xs transition-colors duration-300 group-hover:border-accent-primary group-hover:text-accent-primary"
           >
             <Text.Button>View project</Text.Button>
           </span>
