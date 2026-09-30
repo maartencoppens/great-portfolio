@@ -24,7 +24,7 @@ export default function ProjectCardAnimation({
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const offsets = [80, -30, 120];
+      const offsets = [80, 0, 120];
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1280px)", () => {
@@ -76,18 +76,23 @@ export default function ProjectCardAnimation({
   return (
     <section
       ref={sectionRef}
-      className="container min-h-screen flex flex-col items-center pt-2xl justify-start overflow-hidden"
+      className="container flex flex-col items-center gap-2xl overflow-hidden py-2xl"
     >
-      <SmallInfoCard content="Projects" />
-      <Text.Header className="pt-s text-section-title font-bold">
-        My{" "}
-        <span ref={recentWordRef} className="text-accent-primary inline-block">
-          Recent
-        </span>{" "}
-        Work
-      </Text.Header>
+      <div className="flex flex-col items-center gap-s">
+        <SmallInfoCard content="Projects" />
+        <Text.Header className="text-section-title font-bold">
+          My{" "}
+          <span
+            ref={recentWordRef}
+            className="inline-block text-accent-primary"
+          >
+            Recent
+          </span>{" "}
+          Work
+        </Text.Header>
+      </div>
 
-      <div className="grid grid-cols-1 gap-x-l gap-y-xl md:grid-cols-2 xl:grid-cols-3 lg:gap-y-2xl">
+      <div className="cards relative grid w-full grid-cols-1 gap-x-l gap-y-xl md:grid-cols-2 xl:grid-cols-3">
         {visible.map((project, i) => {
           const primaryImage = getProjectPrimaryImage(project);
 
@@ -114,7 +119,7 @@ export default function ProjectCardAnimation({
         })}
       </div>
 
-      <div className="w-full flex justify-center pt-xs">
+      <div className="w-full flex justify-center pt-lg">
         <Button
           label="View All Projects"
           href="/projects"
