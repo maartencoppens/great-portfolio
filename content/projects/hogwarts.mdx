@@ -10,6 +10,7 @@ client: "School project — Technology 3"
 tags: ["React Three Fiber", "Rapier", "Blender", "GSAP"]
 link: "https://hogwarts.maartencoppens.be/"
 image: "/mockups/hogwarts/hogwarts-1.webp"
+github: "https://github.com/maartencoppens/Story-map"
 media:
   - type: video
     src: "/mockups/hogwarts/hogwarts.mp4"
@@ -52,6 +53,26 @@ The biggest hurdle was the modelling itself. Blender wasn't part of the course, 
 **Keeping it small.** I exported the models with Draco compression to cut down the download size, since a detailed castle quickly becomes too heavy to load on the web.
 
 **Building the experience.** The scene runs in React Three Fiber, with drei for helpers and Rapier for physics. Camera movement is animated with GSAP.
+
+<ImageGrid
+crop
+  caption="Behind the scenes images of the 3D modeling"
+  images={[
+    {
+      src: "/mockups/hogwarts/bts-2.webp",
+      alt: 'Began the walls of "the Great Hall"',
+    },
+    {
+      src: "/mockups/hogwarts/bts-3.webp",
+      alt: "Finalized my first building and tower",
+    },
+    {
+      src: "/mockups/hogwarts/bts-1.webp",
+      alt: "Full Castle with HDRI",
+    },
+
+]}
+/>
 
 ## Key Features
 

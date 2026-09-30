@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Text from "../components/typography/Text";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/app/lib/gsap";
 import Link from "next/link";
 import Button from "../components/Button";
@@ -15,7 +15,7 @@ const chapters = [
       "Most of my work lives in a browser. The work I love most doesn't. For the Floraliën in Ghent, I built a telescope that let visitors hunt for real exoplanets, ten days long. For the Huis van Kina, a museum piece where you make stones out of water, fire and pressure.",
     ],
     image: {
-      src: "/about/floralien.jpg",
+      src: "/about/floralien.webp",
       alt: "The Exoplanet Explorer installation: a telescope aimed at a projected night sky",
     },
     caption: {
@@ -36,7 +36,7 @@ const chapters = [
       external: true,
     },
     image: {
-      src: "/about/concert.jpg",
+      src: "/about/concert.webp",
       alt: "Maarten playing bass on stage during a concert",
       position: "58% center",
     },
@@ -70,13 +70,16 @@ const Tools = () => (
         <dt>
           <Text.Small className="text-text-tertiary">{group.label}</Text.Small>
         </dt>
-        <dd>
+        <dd className="min-w-0">
           <Text.Body>
             {group.tools.map((tool, i) => (
-              <span key={tool} className="whitespace-nowrap">
-                {tool}
-                {i < group.tools.length - 1 ? ", " : ""}
-              </span>
+              <Fragment key={tool}>
+                <span className="whitespace-nowrap">
+                  {tool}
+                  {i < group.tools.length - 1 ? "," : ""}
+                </span>
+                {i < group.tools.length - 1 ? " " : ""}
+              </Fragment>
             ))}
           </Text.Body>
         </dd>

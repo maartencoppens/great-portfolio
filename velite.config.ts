@@ -23,7 +23,7 @@ const projects = defineCollection({
     client: s.string(),
     tags: s.array(s.string()),
     date: s.string(),
-    githubLink: s.string().url().optional(),
+    github: s.string().url().optional(),
     link: s.string().url().optional(),
     category: s.enum(["Web", "Creative tech", "IoT", "AI & automation"]),
     body: s.mdx(),

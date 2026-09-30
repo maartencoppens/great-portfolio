@@ -134,15 +134,35 @@ export default async function ProjectDetailPage({
               ))}
             </div>
           </div>
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:inline-flex text-accent-primary hover:underline"
-            >
-              <span>View Project</span>
-            </a>
+          {(project.link || project.github) && (
+            <div className="flex flex-wrap gap-s border-t border-black/10 pt-m">
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-4xl bg-accent-primary px-l py-s text-text-secondary transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+                >
+                  <Text.Button>
+                    Visit live site
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </Text.Button>
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-4xl border-2 border-text-primary px-l py-s transition-colors duration-200 hover:border-accent-primary hover:text-accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+                >
+                  <Text.Button>
+                    View code on GitHub
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </Text.Button>
+                </a>
+              )}
+            </div>
           )}
         </aside>
       </div>

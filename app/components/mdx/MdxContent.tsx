@@ -10,6 +10,7 @@ import Image from "next/image";
 import ImageGrid from "@/app/components/mdx/ImageGrid";
 import Video from "@/app/components/mdx/Video";
 import Img from "@/app/components/mdx/Image";
+import VideoGrid from "@/app/components/mdx/VideoGrid";
 
 type Children = { children?: ReactNode };
 
@@ -42,12 +43,13 @@ function MdxImage({
   );
 }
 
-const blockContentTypes = [MdxImage, ImageGrid, Video];
+const blockContentTypes = [MdxImage, ImageGrid, Video, VideoGrid];
 
 const sharedComponents = {
   ImageGrid,
   Img,
   Video,
+  VideoGrid,
   h2: ({ children }: Children) => (
     <Text.SubHeader as="h2" className="pt-xl pb-s">
       {children}

@@ -3,7 +3,8 @@ slug: onderdruk
 title: "OnderDruk"
 shortDescription: "An interactive museum installation for the Huis van Kina in Ghent, where visitors combine water, fire, time, temperature and pressure to create stones."
 order: 3
-image: "/mockups/onderdruk.png"
+image: "/mockups/onderdruk/onderdruk.webp"
+github: "https://github.com/maartencoppens/installatie-kina"
 role: "Backend Developer"
 client: "School project — Huis van Kina, Ghent"
 tags: ["Node.js", "TypeScript", "WebSocket", "Raspberry Pi", "Arduino"]
@@ -21,9 +22,38 @@ I built most of the technical chain behind the installation, from the buttons to
 - **Backend.** My Node.js server on the Pi parses the Arduino's messages into the current state of the game and compares it with a dataset of stones, each defined by its combination of water, fire, time, temperature and pressure. When a stone matches, it sends a command back to the Arduino to light up that stone's compartment.
 - **Frontend logic.** On the screen, I connected the React interface to the server over a WebSocket, so every change on the control panel immediately updates what visitors see.
 
+<ImageGrid
+  crop
+  caption="Behind the scenes images of the hardware testing"
+  images={[
+    {
+      src: "/mockups/onderdruk/bts-2.webp",
+      alt: 'Began the walls of "the Great Hall"',
+    },
+    {
+      src: "/mockups/onderdruk/bts-3.webp",
+      alt: "Finalized my first building and tower",
+    },
+    {
+      src: "/mockups/onderdruk/bts-1.webp",
+      alt: "Full Castle with HDRI",
+    },
+  ]}
+/>
+
 ## Built to Run on Its Own
 
 A museum installation has to work every day without a developer nearby. On the Raspberry Pi, the server starts automatically as a system service, and the screen only opens in kiosk mode once the server is running. When the screen connects, the server immediately sends the current state, so the display always shows the right information, even after a restart.
+
+<VideoGrid
+  autoplay
+  portrait
+  caption="Testing the control panel and the stone tower."
+  videos={[
+    { src: "/mockups/onderdruk/testing-1.mp4" },
+    { src: "/mockups/onderdruk/testing-2.mp4" },
+  ]}
+/>
 
 ## The Challenge
 

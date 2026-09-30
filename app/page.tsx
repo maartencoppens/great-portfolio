@@ -5,7 +5,6 @@ import { gsap } from "@/app/lib/gsap";
 import Text from "./components/typography/Text";
 import SplitType from "split-type";
 import ProjectCardAnimation from "./sections/ProjectCardAnimation";
-import BentoGrid from "./sections/BentoGrid";
 import SmallInfoCard from "./components/cards/SmallInfoCard";
 import dynamic from "next/dynamic";
 import AboutStory from "./sections/AboutStory";
