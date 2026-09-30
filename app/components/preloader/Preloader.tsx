@@ -5,9 +5,23 @@ import SplitType from "split-type";
 import Text from "../typography/Text";
 import { usePageReady } from "@/app/lib/pageReady";
 
+const SEEN_KEY = "intro-seen";
+
+function shouldSkipIntro() {
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  try {
+    return reduceMotion || sessionStorage.getItem(SEEN_KEY) === "1";
+  } catch {
+    return reduceMotion;
+  }
+}
+
 export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const skipRef = useRef(false);
 
   const { ready } = usePageReady();
   const [introDone, setIntroDone] = useState(false);
@@ -15,7 +29,13 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     if (!overlayRef.current) return;
-
+    skipRef.current = shouldSkipIntro();
+    if (skipRef.current) {
+      const call = gsap.delayedCall(0, () => setIntroDone(true));
+      return () => {
+        call.kill();
+      };
+    }
     const ctx = gsap.context(() => {
       const splitTitle = new SplitType(".title", { types: "chars" });
       const splitSubtitle = new SplitType(".subtitle", { types: "chars" });
@@ -72,7 +92,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     hasExited.current = true;
     gsap.to(overlayRef.current, {
       autoAlpha: 0,
-      duration: 0.35,
+      duration: skipRef.current ? 0.2 : 0.35,
       ease: "power1.out",
       onComplete,
     });
