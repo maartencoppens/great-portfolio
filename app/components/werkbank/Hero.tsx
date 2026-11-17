@@ -250,7 +250,7 @@ const giantBase: React.CSSProperties = {
 };
 
 const styles: Record<string, React.CSSProperties> = {
-  page: { position: 'relative', background: '#0a0a0a' },
+  page: { position: 'relative', background: 'var(--stage-base)' },
   hero: { position: 'relative', height: '100svh', overflow: 'hidden' },
   below: { minHeight: '100svh', padding: '18vh 6vw', boxSizing: 'border-box', borderTop: '1px solid #1d1a22' },
   belowLabel: { margin: 0, color: '#6d6676', font: '600 13px var(--font-body), sans-serif', letterSpacing: '0.12em', textTransform: 'uppercase' },

@@ -7,7 +7,7 @@ import { COLORS } from './scene/config';
 
 function HeroFallback() {
   return (
-    <section aria-label="Intro" style={{ position: 'relative', height: '100svh', overflow: 'hidden', background: '#0a0a0a' }}>
+    <section aria-label="Intro" style={{ position: 'relative', height: '100svh', overflow: 'hidden', background: 'var(--stage-base)' }}>
       <h1
         aria-label="Maarten Coppens"
         style={{

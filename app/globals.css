@@ -13,10 +13,15 @@
   --pastel-purple: #c8a0ea;
   --pastel-purple-light: rgba(200, 160, 234, 0.4);
   --cream: #f3ead8; /* papier: tekst en grote titels op donker */
-  --stage-raised: #16131c; /* iets lichter dan de achtergrond: footer, vlakken */
-  --stage-card: #1d1925; /* kaarten en plaatshouders voor beeld */
-  --stage-muted: #9d96a8; /* gedempte tekst */
-  --purple-ink: #b27cff; /* paarse tekst op donker */
+  /* Dark mode volgens de vuistregels: geen puur zwart, diepte via lichtere vlakken,
+     gebroken wit voor tekst, rustiger paars. Alle tekst haalt minstens 4,5:1 contrast. */
+  --stage-base: #131118; /* achtergrond: donkergrijs met een vleugje paars */
+  --stage-raised: #1b1821; /* één niveau hoger: footer, vlakken */
+  --stage-card: #231f2a; /* twee niveaus hoger: kaarten, velden, plaatshouders */
+  --stage-text: #ede5d6; /* gebroken wit, 15:1 op de achtergrond */
+  --stage-muted: #a39cae; /* gedempte tekst, 7:1 */
+  --purple-ink: #b48aff; /* paarse tekst, 7:1 */
+  --purple-button: #8a3ffc; /* knoppen: minder fel dan het neonpaars, witte tekst 5:1 */
 
   /* Spacing primitives */
   --space-8: 0.5rem;
@@ -46,24 +51,24 @@
   --type-hero-line: 3.5rem;
 
   /* Theme */
-  --background: var(--black);
-  --foreground: var(--cream);
+  --background: var(--stage-base);
+  --foreground: var(--stage-text);
   color-scheme: dark;
 }
 
 @theme inline {
   /* Color tokens */
   /* Dark mode: de hele site staat op het podium van de werkbank-hero */
-  --color-bg-primary: var(--black);
+  --color-bg-primary: var(--stage-base);
   --color-bg-secondary: var(--stage-raised);
   --color-bg-tertiary: var(--stage-card);
-  --color-text-primary: var(--cream);
+  --color-text-primary: var(--stage-text);
   --color-text-secondary: var(--white);
   --color-text-tertiary: var(--stage-muted);
-  --color-accent-primary: var(--dark-purple);
+  --color-accent-primary: var(--purple-button);
   --color-accent-ink: var(--purple-ink); /* paars voor tekst op donker (leesbaar contrast) */
   --color-accent-secondary: var(--pastel-purple);
-  --color-stage: var(--black);
+  --color-stage: var(--stage-base);
   --color-paper: var(--cream);
   --font-display-xl: var(--font-anton), Impact, sans-serif;
 
