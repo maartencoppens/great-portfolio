@@ -27,7 +27,7 @@ const Button = ({
       ? "bg-accent-primary text-text-secondary shadow-[0_8px_20px_var(--pastel-purple-light)]"
       : variant === "secondary"
         ? "border-2 border-text-primary bg-transparent text-text-primary"
-        : "border-2 border-accent-primary bg-bg-primary text-accent-primary";
+        : "border-2 border-accent-primary bg-bg-primary text-accent-ink";
 
   const hoverClassName =
     variant === "primary"

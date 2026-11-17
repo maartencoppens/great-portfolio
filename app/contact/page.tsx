@@ -85,7 +85,7 @@ const Contact = () => {
       <div className="flex justify-center items-center flex-col gap-s">
         <SmallInfoCard content="Get in touch" />
         <Text.Header as="h1" className="pt-s">
-          <span className="text-accent-primary text-center">Let&apos;s </span>
+          <span className="text-accent-ink text-center">Let&apos;s </span>
           create something amazing
         </Text.Header>
       </div>
@@ -93,7 +93,7 @@ const Contact = () => {
         <form
           method="POST"
           onSubmit={handleSubmit}
-          className="flex flex-col gap-l w-full md:w-3/4 lg:w-1/2 bg-bg-tertiary p-l sm:p-xl rounded-xl border border-black/5"
+          className="flex flex-col gap-l w-full md:w-3/4 lg:w-1/2 bg-bg-tertiary p-l sm:p-xl rounded-xl border border-white/5"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-m">
             <div className="flex flex-col gap-xs">
@@ -109,7 +109,7 @@ const Contact = () => {
                 autoComplete="name"
                 required
                 placeholder="John Doe"
-                className="bg-bg-primary px-m py-s rounded-md border border-black/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
+                className="bg-bg-primary px-m py-s rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
               />
             </div>
 
@@ -126,7 +126,7 @@ const Contact = () => {
                 autoComplete="email"
                 required
                 placeholder="john.doe@example.com"
-                className="bg-bg-primary px-m py-s rounded-md border border-black/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
+                className="bg-bg-primary px-m py-s rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
               />
             </div>
           </div>
@@ -141,7 +141,7 @@ const Contact = () => {
               type="text"
               autoComplete="off"
               placeholder="Portfolio, landing page, webshop..."
-              className="bg-bg-primary px-m py-s rounded-md border border-black/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
+              className="bg-bg-primary px-m py-s rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50"
             />
           </div>
 
@@ -159,7 +159,7 @@ const Contact = () => {
               required
               onChange={(event) => setMessageLength(event.target.value.length)}
               placeholder="Tell me about your project goals, timeline, and budget range."
-              className="bg-bg-primary px-m py-s rounded-md border border-black/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50 resize-y"
+              className="bg-bg-primary px-m py-s rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent-primary/50 resize-y"
             ></textarea>
             <Text.Small
               as="p"
@@ -174,7 +174,7 @@ const Contact = () => {
             </Text.Small>
           </div>
 
-          <div className="flex flex-col gap-s pt-xs border-t border-black/10 justify-center items-center">
+          <div className="flex flex-col gap-s pt-xs border-t border-white/10 justify-center items-center">
             <Text.Small className="text-sm text-text-tertiary leading-relaxed">
               By sending this form, you agree to be contacted about your
               request.

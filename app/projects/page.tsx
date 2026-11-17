@@ -60,7 +60,7 @@ const Projects = () => {
       <div
         role="group"
         aria-label="Filter projects by category"
-        className="flex flex-wrap gap-x-l gap-y-xs border-b border-black/10"
+        className="flex flex-wrap gap-x-l gap-y-xs border-b border-white/10"
       >
         {visibleCategories.map((category) => {
           const isActive = activeCategory === category;

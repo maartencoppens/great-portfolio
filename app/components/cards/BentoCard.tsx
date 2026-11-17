@@ -20,11 +20,11 @@ type BentoCardProps = {
 };
 
 const toneClassMap: Record<BentoTone, string> = {
-  default: "border-black/10 bg-bg-primary",
-  soft: "border-black/5 bg-bg-tertiary",
+  default: "border-white/10 bg-bg-primary",
+  soft: "border-white/5 bg-bg-tertiary",
   accent:
     "border-accent-primary/20 bg-[linear-gradient(145deg,rgba(152,16,250,0.08),rgba(200,160,234,0.08)_55%,rgba(255,255,255,0)_100%)]",
-  inverted: "border-black/20 bg-bg-secondary text-text-secondary",
+  inverted: "border-white/20 bg-bg-secondary text-text-secondary",
 };
 
 const BentoCard = ({

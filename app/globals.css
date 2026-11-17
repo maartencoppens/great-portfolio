@@ -12,7 +12,11 @@
   --dark-purple: #9810fa;
   --pastel-purple: #c8a0ea;
   --pastel-purple-light: rgba(200, 160, 234, 0.4);
-  --cream: #f3ead8; /* papier: grote titels op donker (werkbank-hero) */
+  --cream: #f3ead8; /* papier: tekst en grote titels op donker */
+  --stage-raised: #16131c; /* iets lichter dan de achtergrond: footer, vlakken */
+  --stage-card: #1d1925; /* kaarten en plaatshouders voor beeld */
+  --stage-muted: #9d96a8; /* gedempte tekst */
+  --purple-ink: #b27cff; /* paarse tekst op donker */
 
   /* Spacing primitives */
   --space-8: 0.5rem;
@@ -42,19 +46,22 @@
   --type-hero-line: 3.5rem;
 
   /* Theme */
-  --background: var(--white);
-  --foreground: var(--black);
+  --background: var(--black);
+  --foreground: var(--cream);
+  color-scheme: dark;
 }
 
 @theme inline {
   /* Color tokens */
-  --color-bg-primary: var(--white);
-  --color-bg-secondary: var(--black);
-  --color-bg-tertiary: var(--grey);
-  --color-text-primary: var(--black);
+  /* Dark mode: de hele site staat op het podium van de werkbank-hero */
+  --color-bg-primary: var(--black);
+  --color-bg-secondary: var(--stage-raised);
+  --color-bg-tertiary: var(--stage-card);
+  --color-text-primary: var(--cream);
   --color-text-secondary: var(--white);
-  --color-text-tertiary: var(--grey-blue);
+  --color-text-tertiary: var(--stage-muted);
   --color-accent-primary: var(--dark-purple);
+  --color-accent-ink: var(--purple-ink); /* paars voor tekst op donker (leesbaar contrast) */
   --color-accent-secondary: var(--pastel-purple);
   --color-stage: var(--black);
   --color-paper: var(--cream);

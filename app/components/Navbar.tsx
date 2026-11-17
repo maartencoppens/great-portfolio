@@ -160,22 +160,22 @@ const Navbar = () => {
           aria-label="Toggle navigation menu"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 md:hidden"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <span className="relative block h-4 w-5">
             <span
-              className={`absolute left-0 top-0 h-0.5 w-5 bg-black transition-transform duration-200 ${
+              className={`absolute left-0 top-0 h-0.5 w-5 bg-text-primary transition-transform duration-200 ${
                 isOpen ? "translate-y-1.75 rotate-45" : ""
               }`}
             />
             <span
-              className={`absolute left-0 top-1.75 h-0.5 w-5 bg-black transition-opacity duration-200 ${
+              className={`absolute left-0 top-1.75 h-0.5 w-5 bg-text-primary transition-opacity duration-200 ${
                 isOpen ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`absolute left-0 top-3.5 h-0.5 w-5 bg-black transition-transform duration-200 ${
+              className={`absolute left-0 top-3.5 h-0.5 w-5 bg-text-primary transition-transform duration-200 ${
                 isOpen ? "-translate-y-1.75 -rotate-45" : ""
               }`}
             />
@@ -185,7 +185,7 @@ const Navbar = () => {
 
       <div
         id="mobile-menu"
-        className={`overflow-hidden border-t border-black/5 bg-bg-primary transition-[max-height,opacity] duration-300 md:hidden ${
+        className={`overflow-hidden border-t border-white/5 bg-bg-primary transition-[max-height,opacity] duration-300 md:hidden ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -197,8 +197,8 @@ const Navbar = () => {
               aria-current={isActiveRoute(link.href) ? "page" : undefined}
               className={`px-s py-xs text-body transition-colors rounded-l duration-200 ${
                 isActiveRoute(link.href)
-                  ? "bg-black text-white"
-                  : "text-text-primary/80 hover:bg-black/5"
+                  ? "bg-text-primary text-bg-primary"
+                  : "text-text-primary/80 hover:bg-white/5"
               }`}
               onClick={() => setIsOpen(false)}
             >

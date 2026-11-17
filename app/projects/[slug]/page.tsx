@@ -83,7 +83,7 @@ export default async function ProjectDetailPage({
     <section className="container pb-l pt-m md:pt-l">
       <Link
         href="/projects"
-        className="inline-flex items-center text-accent-primary hover:underline"
+        className="inline-flex items-center text-accent-ink hover:underline"
       >
         <span>← All projects</span>
       </Link>
@@ -107,7 +107,7 @@ export default async function ProjectDetailPage({
           </Text.SubHeader>
           <div className="pb-m">
             <Text.Body className="pb-xs">Date</Text.Body>
-            <Text.Body className="text-accent-primary">
+            <Text.Body className="text-accent-ink">
               {new Date(project.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -116,13 +116,13 @@ export default async function ProjectDetailPage({
           </div>
           <div className="pb-m">
             <Text.Body className="pb-xs">Client</Text.Body>
-            <Text.Body className="text-accent-primary">
+            <Text.Body className="text-accent-ink">
               {project.client}
             </Text.Body>
           </div>
           <div className="pb-m">
             <Text.Body className="pb-xs">Role</Text.Body>
-            <Text.Body className="text-accent-primary">
+            <Text.Body className="text-accent-ink">
               {project.role}
             </Text.Body>
           </div>
@@ -135,7 +135,7 @@ export default async function ProjectDetailPage({
             </div>
           </div>
           {(project.link || project.github) && (
-            <div className="flex flex-wrap gap-s border-t border-black/10 pt-m">
+            <div className="flex flex-wrap gap-s border-t border-white/10 pt-m">
               {project.link && (
                 <a
                   href={project.link}
@@ -154,7 +154,7 @@ export default async function ProjectDetailPage({
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-4xl border-2 border-text-primary px-l py-s transition-colors duration-200 hover:border-accent-primary hover:text-accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
+                  className="inline-flex items-center rounded-4xl border-2 border-text-primary px-l py-s transition-colors duration-200 hover:border-accent-primary hover:text-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2"
                 >
                   <Text.Button>
                     View code on GitHub

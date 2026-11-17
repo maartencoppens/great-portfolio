@@ -84,7 +84,7 @@ export default function ProjectCardAnimation({
           My{" "}
           <span
             ref={recentWordRef}
-            className="inline-block text-accent-primary"
+            className="inline-block text-accent-ink"
           >
             Recent
           </span>{" "}

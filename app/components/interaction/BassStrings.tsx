@@ -101,7 +101,7 @@ const PluckStrings = () => {
       <svg
         ref={svgRef}
         height={PLUCK_HEIGHT}
-        className="w-full touch-pan-y overflow-visible text-accent-primary/60"
+        className="w-full touch-pan-y overflow-visible text-accent-ink/60"
         onPointerMove={handleMove}
         onPointerLeave={() => (sim.current.lastY = null)}
         onPointerDown={handleDown}

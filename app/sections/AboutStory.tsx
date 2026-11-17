@@ -61,11 +61,11 @@ const toolGroups = [
 ];
 
 const Tools = () => (
-  <dl className="border-t border-black/10">
+  <dl className="border-t border-white/10">
     {toolGroups.map((group) => (
       <div
         key={group.label}
-        className="grid grid-cols-[7rem_1fr] items-baseline gap-m border-b border-black/10 py-s"
+        className="grid grid-cols-[7rem_1fr] items-baseline gap-m border-b border-white/10 py-s"
       >
         <dt>
           <Text.Small className="text-text-tertiary">{group.label}</Text.Small>
@@ -260,7 +260,7 @@ const AboutStory = () => {
                         {...(chapter.link.external
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
-                        className="mt-xs w-fit underline decoration-accent-primary/40 underline-offset-4 transition-colors hover:text-accent-primary hover:decoration-accent-primary"
+                        className="mt-xs w-fit underline decoration-accent-ink/40 underline-offset-4 transition-colors hover:text-accent-ink hover:decoration-accent-ink"
                       >
                         <Text.Body as="span">{chapter.link.label}</Text.Body>
                       </Link>
@@ -274,7 +274,7 @@ const AboutStory = () => {
           })}
         </div>
       </div>
-      <div className="mt-2xl flex flex-col items-start gap-l border-t border-black/10 pt-2xl lg:flex-row lg:items-end lg:justify-between">
+      <div className="mt-2xl flex flex-col items-start gap-l border-t border-white/10 pt-2xl lg:flex-row lg:items-end lg:justify-between">
         <Text.Header as="p" className="max-w-[16ch] text-balance">
           Got an idea that deserves to exist outside a screen?
         </Text.Header>

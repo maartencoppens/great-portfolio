@@ -94,7 +94,7 @@ const ProjectCard = ({
       onBlur={stopPreview}
     >
       <article className="h-full flex flex-col gap-m justify-between">
-        <div className="relative aspect-3/2 w-full overflow-hidden rounded-lg bg-bg-tertiary ring-1 ring-inset ring-black/5">
+        <div className="relative aspect-3/2 w-full overflow-hidden rounded-lg bg-bg-tertiary ring-1 ring-inset ring-white/10">
           <Image
             key={`image-${slug}`}
             priority={priority}
@@ -158,7 +158,7 @@ const ProjectCard = ({
         </div>
         <div className="flex flex-1 flex-col gap-xs">
           <div className="flex items-baseline justify-between gap-s">
-            <Text.SubHeader className="transition-colors duration-200 group-hover:text-accent-primary">
+            <Text.SubHeader className="transition-colors duration-200 group-hover:text-accent-ink">
               {title}
             </Text.SubHeader>
             {year && (
@@ -182,7 +182,7 @@ const ProjectCard = ({
 
           <span
             aria-hidden="true"
-            className="mt-auto inline-flex w-fit items-center rounded-4xl border-2 border-text-primary px-l py-xs transition-colors duration-300 group-hover:border-accent-primary group-hover:text-accent-primary"
+            className="mt-auto inline-flex w-fit items-center rounded-4xl border-2 border-text-primary px-l py-xs transition-colors duration-300 group-hover:border-accent-primary group-hover:text-accent-ink"
           >
             <Text.Button>View project</Text.Button>
           </span>

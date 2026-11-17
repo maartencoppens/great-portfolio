@@ -97,7 +97,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf9f6",
+  themeColor: "#0a0a0a",
 };
 
 const cabinetGrotesk = localFont({
