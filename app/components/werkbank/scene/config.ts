@@ -135,7 +135,8 @@ export const SCENES: Record<SceneKey, SceneConfig> = {
   F: { naam: 'Cat', lamp: { color: '#ffd9a8', intensity: 9 }, ambient: 0.25, led: '#ff9ad5', record: false,
     props: { coffee: 'omver', pootjes: true, palleyOmver: true } },
   G: { naam: 'Night', lamp: { color: '#9fb4ff', intensity: 2.5 }, ambient: 0.03, led: '#ffffff', record: false,
-    props: { coffee: 'leeg', laptop: 'screensaver' } },
+    // Geen screensaver meer: 's nachts kiest de site deze scene automatisch, en dan zag de laptop er 'leeg' uit
+    props: { coffee: 'leeg' } },
   H: { naam: 'Deadline', lamp: { color: '#e8f1ff', intensity: 10 }, ambient: 0.35, led: '#fff27a', record: false,
     props: { coffee: 'leeg', extraTassen: 3, postits: true, papieren: true } },
 };
