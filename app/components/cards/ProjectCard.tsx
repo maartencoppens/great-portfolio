@@ -157,7 +157,10 @@ const ProjectCard = ({
         </div>
         <div className="flex flex-1 flex-col gap-xs">
           <div className="flex items-baseline justify-between gap-s">
-            <Text.SubHeader className="transition-colors duration-200 group-hover:text-accent-ink">
+            <Text.SubHeader
+              className="transition-colors duration-200 group-hover:text-accent-ink"
+              style={{ fontSize: "clamp(1.5rem, 2.2vw, 2rem)" }}
+            >
               {title}
             </Text.SubHeader>
             {year && (

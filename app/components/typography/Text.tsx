@@ -41,6 +41,9 @@ const Text = {
   ),
   Small: (props: TextProps) => <BaseText type="small" as="span" {...props} />,
   Label: (props: TextProps) => <BaseText type="label" as="span" {...props} />,
+  Eyebrow: (props: TextProps) => (
+    <BaseText type="eyebrow" as="span" {...props} />
+  ),
   Nav: (props: TextProps) => <BaseText type="nav" as="span" {...props} />,
   Button: (props: TextProps) => <BaseText type="button" as="span" {...props} />,
 };

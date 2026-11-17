@@ -80,7 +80,7 @@ export default function ProjectCardAnimation({
     >
       <div className="flex flex-col items-center gap-s">
         <SmallInfoCard content="Projects" />
-        <Text.Header className="text-section-title font-bold">
+        <Text.Header className="text-center">
           My{" "}
           <span
             ref={recentWordRef}

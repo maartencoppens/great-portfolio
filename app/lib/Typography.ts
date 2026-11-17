@@ -1,26 +1,39 @@
 import { CSSProperties } from "react";
 
 export const typography = {
+  // Titels in dezelfde stijl als de werkbank-hero: Anton, smal, hoofdletters, strak op elkaar
   hero: {
-    fontFamily: "var(--font-display)",
-    fontSize: "clamp(2.4rem, 10vw, 7.5rem)",
-    lineHeight: 0.9,
-    letterSpacing: "-0.05em",
-    fontWeight: 800,
+    fontFamily: "var(--font-anton), Impact, sans-serif",
+    fontSize: "clamp(3.5rem, 14vw, 12rem)",
+    lineHeight: 0.85,
+    letterSpacing: "-0.005em",
+    fontWeight: 400,
+    textTransform: "uppercase",
   },
   header: {
-    fontFamily: "var(--font-display)",
-    fontSize: "clamp(1.9rem, 6vw, 4.5rem)",
-    lineHeight: 0.95,
-    letterSpacing: "-0.04em",
-    fontWeight: 700,
+    fontFamily: "var(--font-anton), Impact, sans-serif",
+    fontSize: "clamp(3rem, 9vw, 8rem)",
+    lineHeight: 0.86,
+    letterSpacing: "-0.005em",
+    fontWeight: 400,
+    textTransform: "uppercase",
   },
   subHeader: {
-    fontFamily: "var(--font-display)",
-    fontSize: "clamp(1.2rem, 3.2vw, 2.25rem)",
-    lineHeight: 1,
-    letterSpacing: "-0.03em",
+    fontFamily: "var(--font-anton), Impact, sans-serif",
+    fontSize: "clamp(1.6rem, 3.4vw, 2.6rem)",
+    lineHeight: 0.95,
+    letterSpacing: "0.005em",
+    fontWeight: 400,
+    textTransform: "uppercase",
+  },
+  // Kleine labels zoals onderaan de hero: hoofdletters met ruime letterafstand
+  eyebrow: {
+    fontFamily: "var(--font-body)",
+    fontSize: "0.8rem",
+    lineHeight: 1.2,
+    letterSpacing: "0.12em",
     fontWeight: 600,
+    textTransform: "uppercase",
   },
   body: {
     fontFamily: "var(--font-body)",

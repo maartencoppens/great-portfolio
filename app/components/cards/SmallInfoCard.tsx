@@ -19,7 +19,7 @@ const SmallInfoCard = ({
 
   return (
     <div className={`${baseClassName} ${className}`.trim()}>
-      <Text.Body>{content}</Text.Body>
+      <Text.Eyebrow>{content}</Text.Eyebrow>
     </div>
   );
 };

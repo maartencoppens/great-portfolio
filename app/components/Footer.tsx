@@ -116,6 +116,19 @@ const Footer = () => {
           © {currentYear} Maarten Coppens. Crafted with detail and care.
         </Text.Small>
       </div>
+
+      {/* De naam uit de hero sluit de pagina af, half onder de rand */}
+      <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+        <p
+          className="m-0 text-center text-text-primary/10 translate-y-[18%]"
+          style={{
+            font: "400 min(25.5vw, 60vh)/0.82 var(--font-anton), Impact, sans-serif",
+            letterSpacing: "-0.005em",
+          }}
+        >
+          MAARTEN
+        </p>
+      </div>
     </footer>
   );
 };
