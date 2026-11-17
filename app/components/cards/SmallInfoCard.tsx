@@ -3,25 +3,18 @@ import Text from "../typography/Text";
 
 type SmallInfoCardProps = {
   content: string;
-  variant?: "primary" | "secondary";
   className?: string;
 };
 
-const SmallInfoCard = ({
-  content,
-  variant,
-  className = "",
-}: SmallInfoCardProps) => {
-  const baseClassName =
-    variant === "secondary"
-      ? "w-fit px-m py-xs bg-bg-primary text-accent-ink rounded-3xl"
-      : "w-fit px-m py-xs border border-accent-secondary text-accent-ink rounded-3xl";
-
-  return (
-    <div className={`${baseClassName} ${className}`.trim()}>
-      <Text.Eyebrow>{content}</Text.Eyebrow>
-    </div>
-  );
-};
+// Label boven een grote titel: geen pil, maar een kort paars streepje en tekst in kapitalen,
+// zoals de kleine labels onderaan de werkbank-hero
+const SmallInfoCard = ({ content, className = "" }: SmallInfoCardProps) => (
+  <div
+    className={`inline-flex items-center gap-s text-accent-ink ${className}`.trim()}
+  >
+    <span aria-hidden="true" className="h-0.5 w-8 bg-current" />
+    <Text.Eyebrow>{content}</Text.Eyebrow>
+  </div>
+);
 
 export default SmallInfoCard;

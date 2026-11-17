@@ -1,4 +1,3 @@
-import SmallInfoCard from "@/app/components/cards/SmallInfoCard";
 import ProjectMediaGallery from "@/app/components/projects/ProjectMediaGallery";
 import Text from "@/app/components/typography/Text";
 import {
@@ -128,11 +127,19 @@ export default async function ProjectDetailPage({
           </div>
           <div className="pb-s">
             <Text.Body className="pb-s">Technologies</Text.Body>
-            <div className="flex gap-xs flex-wrap">
-              {project.tags.map((tag) => (
-                <SmallInfoCard key={`${project.slug}-${tag}`} content={tag} />
+            {/* Technologieën als één regel, zoals een setlist: geen losse pillen */}
+            <ul className="flex flex-wrap gap-x-s gap-y-xs">
+              {project.tags.map((tag, i) => (
+                <li key={`${project.slug}-${tag}`} className="flex items-center gap-s">
+                  {i > 0 && (
+                    <span aria-hidden="true" className="text-accent-ink">
+                      /
+                    </span>
+                  )}
+                  <Text.Eyebrow className="text-text-primary">{tag}</Text.Eyebrow>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
           {(project.link || project.github) && (
             <div className="flex flex-wrap gap-s border-t border-white/10 pt-m">

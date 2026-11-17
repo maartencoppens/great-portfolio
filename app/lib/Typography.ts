@@ -18,13 +18,13 @@ export const typography = {
     fontWeight: 400,
     textTransform: "uppercase",
   },
+  // Kleinere titels (kaarten, tussenkopjes) blijven in Cabinet Grotesk: Anton alleen voor de grote titels
   subHeader: {
-    fontFamily: "var(--font-anton), Impact, sans-serif",
-    fontSize: "clamp(1.6rem, 3.4vw, 2.6rem)",
-    lineHeight: 0.95,
-    letterSpacing: "0.005em",
-    fontWeight: 400,
-    textTransform: "uppercase",
+    fontFamily: "var(--font-display)",
+    fontSize: "clamp(1.2rem, 3.2vw, 2.25rem)",
+    lineHeight: 1,
+    letterSpacing: "-0.03em",
+    fontWeight: 600,
   },
   // Kleine labels zoals onderaan de hero: hoofdletters met ruime letterafstand
   eyebrow: {
