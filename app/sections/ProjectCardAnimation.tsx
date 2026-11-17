@@ -112,7 +112,7 @@ export default function ProjectCardAnimation({
                 client={project.client}
                 date={project.date}
                 videoUrl={getProjectPreviewVideo(project)}
-                priority={true} // Prioritize the first three images for loading but only 3 shown so always true
+                priority={false} // de hero is het belangrijkste beeld; deze foto's laden pas als ze bijna in beeld komen
               />
             </div>
           );

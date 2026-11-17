@@ -12,7 +12,8 @@ export default function SmoothScrollProvider() {
       ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
         content: "#smooth-content",
-        smooth: 1.5,
+        smooth: 1, // korter = minder vertraging tussen scrollwiel en beeld
+        smoothTouch: false,
         effects: true,
       });
     }
@@ -27,16 +28,22 @@ export default function SmoothScrollProvider() {
       : null;
 
     if (smoother) {
-      smoother.scrollTo(target ?? 0, false);
+      smoother.scrollTo(0, false);
     } else {
-      if (target) {
-        target.scrollIntoView();
-      } else {
-        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      }
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
 
     ScrollTrigger.refresh();
+
+    // Een link als /#about: pas scrollen als de pagina en de pin-secties hun hoogte hebben
+    if (!target) return;
+    const id = window.setTimeout(() => {
+      ScrollTrigger.refresh();
+      const current = ScrollSmoother.get();
+      if (current) current.scrollTo(target, false, "top top");
+      else target.scrollIntoView();
+    }, 150);
+    return () => window.clearTimeout(id);
   }, [pathname]);
 
   return null;

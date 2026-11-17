@@ -115,7 +115,7 @@ export default function Scene(p: SceneProps) {
       style={{ position: 'absolute', inset: 0 }}
       frameloop={p.active ? 'always' : 'never'}
       shadows={{ type: THREE.PCFShadowMap }}
-      dpr={high ? (portrait ? [1, 1.5] : [1, 2]) : 1}
+      dpr={high ? [1, 1.5] : 1} // 2x op een retina-scherm kost 78% meer pixels, met scherptediepte bijna onzichtbaar
       gl={{ antialias: !high, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, powerPreference: 'high-performance' }}
       camera={{ fov: camera.fov, position: [0, 0.7, 1] }}
     >
@@ -138,7 +138,7 @@ export default function Scene(p: SceneProps) {
       </Suspense>
       <PerfGuard quality={p.quality} revealed={p.revealed} onDrop={p.onQualityDrop} />
       {high && (
-        <EffectComposer multisampling={portrait ? 0 : 4}>
+        <EffectComposer multisampling={portrait ? 0 : 2}>
           {/* Scherp van Quad Cortex tot laptop; alleen de voorste rand en de verte vervagen */}
           <DepthOfField
             worldFocusDistance={zoomed ? 0.6 : camera.distance}

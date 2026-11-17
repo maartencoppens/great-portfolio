@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "./Button";
 import Text from "./typography/Text";
-import { gsap } from "@/app/lib/gsap";
+import { gsap, ScrollSmoother, ScrollTrigger } from "@/app/lib/gsap";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,18 +14,45 @@ const Navbar = () => {
   const brandName = "Maarten Coppens";
   // Op de homepagina staat de Navbar transparant over de donkere werkbank-hero
   const [onHero, setOnHero] = useState(pathname === "/");
+  // About is geen aparte pagina maar de laatste sectie van de homepagina
+  const [inAbout, setInAbout] = useState(false);
 
   useEffect(() => {
     if (pathname !== "/") return;
-    // Zolang de hero onder de Navbar ligt, blijft de Navbar transparant
-    const hero = document.getElementById("hero");
-    if (!hero) return;
-    // Elke frame meten via de GSAP-ticker: volgt zo ook de vertraagde ScrollSmoother-beweging.
-    // React rendert enkel opnieuw als de waarde echt verandert.
-    const check = () => setOnHero(hero.getBoundingClientRect().bottom > 48);
-    gsap.ticker.add(check);
-    return () => gsap.ticker.remove(check);
+    // ScrollTrigger rekent mee met ScrollSmoother en meet alleen bij het scrollen,
+    // niet elke frame (dat kostte layout-werk per frame)
+    const hero = ScrollTrigger.create({
+      trigger: "#hero",
+      start: "top bottom",
+      end: "bottom top+=48",
+      onToggle: (self) => setOnHero(self.isActive),
+      onRefresh: (self) => setOnHero(self.isActive),
+    });
+    const about = ScrollTrigger.create({
+      trigger: "#about",
+      start: "top 40%",
+      end: "bottom 40%",
+      onToggle: (self) => setInAbout(self.isActive),
+      onRefresh: (self) => setInAbout(self.isActive),
+    });
+    return () => {
+      hero.kill();
+      about.kill();
+    };
   }, [pathname]);
+
+  // Op de homepagina zelf scrollen we naar de sectie (via ScrollSmoother) in plaats van te navigeren
+  const onNavClick = (event: React.MouseEvent, href: string) => {
+    setIsOpen(false);
+    if (pathname !== "/" || (href !== "/" && href !== "/#about")) return;
+    event.preventDefault();
+    const target = href === "/#about" ? document.getElementById("about") : 0;
+    const smoother = ScrollSmoother.get();
+    if (smoother) smoother.scrollTo(target, true, "top top");
+    else if (target) target.scrollIntoView({ behavior: "smooth" });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.replaceState(null, "", href);
+  };
 
   useEffect(() => {
     if (!brandRef.current) return;
@@ -88,7 +115,10 @@ const Navbar = () => {
 
   const isActiveRoute = (href: string) => {
     if (href === "/") {
-      return pathname === "/";
+      return pathname === "/" && !inAbout;
+    }
+    if (href === "/#about") {
+      return pathname === "/" && inAbout;
     }
 
     return pathname === href || pathname.startsWith(`${href}/`);
@@ -133,6 +163,7 @@ const Navbar = () => {
             <li key={link.href}>
               <Link
                 href={link.href}
+                onClick={(event) => onNavClick(event, link.href)}
                 aria-current={isActiveRoute(link.href) ? "page" : undefined}
                 className={`relative pb-1 transition-colors duration-200 ${
                   isActiveRoute(link.href)
@@ -200,7 +231,7 @@ const Navbar = () => {
                   ? "bg-text-primary text-bg-primary"
                   : "text-text-primary/80 hover:bg-white/5"
               }`}
-              onClick={() => setIsOpen(false)}
+              onClick={(event) => onNavClick(event, link.href)}
             >
               <Text.Nav>{link.label}</Text.Nav>
             </Link>

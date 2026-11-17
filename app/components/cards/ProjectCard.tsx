@@ -101,7 +101,6 @@ const ProjectCard = ({
             src={imageUrl}
             alt={`${title}`}
             fill
-            unoptimized={process.env.NODE_ENV === "development"}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
             sizes="(max-width: 1024px) 100vw, 33vw"
           />
