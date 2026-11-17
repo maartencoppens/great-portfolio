@@ -1,95 +1,22 @@
-"use client";
 import { projects } from "@/data/projects";
-import { JSX, useEffect, useRef } from "react";
-import { gsap } from "@/app/lib/gsap";
-import Text from "./components/typography/Text";
-import SplitType from "split-type";
+import { JSX } from "react";
+import Hero from "./components/werkbank";
 import ProjectCardAnimation from "./sections/ProjectCardAnimation";
-import SmallInfoCard from "./components/cards/SmallInfoCard";
-import dynamic from "next/dynamic";
 import AboutStory from "./sections/AboutStory";
 
-const HeroCanvas = dynamic(
-  async () => {
-    const [{ Canvas }, { default: Model }] = await Promise.all([
-      import("@react-three/fiber"),
-      import("./components/3D/Model"),
-    ]);
-
-    return function HeroCanvas() {
-      return (
-        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 50 }}>
-          <Model />
-        </Canvas>
-      );
-    };
-  },
-  { ssr: false },
-);
-
 export default function Home(): JSX.Element {
-  const mainRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx: gsap.Context = gsap.context(() => {
-      const split = new SplitType(".hero-line", { types: "chars" });
-      gsap.set(split.chars ?? [], { y: 50, opacity: 0 });
-
-      gsap.to(split.chars ?? [], {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        ease: "expo.out",
-        stagger: 0.03,
-        delay: 0.3,
-      });
-
-      return () => split.revert();
-    }, textRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <>
-      <div className="bg-bg-tertiary relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-16 top-20 h-56 w-56 rounded-full bg-accent-secondary/30 blur-3xl" />
-          <div className="absolute -right-12 bottom-16 h-64 w-64 rounded-full bg-accent-primary/20 blur-3xl" />
-        </div>
-        <section
-          ref={mainRef}
-          className="container relative min-h-[calc(100dvh-96px)] flex flex-col justify-center gap-8 py-8 sm:gap-10 md:py-12 lg:flex-row lg:items-center lg:gap-12 lg:py-16"
-        >
-          <div
-            ref={textRef}
-            className="relative flex w-full flex-1 flex-col items-center gap-5 text-center lg:items-start lg:text-left"
-          >
-            <SmallInfoCard
-              content="Interactive Designer & Developer"
-              className="order-1 mx-auto lg:absolute lg:left-0 lg:-top-14 lg:mx-0"
-            />
-            <Text.Hero className="order-2 max-w-[11ch] text-balance">
-              <span className="hero-line block">
-                <span className="text-accent-primary font-bold">B</span>uilt
-              </span>
-              <span className="hero-line block">
-                <span className="text-accent-primary font-bold">D</span>
-                ifferent
-              </span>
-            </Text.Hero>
-          </div>
-          <div className="relative w-full flex-1">
-            <div className="relative mx-auto h-[36vh] min-h-70 w-full max-w-140 sm:h-[42vh] lg:h-[56vh] xl:max-w-none">
-              <HeroCanvas />
-            </div>
-          </div>
-        </section>
+      {/* De werkbank-hero schuift onder de vaste Navbar door */}
+      <div className="-mt-20 md:-mt-24">
+        <Hero />
       </div>
-      <ProjectCardAnimation projects={projects} />
-      {/* <BentoGrid /> */}
-      <AboutStory />
+      <div id="projects">
+        <ProjectCardAnimation projects={projects} />
+      </div>
+      <div id="about">
+        <AboutStory />
+      </div>
     </>
   );
 }

@@ -112,6 +112,12 @@ const generalSans = localFont({
   display: "swap",
 });
 
+const anton = localFont({
+  src: "./fonts/Anton-Regular.woff2",
+  variable: "--font-anton",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -120,7 +126,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cabinetGrotesk.variable} ${generalSans.variable} bg-bg-primary text-text-primary`}
+        className={`${cabinetGrotesk.variable} ${generalSans.variable} ${anton.variable} bg-bg-primary text-text-primary`}
       >
         <PageReadyProvider>
           <PreloaderWrapper>

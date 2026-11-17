@@ -1,6 +1,7 @@
 "use client";
 
 import { startTransition, useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Preloader from "./Preloader";
 import { ScrollSmoother, ScrollTrigger } from "@/app/lib/gsap";
 
@@ -9,7 +10,9 @@ export default function PreloaderGate({
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState(true);
+  // Op de homepagina is de werkbank-hero zelf de loader (de naam staat er meteen)
+  const pathname = usePathname();
+  const [loading, setLoading] = useState(pathname !== "/");
 
   const handleComplete = useCallback(() => {
     try {

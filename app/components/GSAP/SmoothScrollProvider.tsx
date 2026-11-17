@@ -21,11 +21,19 @@ export default function SmoothScrollProvider() {
   // Refresh ScrollTrigger after every route change so positions are recalculated
   useEffect(() => {
     const smoother = ScrollSmoother.get();
+    const hash = window.location.hash;
+    const target = hash
+      ? document.getElementById(decodeURIComponent(hash.slice(1)))
+      : null;
 
     if (smoother) {
-      smoother.scrollTo(0, false);
+      smoother.scrollTo(target ?? 0, false);
     } else {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      if (target) {
+        target.scrollIntoView();
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
     }
 
     ScrollTrigger.refresh();

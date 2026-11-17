@@ -12,6 +12,21 @@ const Navbar = () => {
   const pathname = usePathname();
   const brandRef = React.useRef<HTMLSpanElement>(null);
   const brandName = "Maarten Coppens";
+  // Op de homepagina staat de Navbar transparant over de donkere werkbank-hero
+  const [onHero, setOnHero] = useState(pathname === "/");
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const update = () => setOnHero(window.scrollY < window.innerHeight * 0.85);
+    const first = requestAnimationFrame(update);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      cancelAnimationFrame(first);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (!brandRef.current) return;
@@ -69,6 +84,7 @@ const Navbar = () => {
   const links = [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
+    { href: "/#about", label: "About Me" },
   ];
 
   const isActiveRoute = (href: string) => {
@@ -80,7 +96,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-20 bg-bg-primary/95 backdrop-blur-m">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-20 transition-colors duration-300 ${
+        pathname === "/" && onHero && !isOpen ? "nav-on-hero bg-transparent" : "bg-bg-primary/95 backdrop-blur-m"
+      }`}
+    >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-m md:h-24 md:px-xl">
         <Link href="/" aria-label={`${brandName} - Home`}>
           <span

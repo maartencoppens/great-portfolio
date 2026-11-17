@@ -12,6 +12,7 @@
   --dark-purple: #9810fa;
   --pastel-purple: #c8a0ea;
   --pastel-purple-light: rgba(200, 160, 234, 0.4);
+  --cream: #f3ead8; /* papier: grote titels op donker (werkbank-hero) */
 
   /* Spacing primitives */
   --space-8: 0.5rem;
@@ -55,6 +56,9 @@
   --color-text-tertiary: var(--grey-blue);
   --color-accent-primary: var(--dark-purple);
   --color-accent-secondary: var(--pastel-purple);
+  --color-stage: var(--black);
+  --color-paper: var(--cream);
+  --font-display-xl: var(--font-anton), Impact, sans-serif;
 
   /* Spacing tokens */
   --spacing-xs: var(--space-8);
@@ -135,3 +139,12 @@ canvas {
     animation: none;
   }
 }
+
+/* Navbar over de donkere werkbank-hero */
+.nav-on-hero { color: var(--cream); }
+.nav-on-hero .text-text-primary,
+.nav-on-hero .text-heading-xs,
+.nav-on-hero [class*="text-text-primary/"] { color: var(--cream); }
+.nav-on-hero .bg-text-primary,
+.nav-on-hero .bg-black { background-color: var(--cream); }
+.nav-on-hero .border-black\/10 { border-color: color-mix(in srgb, var(--cream) 30%, transparent); }

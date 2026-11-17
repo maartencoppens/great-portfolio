@@ -5,6 +5,14 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // De 3D-code van de werkbank past three.js-objecten aan die uit hooks komen (gebruikelijk in React Three Fiber)
+  {
+    files: ["app/components/werkbank/**/*.{ts,tsx}"],
+    rules: {
+      "react-hooks/immutability": "off",
+      "react-hooks/use-memo": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
