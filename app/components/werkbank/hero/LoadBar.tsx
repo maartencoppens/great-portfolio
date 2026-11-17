@@ -36,7 +36,7 @@ export function LoadBar({ progress, visible, portrait }: { progress: number; vis
         />
       </div>
       <div style={{ marginTop: 10, textAlign: 'center', font: '500 12px var(--font-body), sans-serif', letterSpacing: '0.08em', color: '#8b8496' }}>
-        WERKBANK OPZETTEN · {pct}%
+        SETTING UP THE WORKBENCH · {pct}%
       </div>
     </div>
   );

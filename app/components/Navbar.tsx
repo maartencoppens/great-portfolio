@@ -17,15 +17,14 @@ const Navbar = () => {
 
   useEffect(() => {
     if (pathname !== "/") return;
-    const update = () => setOnHero(window.scrollY < window.innerHeight * 0.85);
-    const first = requestAnimationFrame(update);
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      cancelAnimationFrame(first);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
+    // Zolang de hero onder de Navbar ligt, blijft de Navbar transparant
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+    // Elke frame meten via de GSAP-ticker: volgt zo ook de vertraagde ScrollSmoother-beweging.
+    // React rendert enkel opnieuw als de waarde echt verandert.
+    const check = () => setOnHero(hero.getBoundingClientRect().bottom > 48);
+    gsap.ticker.add(check);
+    return () => gsap.ticker.remove(check);
   }, [pathname]);
 
   useEffect(() => {

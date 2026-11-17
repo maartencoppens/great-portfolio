@@ -8,7 +8,7 @@ export default function Home(): JSX.Element {
   return (
     <>
       {/* De werkbank-hero schuift onder de vaste Navbar door */}
-      <div className="-mt-20 md:-mt-24">
+      <div id="hero" className="-mt-20 md:-mt-24">
         <Hero />
       </div>
       <div id="projects">

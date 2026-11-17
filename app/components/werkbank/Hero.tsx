@@ -153,10 +153,10 @@ export default function Hero() {
         <LoadBar progress={ready ? 1 : progress} visible={loading} portrait={portrait} />
 
         {/* Laag 3: kleine typografie (de Navbar staat bovenaan) */}
-        <div style={styles.scene} aria-hidden>
+        <div style={portrait ? styles.scene : styles.sceneDesktop} aria-hidden>
           <span style={{ color: scene.led }}>{pink ? '♥' : `1${sceneKey}`}</span> {scene.naam.toUpperCase()}
         </div>
-        <NowPlaying style={styles.nowPlaying!} />
+        <NowPlaying style={(portrait ? styles.nowPlaying : styles.nowPlayingDesktop)!} />
         <p style={portrait ? styles.captionPortrait : styles.caption}>
           INTERACTIVE MEDIA DEVELOPER
           <br />
@@ -257,6 +257,9 @@ const styles: Record<string, React.CSSProperties> = {
   belowTitle: { margin: '16px 0 0', color: COLORS.cream, font: '400 clamp(64px, 14vw, 220px)/0.85 var(--font-anton), Impact, sans-serif' },
   nowPlaying: { ...small, top: 'calc(var(--nav-h) + 30px)', right: 'clamp(20px, 3vw, 40px)', color: COLORS.cream, fontSize: 12, letterSpacing: '0.04em', pointerEvents: 'auto', zIndex: 6 },
   chatKey: { zIndex: 6, left: '50%', bottom: 90, transform: 'translateX(-50%)', padding: '10px 16px', borderRadius: 999, border: `1px solid ${COLORS.accent}`, background: '#0a0a0a', color: COLORS.cream, font: '600 13px var(--font-body), sans-serif' },
+  // Op desktop staat de Navbar bovenaan en de naam eronder: scene-label linksonder, de plaat rechtsonder
+  sceneDesktop: { ...small, bottom: 'calc(clamp(24px, 3vw, 36px) + 44px)', left: 'clamp(20px, 3vw, 40px)', color: COLORS.cream, font: '800 15px var(--font-display), sans-serif', letterSpacing: '0.08em' },
+  nowPlayingDesktop: { ...small, bottom: 'clamp(24px, 3vw, 36px)', right: 'clamp(20px, 3vw, 40px)', color: COLORS.cream, fontSize: 12, letterSpacing: '0.04em', pointerEvents: 'auto', zIndex: 6 },
   giant: { ...giantBase, top: '11vh', font: '400 min(25.5vw, 50vh)/0.82 var(--font-anton), Impact, sans-serif', letterSpacing: '-0.005em' },
   giantPortrait: { ...giantBase, top: '20.5vh', font: '400 26vw/0.82 var(--font-anton), Impact, sans-serif' },
   stage: { position: 'absolute', inset: 0, zIndex: 1 },
