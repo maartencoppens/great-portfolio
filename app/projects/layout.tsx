@@ -1,32 +1,36 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  // Eigen template, anders krijgen projectpagina's geen "| Maarten Coppens" achter hun titel
+  title: {
+    absolute: "Projects | Maarten Coppens",
+    template: "%s | Maarten Coppens",
+  },
   description:
     "Explore selected projects in web development, creative technology, and interactive experiences.",
   alternates: {
     canonical: "/projects",
   },
   openGraph: {
-    title: "Projects | Maarten",
+    title: "Projects | Maarten Coppens",
     description:
       "Selected work in web development, interactive design, and creative technology.",
     url: "/projects",
     images: [
       {
-        url: "/image.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Projects by Maarten",
+        alt: "Projects by Maarten Coppens",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects | Maarten",
+    title: "Projects | Maarten Coppens",
     description:
       "Selected work in web development, interactive design, and creative technology.",
-    images: ["/image.jpg"],
+    images: ["/og-image.jpg"],
   },
 };
 

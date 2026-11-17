@@ -42,22 +42,20 @@ export async function generateMetadata({
       canonical: `/projects/${project.slug}`,
     },
     openGraph: {
-      title: `${project.title} | Maarten`,
+      title: `${project.title} | Maarten Coppens`,
       description: project.shortDescription,
       url: `/projects/${project.slug}`,
       type: "article",
       images: [
         {
           url: primaryImage,
-          width: 1200,
-          height: 630,
           alt: `Preview of ${project.title}`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} | Maarten`,
+      title: `${project.title} | Maarten Coppens`,
       description: project.shortDescription,
       images: [primaryImage],
     },

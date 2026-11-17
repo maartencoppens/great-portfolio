@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: latestProject,
       changeFrequency: "weekly",
       priority: 1,
-      images: [toAbsolute("/image.jpg")],
+      images: [toAbsolute("/og-image.jpg")],
     },
     {
       url: `${siteUrl}/projects`,

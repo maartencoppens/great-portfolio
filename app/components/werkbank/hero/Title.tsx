@@ -19,36 +19,43 @@ export function Title({ style, reducedMotion }: { style: React.CSSProperties; re
       sessionStorage.setItem(SEEN_KEY, '1');
     } catch {}
 
-    // Minder beweging: geen animatie. Terugkerende bezoeker: korte fade.
+    // Minder beweging: geen animatie
     if (reducedMotion) return;
-    if (seen) {
-      const t = gsap.from(el, { opacity: 0, duration: 0.3, ease: 'power1.out' });
-      return () => {
-        t.kill();
-      };
-    }
 
+    // gsap.context: bij het opruimen (navigeren, of React die het effect twee keer draait)
+    // zet ctx.revert() alle stijlen terug. Zonder dat bleef de titel soms op opacity 0 staan.
+    const ctx = gsap.context(() => {}, el);
     let split: SplitType | undefined;
-    let tl: gsap.core.Timeline | undefined;
-    // Wacht op het lettertype, anders splitst SplitType de fallback-letters
-    document.fonts.ready.then(() => {
-      split = new SplitType(el, { types: 'chars' });
-      tl = gsap.timeline().from(split.chars ?? [], {
-        yPercent: 110,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'expo.out',
-        stagger: 0.035,
+    let cancelled = false;
+
+    if (seen) {
+      // Terugkerende bezoeker: korte fade
+      ctx.add(() => gsap.from(el, { opacity: 0, duration: 0.3, ease: 'power1.out', clearProps: 'opacity' }));
+    } else {
+      // Wacht op het lettertype, anders splitst SplitType de fallback-letters
+      document.fonts.ready.then(() => {
+        if (cancelled) return;
+        split = new SplitType(el, { types: 'chars' });
+        ctx.add(() =>
+          gsap.from(split?.chars ?? [], {
+            yPercent: 110,
+            opacity: 0,
+            duration: 0.7,
+            ease: 'expo.out',
+            stagger: 0.035,
+          }),
+        );
       });
-    });
+    }
     return () => {
-      tl?.kill();
+      cancelled = true;
+      ctx.revert();
       split?.revert();
     };
   }, [reducedMotion]);
 
   return (
-    <h1 ref={ref} style={style} aria-label="Maarten Coppens">
+    <h1 ref={ref} style={style} aria-label="Maarten Coppens, interactive designer and developer">
       MAARTEN
     </h1>
   );

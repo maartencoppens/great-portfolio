@@ -275,7 +275,19 @@ const AboutStory = () => {
         </div>
       </div>
       <div className="mt-2xl flex flex-col items-start gap-l border-t border-white/10 pt-2xl lg:flex-row lg:items-end lg:justify-between">
-        <Text.Header as="p" className="max-w-[16ch] text-balance">
+        {/* Bewust in de oude titelstijl: een hele zin leest beter in Cabinet Grotesk dan in Anton */}
+        <Text.Header
+          as="p"
+          className="max-w-[16ch] text-balance"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.9rem, 6vw, 4.5rem)",
+            lineHeight: 0.95,
+            letterSpacing: "-0.04em",
+            fontWeight: 700,
+            textTransform: "none",
+          }}
+        >
           Got an idea that deserves to exist outside a screen?
         </Text.Header>
         <Button label="Let's build it" href="/contact" variant="primary" />

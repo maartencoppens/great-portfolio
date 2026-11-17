@@ -16,24 +16,28 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Maarten | Interactive Designer & Developer",
-    template: "%s | Maarten",
+    default: "Maarten Coppens | Interactive Designer & Developer",
+    template: "%s | Maarten Coppens",
   },
   description:
-    "Portfolio of Maarten, an interactive designer and developer building high-performance websites and creative digital experiences.",
-  applicationName: "Maarten Portfolio",
+    "Portfolio of Maarten Coppens, an interactive designer and developer based near Ghent, Belgium, building fast websites, 3D web experiences and interactive installations.",
+  applicationName: "Maarten Coppens",
   keywords: [
-    "Maarten",
+    "Maarten Coppens",
     "Portfolio",
+    "Ghent",
+    "Belgium",
+    "Three.js",
+    "React Three Fiber",
     "Web Developer",
     "Interactive Designer",
     "Creative Developer",
     "Frontend Development",
     "Next.js",
   ],
-  authors: [{ name: "Maarten" }],
-  creator: "Maarten",
-  publisher: "Maarten",
+  authors: [{ name: "Maarten Coppens", url: siteUrl }],
+  creator: "Maarten Coppens",
+  publisher: "Maarten Coppens",
   alternates: {
     canonical: "/",
   },
@@ -49,28 +53,28 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Maarten | Interactive Designer & Developer",
+    title: "Maarten Coppens | Interactive Designer & Developer",
     description:
-      "Discover selected projects, creative technology work, and web experiences by Maarten.",
+      "Selected projects, 3D web experiences and interactive installations by Maarten Coppens.",
     url: "/",
-    siteName: "Maarten Portfolio",
+    siteName: "Maarten Coppens",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/image.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Preview of Maarten's portfolio website",
+        alt: "Maarten Coppens: interactive designer and developer, above his workbench with a laptop, Quad Cortex and turntable",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maarten | Interactive Designer & Developer",
+    title: "Maarten Coppens | Interactive Designer & Developer",
     description:
-      "Portfolio showcasing interactive design and modern web development projects.",
-    images: ["/image.jpg"],
+      "Selected projects, 3D web experiences and interactive installations by Maarten Coppens.",
+    images: ["/og-image.jpg"],
   },
   category: "technology",
   formatDetection: {

@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact | Maarten",
+    title: "Contact | Maarten Coppens",
     description:
       "Reach out to discuss your next digital product, website, or interactive experience.",
     url: "/contact",
     images: [
       {
-        url: "/image.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Contact Maarten",
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact | Maarten",
+    title: "Contact | Maarten Coppens",
     description:
       "Reach out to discuss your next digital product, website, or interactive experience.",
-    images: ["/image.jpg"],
+    images: ["/og-image.jpg"],
   },
 };
 
