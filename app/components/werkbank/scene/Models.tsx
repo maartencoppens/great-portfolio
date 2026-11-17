@@ -23,10 +23,13 @@ const setHover = (on: boolean, label = '') => {
 /** Registreert een object voor zijn hotspot-puntje (offset in lokale coördinaten). */
 export function useHotspot(id: HotspotId, ref: { current: THREE.Object3D | null }, offset: [number, number, number]) {
   useEffect(() => {
-    hotspots[id].obj = ref.current;
+    const obj = ref.current;
+    hotspots[id].obj = obj;
     hotspots[id].offset = offset;
     return () => {
-      hotspots[id].obj = null;
+      // Alleen wissen als het nog van ons is: in dev bouwt React alles twee keer op, en dan
+      // ruimt de eerste versie soms pas op nadat de tweede zich al registreerde
+      if (hotspots[id].obj === obj) hotspots[id].obj = null;
     };
   }, [id, ref, offset[0], offset[1], offset[2]]); // eslint-disable-line react-hooks/exhaustive-deps
 }
@@ -77,7 +80,9 @@ function findScreen(root: THREE.Object3D) {
   let screen: THREE.Mesh | undefined;
   root.traverse((o) => {
     const m = o as THREE.Mesh;
-    if (m.isMesh && (m.material as THREE.MeshStandardMaterial).emissiveMap) screen = m;
+    // userData.isScreen: na darkScreen heeft het scherm geen emissive textuur meer. Zonder deze vlag
+    // vond een tweede zoekbeurt (in dev bouwt React alles twee keer op) het scherm niet meer terug
+    if (m.isMesh && (m.userData.isScreen || (m.material as THREE.MeshStandardMaterial).emissiveMap)) screen = m;
   });
   return screen;
 }
@@ -86,6 +91,7 @@ function findScreen(root: THREE.Object3D) {
 function darkScreen(mesh: THREE.Mesh, color: string) {
   const old = mesh.material as THREE.MeshStandardMaterial;
   mesh.material = new THREE.MeshBasicMaterial({ color, side: old.side, toneMapped: false });
+  mesh.userData.isScreen = true;
 }
 
 export function Laptop() {
@@ -98,7 +104,7 @@ export function Laptop() {
     Object.assign(screenTargets.laptop, { root: model, mesh: mesh ?? null, corners: null });
     return () => {
       laptopScreen.current = null;
-      Object.assign(screenTargets.laptop, { root: null, mesh: null, corners: null });
+      if (screenTargets.laptop.root === model) Object.assign(screenTargets.laptop, { root: null, mesh: null, corners: null });
     };
   }, [model]);
 
@@ -138,7 +144,7 @@ export function QuadCortex({ onSelect }: { onSelect: (k: SceneKey) => void }) {
     if (mesh) darkScreen(mesh, '#050505');
     Object.assign(screenTargets.qc, { root: model, mesh: mesh ?? null, corners: null });
     return () => {
-      Object.assign(screenTargets.qc, { root: null, mesh: null, corners: null });
+      if (screenTargets.qc.root === model) Object.assign(screenTargets.qc, { root: null, mesh: null, corners: null });
     };
   }, [model]);
 

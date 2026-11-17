@@ -26,10 +26,11 @@ export function LaptopScreenHtml({ scene }: { scene: SceneConfig }) {
   const mode = open ? 'leeg' : scene.props.laptop === 'screensaver' ? 'screensaver' : 'teaser';
 
   useEffect(() => {
-    ref.current!.style.visibility = 'hidden';
-    screenTargets.laptop.el = ref.current;
+    const el = ref.current!;
+    el.style.visibility = 'hidden';
+    screenTargets.laptop.el = el;
     return () => {
-      screenTargets.laptop.el = null;
+      if (screenTargets.laptop.el === el) screenTargets.laptop.el = null;
     };
   }, []);
 
@@ -140,10 +141,11 @@ function Equalizer() {
 export function QuadCortexScreenHtml({ sceneKey, scene, onSelect }: { sceneKey: SceneKey; scene: SceneConfig; onSelect: (k: SceneKey) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    ref.current!.style.visibility = 'hidden';
-    screenTargets.qc.el = ref.current;
+    const el = ref.current!;
+    el.style.visibility = 'hidden';
+    screenTargets.qc.el = el;
     return () => {
-      screenTargets.qc.el = null;
+      if (screenTargets.qc.el === el) screenTargets.qc.el = null;
     };
   }, []);
   const off = !!scene.props.qcUit;

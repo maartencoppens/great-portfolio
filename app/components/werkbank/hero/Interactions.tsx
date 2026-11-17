@@ -29,6 +29,9 @@ export function Hotspots({ visible }: { visible: boolean }) {
           key={id}
           ref={(el) => {
             hotspots[id].el = el;
+            return () => {
+              if (hotspots[id].el === el) hotspots[id].el = null;
+            };
           }}
           aria-hidden
           className="hotspot"
