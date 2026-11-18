@@ -5,14 +5,14 @@ import { checkFixedWindowRateLimit, getRequestIp } from "../../lib/rateLimit";
 // De sleutel blijft op de server. Zet in Vercel (en in .env.local):
 //   ASK_API_URL=https://.../v1/chat/completions   (bv. OpenRouter, Groq, OpenAI, Mistral)
 //   ASK_API_KEY=...
-//   ASK_MODEL=naam-van-het-model
+//   ASK_MODEL=naam-van-het-model (bv. openai/gpt-oss-120b bij Groq)
 // Zonder ASK_API_URL antwoordt deze route 503 en toont de chat een duidelijk gemarkeerde demo.
 
 const RATE_LIMIT_WINDOW_SECONDS = 60;
 const RATE_LIMIT_MAX_REQUESTS = 20; // pas aan naar je API-budget
 const MAX_MESSAGES = 12;
 const MAX_CHARS = 1000;
-const MAX_TOKENS = 400;
+const MAX_TOKENS = 600; // ruim genoeg: denkmodellen tellen hun redenering hierin mee
 
 const SYSTEM_PROMPT = `You are "Ask Maarten", a playful AI version of Maarten Coppens on his portfolio site maartencoppens.be.
 Answer as Maarten, in the first person, short and friendly (max 4 sentences), in the language of the question.
@@ -74,12 +74,17 @@ export async function POST(request: Request) {
       stream: true,
       max_tokens: MAX_TOKENS,
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      // GPT-OSS denkt eerst na: kort houden (sneller antwoord) en de redenering niet meesturen
+      ...(process.env.ASK_MODEL?.includes("gpt-oss")
+        ? { reasoning_effort: "low", include_reasoning: false }
+        : {}),
     }),
     signal: request.signal,
   });
 
   if (!upstream.ok || !upstream.body) {
-    console.error("Ask Maarten upstream error", upstream.status);
+    // De foutmelding van de API loggen (zonder sleutel), zodat je ziet wat er misloopt
+    console.error("Ask Maarten upstream error", upstream.status, (await upstream.text()).slice(0, 300));
     return NextResponse.json({ error: "Ask Maarten is offline right now." }, { status: 502 });
   }
 
