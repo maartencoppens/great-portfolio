@@ -208,7 +208,8 @@ const AboutStory = () => {
                     src={chapter.image.src}
                     alt={chapter.image.alt}
                     fill
-                    sizes="50vw"
+                    // Halve breedte van de container (max 1280px breed)
+                    sizes="(min-width: 1280px) 620px, 50vw"
                     className="object-cover"
                     style={{ objectPosition: chapter.image.position }}
                   />
@@ -239,7 +240,8 @@ const AboutStory = () => {
                           src={chapter.image.src}
                           alt={chapter.image.alt}
                           fill
-                          sizes="100vw"
+                          // Alleen zichtbaar onder 1024px, binnen de container met marges
+                          sizes="(min-width: 1024px) 1px, calc(100vw - 2rem)"
                           className="object-cover"
                           style={{ objectPosition: chapter.image.position }}
                         />
