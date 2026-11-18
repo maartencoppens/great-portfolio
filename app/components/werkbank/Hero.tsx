@@ -9,7 +9,7 @@ import { Title } from './hero/Title';
 import { LoadBar } from './hero/LoadBar';
 import { SceneButtons } from './hero/SceneButtons';
 import { ChatPanel } from '@/app/components/ask-maarten/ChatPanel';
-import { openChat } from '@/app/components/ask-maarten/store';
+import { openChat, useChat } from '@/app/components/ask-maarten/store';
 import { ScrollHint } from './hero/ScrollHint';
 import { CursorLabel, Hotspots, NowPlaying } from './hero/Interactions';
 import { LaptopScreenHtml, QuadCortexScreenHtml } from './scene/HtmlScreens';
@@ -93,6 +93,11 @@ export default function Hero() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+
+  // Ingezoomd op de laptop (chat open): niet scrollen, anders schuift de pagina onder het
+  // vaste chatvenster weg en lijkt de interface los van het model te bewegen
+  const chatOpen = useChat().open;
+  useScrollLock(chatOpen);
 
   const onQualityDrop = useCallback((q: Quality) => {
     if (qualityForced()) return;
@@ -182,6 +187,32 @@ export default function Hero() {
       )}
     </main>
   );
+}
+
+/** Zet scrollen op slot: ScrollSmoother pauzeren, en de pagina zelf niet laten scrollen. */
+function useScrollLock(locked: boolean) {
+  useEffect(() => {
+    if (!locked) return;
+    const smoother = ScrollSmoother.get();
+    smoother?.paused(true);
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = 'hidden';
+    // Touchpads en touchscreens: ook het scroll-gebaar zelf tegenhouden (behalve in de chat zelf)
+    const block = (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest('[role="dialog"]')) return;
+      e.preventDefault();
+    };
+    window.addEventListener('wheel', block, { passive: false });
+    window.addEventListener('touchmove', block, { passive: false });
+    return () => {
+      smoother?.paused(false);
+      root.style.overflow = previous;
+      window.removeEventListener('wheel', block);
+      window.removeEventListener('touchmove', block);
+    };
+  }, [locked]);
 }
 
 /** Naar de projecten onder de hero, ook met ScrollSmoother. */
