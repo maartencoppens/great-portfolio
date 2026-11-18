@@ -127,7 +127,9 @@ export default function Hero() {
         <div ref={stageRef} style={styles.stage}>
           {showPoster ? (
             <picture>
-              <source media={`(max-aspect-ratio: 85/100)`} srcSet="/werkbank/poster-mobiel.webp" />
+              {/* Gsm, tablet staand, en liggend: elk een eigen opname, anders valt de naam weg */}
+              <source media="(max-aspect-ratio: 3/5)" srcSet="/werkbank/poster-mobiel.webp" />
+              <source media="(max-aspect-ratio: 85/100)" srcSet="/werkbank/poster-tablet.webp" />
               <img src="/werkbank/poster-desktop.webp" alt="" style={styles.poster} />
             </picture>
           ) : (
@@ -162,7 +164,7 @@ export default function Hero() {
           <span style={{ color: scene.led }}>{pink ? '♥' : `1${sceneKey}`}</span> {scene.naam.toUpperCase()}
         </div>
         <NowPlaying style={(portrait ? styles.nowPlaying : styles.nowPlayingDesktop)!} />
-        <p style={portrait ? styles.captionPortrait : styles.caption}>
+        <p className={portrait ? 'hero-caption-portrait' : undefined} style={portrait ? styles.captionPortrait : styles.caption}>
           INTERACTIVE MEDIA DEVELOPER
           <br />
           BASSIST IN PINK TIES
@@ -194,6 +196,9 @@ function useScrollLock(locked: boolean) {
   useEffect(() => {
     if (!locked) return;
     const smoother = ScrollSmoother.get();
+    // Eerst terug naar boven: het chatvenster wordt op de laptop gelegd, en die moet in beeld staan
+    if (smoother) smoother.scrollTo(0, false);
+    else window.scrollTo(0, 0);
     smoother?.paused(true);
     const root = document.documentElement;
     const previous = root.style.overflow;
@@ -291,7 +296,7 @@ const styles: Record<string, React.CSSProperties> = {
   // Op desktop staat de Navbar bovenaan en de naam eronder: scene-label linksonder, de plaat rechtsonder
   sceneDesktop: { ...small, bottom: 'calc(clamp(24px, 3vw, 36px) + 44px)', left: 'clamp(20px, 3vw, 40px)', color: COLORS.cream, font: '800 15px var(--font-display), sans-serif', letterSpacing: '0.08em' },
   nowPlayingDesktop: { ...small, bottom: 'clamp(24px, 3vw, 36px)', right: 'clamp(20px, 3vw, 40px)', color: COLORS.cream, fontSize: 12, letterSpacing: '0.04em', pointerEvents: 'auto', zIndex: 6 },
-  giant: { ...giantBase, top: '11vh', font: '400 min(25.5vw, 50vh)/0.82 var(--font-anton), Impact, sans-serif', letterSpacing: '-0.005em' },
+  giant: { ...giantBase, top: 'max(11vh, calc(var(--nav-h) + 8px))', font: '400 min(25.5vw, 50vh)/0.82 var(--font-anton), Impact, sans-serif', letterSpacing: '-0.005em' },
   giantPortrait: { ...giantBase, top: '20.5vh', font: '400 26vw/0.82 var(--font-anton), Impact, sans-serif' },
   stage: { position: 'absolute', inset: 0, zIndex: 1 },
   // Boven het canvas; de schermen zelf vangen kliks, de rest laat ze door naar de 3D

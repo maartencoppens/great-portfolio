@@ -134,12 +134,19 @@ export default function RootLayout({
       >
         <PageReadyProvider>
           <PreloaderWrapper>
+            {/* Voor toetsenbordgebruikers: meteen voorbij de navigatie */}
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-accent-primary focus:px-m focus:py-s focus:text-white"
+            >
+              Skip to content
+            </a>
             <GsapProvider />
             <SmoothScrollProvider />
             <Navbar />
             <div id="smooth-wrapper">
               <div id="smooth-content">
-                <main className="min-h-svh pt-20 pb-xl md:pt-24">
+                <main id="main" tabIndex={-1} className="min-h-svh pt-20 pb-xl outline-none md:pt-24">
                   {children}
                 </main>
                 <Footer />

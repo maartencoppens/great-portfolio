@@ -12,7 +12,7 @@ function HeroFallback() {
         aria-label="Maarten Coppens"
         style={{
           position: 'absolute',
-          top: '11vh',
+          top: 'max(11vh, calc(var(--nav-h) + 8px))',
           left: 0,
           right: 0,
           margin: 0,

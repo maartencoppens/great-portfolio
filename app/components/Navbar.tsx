@@ -216,6 +216,8 @@ const Navbar = () => {
 
       <div
         id="mobile-menu"
+        inert={!isOpen}
+        aria-hidden={!isOpen}
         className={`overflow-hidden border-t border-white/5 bg-bg-primary transition-[max-height,opacity] duration-300 md:hidden ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}

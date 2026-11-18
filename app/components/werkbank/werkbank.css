@@ -40,3 +40,19 @@
       @media (prefers-reduced-motion: reduce) { .zzz { animation: none; } }
     
 .capture ~ nav, html:has(.capture) nav { visibility: hidden; }
+
+/* Tablet staand: de ondertitel valt anders over de Quad Cortex; zet hem linksboven onder de Navbar */
+@media (min-aspect-ratio: 3/5) and (max-aspect-ratio: 85/100) {
+  .hero-caption-portrait {
+    top: calc(var(--nav-h) + 4px) !important;
+    bottom: auto !important;
+    left: clamp(20px, 3vw, 40px) !important;
+    right: auto !important;
+    text-align: left !important;
+  }
+}
+
+/* Toetsen-hint op de Quad Cortex: alleen met muis en toetsenbord */
+@media (hover: none) {
+  .qc-keyhint { display: none; }
+}

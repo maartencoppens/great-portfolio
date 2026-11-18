@@ -80,7 +80,27 @@ export function ChatPanel({ portrait, sceneKey }: { portrait: boolean; sceneKey:
   // Escape sluit
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeChat();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') return closeChat();
+      // Tab blijft binnen het chatvenster (het is een modaal venster)
+      if (e.key !== 'Tab') return;
+      const dialog = document.querySelector<HTMLElement>('.ask[role="dialog"]');
+      if (!dialog) return;
+      const items = [...dialog.querySelectorAll<HTMLElement>('button, input, textarea, a[href], [tabindex]:not([tabindex="-1"])')].filter(
+        (el) => !el.hasAttribute('disabled') && el.offsetParent !== null,
+      );
+      const first = items[0];
+      const last = items.at(-1);
+      if (!first || !last) return;
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || !dialog.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || !dialog.contains(active))) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);

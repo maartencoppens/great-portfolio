@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import Text from "./typography/Text";
+import SectionLink from "./SectionLink";
 
 interface Social {
   name: string;
@@ -16,6 +16,7 @@ const Footer = () => {
   const quickLinks = [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
+    { href: "/#about", label: "About Me" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -65,12 +66,12 @@ const Footer = () => {
           <ul className="space-y-2">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <Link
+                <SectionLink
                   href={link.href}
                   className="inline-block transition-colors duration-200 hover:text-accent-secondary"
                 >
                   <Text.Nav>{link.label}</Text.Nav>
-                </Link>
+                </SectionLink>
               </li>
             ))}
           </ul>
@@ -119,15 +120,14 @@ const Footer = () => {
 
       {/* De naam uit de hero sluit de pagina af, half onder de rand */}
       <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
-        <p
-          className="m-0 text-center text-text-primary/10 translate-y-[18%]"
+        {/* Als CSS-inhoud, niet als tekst: puur decoratief, dus geen contrastregels nodig */}
+        <div
+          className="m-0 text-center text-text-primary/10 translate-y-[18%] before:content-['MAARTEN']"
           style={{
             font: "400 min(25.5vw, 60vh)/0.82 var(--font-anton), Impact, sans-serif",
             letterSpacing: "-0.005em",
           }}
-        >
-          MAARTEN
-        </p>
+        />
       </div>
     </footer>
   );

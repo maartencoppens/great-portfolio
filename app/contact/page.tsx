@@ -84,7 +84,7 @@ const Contact = () => {
     <section className="container flex flex-col gap-xl pt-xl pb-xl">
       <div className="flex justify-center items-center flex-col gap-s">
         <SmallInfoCard content="Get in touch" />
-        <Text.Header as="h1" className="pt-s">
+        <Text.Header as="h1" className="pt-s text-center">
           <span className="text-accent-ink text-center">Let&apos;s </span>
           create something amazing
         </Text.Header>
@@ -164,7 +164,7 @@ const Contact = () => {
             <Text.Small
               as="p"
               aria-live="polite"
-              className={`text-sm ${messageLength >= minimumMessageLength ? "text-green-700" : "text-text-tertiary"}`}
+              className={`text-sm ${messageLength >= minimumMessageLength ? "text-[#7fe0a6]" : "text-text-tertiary"}`}
             >
               {messageLength === 0
                 ? `Minimum ${minimumMessageLength} characters`
@@ -181,10 +181,11 @@ const Contact = () => {
             </Text.Small>
             {submitState.type !== "idle" && (
               <Text.Small
+                role={submitState.type === "error" ? "alert" : "status"}
                 className={`text-sm ${
                   submitState.type === "success"
-                    ? "text-green-700"
-                    : "text-red-600"
+                    ? "text-[#7fe0a6]"
+                    : "text-[#ff9b9b]"
                 }`}
               >
                 {submitState.message}

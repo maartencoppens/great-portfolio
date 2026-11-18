@@ -164,7 +164,13 @@ export function QuadCortexScreenHtml({ sceneKey, scene, onSelect }: { sceneKey: 
             <div style={{ font: '800 84px/1 var(--font-display), sans-serif', color: '#fff', flex: 1 }}>
               1<span style={{ color: scene.led }}>{sceneKey}</span> {scene.naam}
             </div>
-            {playing && <LevelMeter color={scene.led} />}
+            {playing ? (
+              <LevelMeter color={scene.led} />
+            ) : (
+              <span className="qc-keyhint" style={{ font: '500 28px var(--font-body), sans-serif', color: '#8a8a8a', letterSpacing: '0.04em' }}>
+                or press A–H
+              </span>
+            )}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 22 }}>
             {SCENE_KEYS.map((k) => {

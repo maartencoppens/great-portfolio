@@ -78,7 +78,7 @@ const sharedComponents = {
   a: ({ children, href }: Children & { href?: string }) => (
     <a
       href={href ?? "#"}
-      className="text-accent-ink hover:underline"
+      className="text-accent-ink underline decoration-accent-ink/50 underline-offset-4 transition-colors hover:decoration-accent-ink"
       target="_blank"
       rel="noopener noreferrer"
     >
