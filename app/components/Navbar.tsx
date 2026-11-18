@@ -131,7 +131,9 @@ const Navbar = () => {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-m md:h-24 md:px-xl">
-        <Link href="/" aria-label={`${brandName} - Home`}>
+        <Link href="/">
+          {/* De zichtbare letters zijn dubbel (voor de hover-animatie); schermlezers krijgen de naam één keer */}
+          <span className="sr-only">{brandName}</span>
           <span
             ref={brandRef}
             className="inline-flex cursor-pointer items-center text-heading-xs"

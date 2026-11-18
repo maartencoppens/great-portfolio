@@ -88,7 +88,7 @@ export function LaptopScreenHtml({ scene }: { scene: SceneConfig }) {
         <>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '24px 34px', borderBottom: '1px solid #221d2b' }}>
             <span style={{ font: '800 26px var(--font-display), sans-serif', letterSpacing: '0.02em' }}>ASK MAARTEN</span>
-            <span style={{ font: '500 18px var(--font-body), sans-serif', color: '#7d7589' }}>an AI version of me</span>
+            <span style={{ font: '500 18px var(--font-body), sans-serif', color: '#a39cae' }}>an AI version of me</span>
             <span style={{ flex: 1 }} />
             <span
               className="onair"
@@ -98,7 +98,7 @@ export function LaptopScreenHtml({ scene }: { scene: SceneConfig }) {
             </span>
           </div>
           <div style={{ padding: '46px 34px 0' }}>
-            <div style={{ font: '700 16px var(--font-body), sans-serif', letterSpacing: '0.2em', color: '#6d6676', marginBottom: 12 }}>YOU</div>
+            <div style={{ font: '700 16px var(--font-body), sans-serif', letterSpacing: '0.2em', color: '#a39cae', marginBottom: 12 }}>YOU</div>
             <div style={{ font: '400 64px/0.98 var(--font-anton), Impact, sans-serif', textTransform: 'uppercase', minHeight: 130 }}>
               <span ref={typed} />
               <span className="caret" />

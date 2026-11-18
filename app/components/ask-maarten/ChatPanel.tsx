@@ -150,7 +150,7 @@ export function ChatPanel({ portrait, sceneKey }: { portrait: boolean; sceneKey:
           <span id="chat-title" style={{ font: '800 1.05em var(--font-display), sans-serif', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>
             ASK MAARTEN
           </span>
-          <span style={{ font: '500 0.75em var(--font-body), sans-serif', color: '#7d7589', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <span style={{ font: '500 0.75em var(--font-body), sans-serif', color: '#a39cae', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             an AI version of me
           </span>
         </div>
@@ -177,7 +177,7 @@ export function ChatPanel({ portrait, sceneKey }: { portrait: boolean; sceneKey:
               {SUGGESTIONS.map((q, i) => (
                 <li key={q} style={{ borderBottom: '1px solid #221d2b' }}>
                   <button onClick={() => send(q)} className="setlist-item" style={setlistItem}>
-                    <span style={{ font: '600 0.72em var(--font-body), sans-serif', color: '#6d6676', width: '2.4em' }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span style={{ font: '600 0.72em var(--font-body), sans-serif', color: '#a39cae', width: '2.4em' }}>{String(i + 1).padStart(2, '0')}</span>
                     <span style={{ flex: 1 }}>{q.toUpperCase()}</span>
                     <span aria-hidden className="setlist-arrow">→</span>
                   </button>
@@ -190,7 +190,7 @@ export function ChatPanel({ portrait, sceneKey }: { portrait: boolean; sceneKey:
         {messages.map((m, i) =>
           m.role === 'user' ? (
             <div key={i} className="rise" style={{ margin: i ? '1.8em 0 0.7em' : '0 0 0.7em' }}>
-              <div style={label('#6d6676')}>YOU</div>
+              <div style={label('#a39cae')}>YOU</div>
               <div style={{ font: '400 1.75em/0.98 var(--font-anton), Impact, sans-serif', letterSpacing: '0.005em' }}>{m.content.toUpperCase()}</div>
             </div>
           ) : (
@@ -261,7 +261,7 @@ function OnAir({ live }: { live: boolean }) {
         borderRadius: 4,
         border: `1px solid ${live ? '#ff4f8b' : '#3a3346'}`,
         background: live ? '#ff4f8b' : 'transparent',
-        color: live ? '#16060d' : '#6d6676',
+        color: live ? '#16060d' : '#a39cae',
         boxShadow: live ? '0 0 18px rgba(255,79,139,0.7)' : 'none',
         transition: 'all 0.25s ease',
       }}
