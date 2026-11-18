@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { COLORS, SCENES, type SceneKey } from '@/app/components/werkbank/scene/config';
 import { askMaarten, type Message } from './askMaarten';
+import { ChatMarkdown } from './ChatMarkdown';
 import { SUGGESTIONS } from './prompts';
 import { chatStore, closeChat, useChat } from './store';
 
@@ -196,10 +197,10 @@ export function ChatPanel({ portrait, sceneKey }: { portrait: boolean; sceneKey:
           ) : (
             <div key={i} className="rise">
               <div style={label(COLORS.pink)}>MAARTEN</div>
-              <p style={{ margin: 0, font: '500 1em/1.6 var(--font-body), sans-serif', color: '#e6dfef', whiteSpace: 'pre-wrap', maxWidth: '38em' }}>
-                {m.content}
+              <div style={{ font: '500 1em/1.6 var(--font-body), sans-serif', color: '#e6dfef', maxWidth: '38em' }}>
+                <ChatMarkdown text={m.content} streaming={busy && i === messages.length - 1} />
                 {busy && i === messages.length - 1 && <span className="caret" aria-hidden />}
-              </p>
+              </div>
             </div>
           ),
         )}
